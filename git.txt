@@ -1,0 +1,16 @@
+1. lấy về 
+    git pull
+    
+2. đẩy lên
+    git add --all
+    git commit -m "message"
+    git push -u origin main
+    
+3. tạo nhánh mới
+    git checkout -b <tên nhánh mới>
+    git push -u origin <tên nhánh mới>
+4. gộp nhánh
+    git checkout main
+    git pull
+    git merge <tên nhánh mới>
+    git push -u origin main    
