@@ -1,528 +1,422 @@
-/* Imports */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
-
-/* =========================
-   :root - biến toàn cục
-   ========================= */
-:root {
-  --bg-overlay-1: rgba(217, 31, 38, 0.12);
-  --bg-overlay-2: rgba(217, 31, 38, 0.06);
-  --primary: #d91f26;
-  --dark: #0b1220;
-  --muted: #6b7280;
-  --card: #ffffff;
-
-  /* màu VKU (xấp xỉ) */
-  --vku-red: #C62828;
-  --vku-orange: #F59E0B;
-  --vku-blue: #27408A;
-}
-
-/* =========================
-   Reset / Base
-   ========================= */
+/* Reset và thiết lập chung */
 * {
-  box-sizing: border-box
-}
-
-html,
-body {
-  height: 100%
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: 'Poppins', "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: var(--dark);
-
-  /* nền gradient chính */
-  background:
-    radial-gradient(800px 600px at 10% 10%, var(--bg-overlay-1) 0%, var(--bg-overlay-2) 8%, transparent 25%),
-    linear-gradient(135deg, #071129 0%, #0f172a 25%, #7c0a02 60%, #0b0d10 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background-attachment: fixed;
-  background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-/* =========================
-   Layout container
-   ========================= */
-.login-container {
-  width: 100%;
-  max-width: 1100px;
-  display: block;
-  /* single big box */
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: 600px;
 }
 
-/* =========================
-   Brand card (left area) - gradient box that contains media + form
-   ========================= */
-.brand {
-  background:
-    linear-gradient(135deg, rgba(38, 70, 140, 0.95) 0%, rgba(6, 22, 56, 0.9) 60%),
-    radial-gradient(400px 160px at 10% 20%, rgba(245, 158, 11, 0.06), transparent 30%);
-  color: #fff;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: row;
-  gap: 28px;
-  padding: 28px;
-  min-height: 480px;
-  box-shadow: 0 12px 40px rgba(2, 6, 23, 0.45);
-  align-items: center;
+/* Phần bên trái */
+.left-section {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
 }
 
-/* internal left column that holds image and title */
-.brand-inner {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* tăng khoảng cách giữa logo và tiêu đề để thoáng hơn */
-  width: 100%;
-  justify-content: flex-start;
-  flex: 1 1 auto;
-  min-width: 0;
+.left-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: backgroundMove 20s linear infinite;
 }
 
-/* =========================
-   Media (image / svg) — NO frame/box shadow
-   ========================= */
-.brand-icon {
-  width: 320px;
-  max-width: 36%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 320px;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  filter: none;
-  padding: 0;
-  margin: 0;
+@keyframes backgroundMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
 }
 
-.brand-icon img,
-.brand-icon svg {
-  width: 100%;
-  height: auto;
-  border-radius: 0;
-  object-fit: cover;
-  box-shadow: none;
-  display: block;
+.welcome-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
-/* =========================
-   Brand content (right of media)
-   ========================= */
-.brand-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  color: #fff;
-  flex: 1 1 auto;
-  min-width: 0;
-  padding-right: 12px;
+.welcome-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Big VKU title with multi-color letters */
-.brand-title {
-  margin: 0;
-  font-size: 64px;
-  line-height: 1;
-  letter-spacing: 1px;
-  font-weight: 900;
-  display: flex;
-  align-items: baseline;
-  gap: 2px;
-  color: transparent;
-  /* let spans paint the letters */
+.welcome-content p {
+    font-size: 1.1em;
+    opacity: 0.9;
+    margin-bottom: 40px;
 }
 
-.brand-title .vku {
-  display: inline-block;
-  padding: 0 1px;
-  font-weight: 900;
+.illustration {
+    font-size: 120px;
+    opacity: 0.9;
+    animation: float 3s ease-in-out infinite;
 }
 
-.brand-title .vku.v {
-  color: var(--vku-red);
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
 }
 
-.brand-title .vku.k {
-  color: var(--vku-orange);
+/* Phần bên phải */
+.right-section {
+    flex: 1;
+    padding: 60px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.brand-title .vku.u {
-  color: var(--vku-blue);
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards;
 }
 
-.brand-title .cinema-text {
-  color: #ffffff;
-  font-size: 34px;
-  font-weight: 700;
-  margin-left: 8px;
-  align-self: center;
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 }
 
-.brand-sub {
-  margin-top: 10px;
-  opacity: 0.9; /* giảm độ mờ một chút để rõ ràng hơn */
-  font-size: 15px; /* tăng kích thước slogan */
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-/* =========================
-   Form card (white) to the right inside the brand
-   ========================= */
-.form-card {
-  background: var(--card);
-  border-radius: 20px;
-  padding: 22px;
-  /* softer, slightly stronger shadow for depth */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  margin: 0;
-  width: 420px;
-  flex: 0 0 420px;
-  align-self: center;
+.login-header h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
 }
 
-.login-form h1 {
-  margin: 0 0 6px;
-  font-size: 20px;
-  color: var(--dark);
-  font-weight: 900;
+.login-header p {
+    color: #666;
+    font-size: 0.95em;
 }
 
-.login-form .lead {
-  margin: 0 0 14px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-/* =========================
-   Form fields
-   ========================= */
-.field {
-  display: block;
-  margin-bottom: 14px;
-}
-
-.label-text {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.field input[type="text"],
-.field input[type="password"],
-input[type="email"] {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #e7e7ea;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #fff;
-  color: var(--dark);
-}
-
-/* password row (input + toggle) */
-.pwd-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.pwd-row input {
-  flex: 1;
-}
-
-/* Floating label styles */
-.form-field {
-  position: relative;
-  margin-bottom: 16px;
-}
-.form-field input {
-  width: 100%;
-  padding: 28px 14px 12px 14px; /* tăng padding-top để đẩy nội dung xuống tạo khoảng cách với label */
-  border: 1px solid #e7e7ea;
-  border-radius: 8px;
-  background: #fff;
-  color: var(--dark);
-  transition: border-color .15s ease, box-shadow .15s ease;
-  line-height: 1.3;
-}
-.form-field label.floating {
-  position: absolute;
-  left: 12px;
-  top: 45%; /* di chuyển label hơi lên trên so với trước để tạo khoảng cách lớn hơn với nội dung */
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--muted);
-  font-size: 13px;
-  transition: all .18s ease;
-  background: transparent;
-  padding: 0 6px;
-  z-index: 2;
-}
-
-/* trạng thái nổi: focus / có value / class.filled (JS) */
-.form-field input:focus + label.floating,
-.form-field input:not(:placeholder-shown) + label.floating,
-.form-field.filled label.floating {
-  top: 6px;
-  transform: none;
-  font-size: 12px;
-  color: var(--primary);
-  background: var(--card); /* che chữ bên dưới bằng nền trắng */
-  z-index: 3;
-  padding: 0 6px;
-  border-radius: 4px;
-}
-
-/* Eye icon hover: make it more visible */
-.show-pass:hover { color: var(--primary); transform: translateY(-1px); }
-.show-pass:active { transform: translateY(0); }
-
-
-/* =========================
-   Toggle show-pass (eye) — ensure svg not clipped
-   ========================= */
-.show-pass {
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  padding: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  line-height: 0;
-  /* IMPORTANT: avoid baseline clipping */
-  overflow: visible;
-  vertical-align: middle;
-}
-
-.show-pass svg {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-/* Place the eye icon inside the password input */
-.pwd-field { position: relative; }
-.pwd-field input { /* add right padding so text doesn't sit under the icon */
-  padding-right: 48px;
-}
-.pwd-field .show-pass {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 6px;
-  z-index: 2;
-  background: transparent;
-  border: 0;
-}
-.pwd-field .show-pass svg { width:18px; height:18px; }
-
-/* JS will toggle .is-open; CSS fallback */
-.show-pass .eye-open {
-  display: none;
-}
-
-.show-pass.is-open .eye-open {
-  display: block;
-}
-
-.show-pass.is-open .eye-closed {
-  display: none;
-}
-
-/* =========================
-   Misc form controls / links
-   ========================= */
-.misc {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
-  margin-bottom: 14px;
-}
-
-.remember {
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.remember input {
-  margin-right: 8px;
-}
-
-.forgot {
-  color: var(--primary);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 17px 14px;
-  border-radius: 8px;
-  border: 0;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.btn.primary {
-  background: var(--primary);
-  color: #fff;
-  width: 100%;
-  margin-top: 10px;
-}
-
-/* Hover / focus effects for interactive elements */
-.btn.primary{
-  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-}
-.btn.primary:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(217,31,38,0.18);
-  filter: brightness(.98);
-}
-.btn.primary:active{
-  transform: translateY(0);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-.btn.primary:focus{
-  outline: 3px solid rgba(217,31,38,0.12);
-  outline-offset: 3px;
-  border-radius: 8px;
-}
-
-/* Quên mật khẩu */
-.forgot{
-  transition: color .12s ease, text-decoration .12s ease, transform .12s ease;
-}
-.forgot:hover{
-  color: var(--vku-red);
-  text-decoration: underline;
-  transform: translateY(-1px);
-}
-.forgot:focus{
-  outline: 2px solid rgba(39,64,138,0.12);
-  outline-offset: 2px;
-}
-
-/* Đăng ký (signup link) */
-.signup a{
-  transition: color .12s ease, text-decoration .12s ease, transform .12s ease;
-}
-.signup a:hover{
-  color: var(--vku-blue);
-  text-decoration: underline;
-  transform: translateY(-1px);
-}
-.signup a:focus{
-  outline: 2px solid rgba(39,64,138,0.12);
-  outline-offset: 2px;
-}
-
-/* small text */
-.signup {
-  margin-top: 12px;
-  text-align: center;
-  color: var(--muted);
-}
-
-.signup a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-/* Alerts */
+/* Alert messages */
 .alert {
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.alert i {
+    font-size: 1.1em;
 }
 
 .alert-error {
-  background: #fff6f6;
-  border: 1px solid #f1c0c0;
-  color: #9b1b1b;
+    background-color: #fee;
+    color: #c33;
+    border: 1px solid #fcc;
 }
 
-/* =========================
-   Responsive rules
-   ========================= */
-@media (max-width:900px) {
-  .brand {
-    flex-direction: column;
-    gap: 18px;
-    padding: 18px;
-    min-height: auto;
-  }
+.alert-success {
+    background-color: #efe;
+    color: #3c3;
+    border: 1px solid #cfc;
+}
 
-  .brand-inner {
-    flex-direction: column;
+/* Form styles */
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: #667eea;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 50px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #667eea;
+}
+
+/* Form options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 14px;
-    width: 100%;
-  }
-
-  /* hide icon on small screens */
-  .brand-icon {
-    display: none !important;
-    width: 0;
-    flex: 0 0 0;
-    margin: 0;
-    padding: 0;
-  }
-
-  .form-card {
-    width: 100%;
-    flex: 0 0 auto;
-    align-self: stretch;
-  }
-
-  .brand-title {
-    font-size: 36px;
-    gap: 8px;
-  }
-
-  .brand-title .cinema-text {
-    font-size: 18px;
-  }
+    margin-bottom: 25px;
+    font-size: 0.9em;
 }
 
-@media (max-width:480px) {
-  .show-pass {
-    padding: 4px;
-  }
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #666;
+}
 
-  .show-pass svg {
+.remember-me input[type="checkbox"] {
     width: 18px;
     height: 18px;
-  }
-
-  .brand-sub {
-    font-size: 14px;
-  }
-
-  .login-form h1 {
-    font-size: 18px;
-  }
-
-  .brand-title {
-    font-size: 30px;
-  }
+    cursor: pointer;
 }
 
-/* End of file */
+.forgot-password {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Button */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: #999;
+    font-size: 0.9em;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.divider span {
+    padding: 0 15px;
+}
+
+/* Social login */
+.social-login {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.btn-social {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 10px;
+    font-size: 0.95em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-social:hover {
+    border-color: #667eea;
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.btn-google {
+    color: #db4437;
+}
+
+.btn-facebook {
+    color: #4267B2;
+}
+
+/* Register link */
+.register-link {
+    text-align: center;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.register-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        max-width: 450px;
+    }
+
+    .left-section {
+        padding: 40px 30px;
+        min-height: 250px;
+    }
+
+    .welcome-content h1 {
+        font-size: 1.8em;
+    }
+
+    .illustration {
+        font-size: 80px;
+    }
+
+    .right-section {
+        padding: 40px 30px;
+    }
+
+    .social-login {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .left-section {
+        padding: 30px 20px;
+        min-height: 200px;
+    }
+
+    .welcome-content h1 {
+        font-size: 1.5em;
+    }
+
+    .welcome-content p {
+        font-size: 0.95em;
+    }
+
+    .illustration {
+        font-size: 60px;
+    }
+
+    .right-section {
+        padding: 30px 20px;
+    }
+
+    .login-header h2 {
+        font-size: 1.6em;
+    }
+}
