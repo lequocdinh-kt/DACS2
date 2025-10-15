@@ -31,7 +31,7 @@
                 <?php if(isset($_GET['error'])): ?>
                     <div class="alert alert-error">
                         <i class="fas fa-exclamation-circle"></i>
-                        <span>Tên đăng nhập hoặc mật khẩu không đúng!</span>
+                        <span>Tên đăng nhập h ha ba e oặc mật khẩu không đúng!</span>
                     </div>
                 <?php endif; ?>
 
