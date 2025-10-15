@@ -11,12 +11,17 @@
     <div class="container">
         <!-- Phần bên trái - Hình ảnh -->
         <div class="left-section">
-            <div class="welcome-content">
-                <h1>Chào Mừng Trở Lại!</h1>
-                <p>Đăng nhập để tiếp tục sử dụng hệ thống</p>
-                <div class="illustration">
-                    <i class="fas fa-user-shield"></i>
+            <div class="welcome-msg">
+                <h1>Chào mừng quay trở lại</h1>
+                <p class="brand">VKU Cinema</p>
+            </div>
+
+            <div class="slideshow-outer">
+                <div class="slideshow-frame">
+                    <img id="slideshow-current" class="slide-img" src="../img/posters/1.jpg" alt="Poster current" draggable="false" />
+                    <img id="slideshow-next" class="slide-img slide-next" src="../img/posters/2.jpg" alt="Poster next" draggable="false" />
                 </div>
+                <div class="slideshow-dots" id="slideshow-dots"></div>
             </div>
         </div>
 
@@ -31,18 +36,18 @@
                 <?php if(isset($_GET['error'])): ?>
                     <div class="alert alert-error">
                         <i class="fas fa-exclamation-circle"></i>
-                        <span>Tên đăng nhập h ha ba e oặc mật khẩu không đúng!</span>
+                        <span>Tên đăng nhập hoặc mật khẩu không đúng!</span>
                     </div>
                 <?php endif; ?>
 
                 <?php if(isset($_GET['success'])): ?>
                     <div class="alert alert-success">
                         <i class="fas fa-check-circle"></i>
-                        <span>Đăng ký thành công! Vui lòng đăng nhập.</span>
+                        <span>Đăng nhập thành công.</span>
                     </div>
                 <?php endif; ?>
 
-                <form action="../models/process_login.php" method="POST" class="login-form">
+                <form action="../controllers/loginController.php" method="POST" class="login-form">
                     <div class="form-group">
                         <label for="username">
                             <i class="fas fa-user"></i>
@@ -114,26 +119,7 @@
         </div>
     </div>
 
-    <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('toggleIcon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            }
-        }
-
-        // Animation khi load trang
-        window.addEventListener('load', function() {
-            document.querySelector('.login-box').classList.add('fade-in');
-        });
-    </script>
+    <!-- load external JS -->
+    <script src="../js/login.js"></script>
 </body>
 </html>
