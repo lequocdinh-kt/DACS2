@@ -38,10 +38,12 @@ body {
     position: relative;
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* welcome-msg trên, slideshow-outer dưới */
+    flex-direction: column;
+    /* welcome-msg trên, slideshow-outer dưới */
     align-items: center;
     justify-content: flex-start;
-    gap: 12px; /* khoảng cách giữa welcome và slideshow */
+    gap: 12px;
+    /* khoảng cách giữa welcome và slideshow */
     padding: 24px;
     box-sizing: border-box;
 }
@@ -59,8 +61,13 @@ body {
 }
 
 @keyframes backgroundMove {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(50px, 50px);
+    }
 }
 
 .welcome-content {
@@ -89,8 +96,15 @@ body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 /* Phần bên phải */
@@ -114,6 +128,7 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -351,6 +366,7 @@ body {
 
 /* Register link */
 .register-link {
+    margin-top: 25px;
     text-align: center;
     color: #666;
     font-size: 0.95em;
@@ -372,7 +388,8 @@ body {
 .slide-img {
     width: 100%;
     height: 1000px;
-    object-fit: cover; /* Phóng to vừa khung, không méo */
+    object-fit: cover;
+    /* Phóng to vừa khung, không méo */
     border-radius: 20px 0 0 20px;
     display: block;
     background: #222;
@@ -448,18 +465,21 @@ body {
 /* Welcome message styles */
 .welcome-msg {
     width: 100%;
-    max-width: 400px; /* giới hạn chiều rộng theo khung slideshow */
+    max-width: 400px;
+    /* giới hạn chiều rộng theo khung slideshow */
     text-align: center;
     color: #fff;
-    margin: 0; /* khoảng cách do gap của left-section điều khiển */
+    margin: 0;
+    /* khoảng cách do gap của left-section điều khiển */
     padding: 8px 12px;
     z-index: 2;
 }
 
 .welcome-msg h1 {
-    font-size: 20px; /* nhỏ hơn một chút để brand nổi bật */
+    font-size: 20px;
+    /* nhỏ hơn một chút để brand nổi bật */
     margin-bottom: 6px;
-    color: rgba(255,255,255,0.95);
+    color: rgba(255, 255, 255, 0.95);
     font-weight: 600;
 }
 
@@ -489,21 +509,40 @@ body {
 
 /* Nhẹ nhàng glow animation */
 @keyframes brandGlow {
-    0%   { filter: brightness(1); }
-    50%  { filter: brightness(1.07); }
-    100% { filter: brightness(1); }
+    0% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.07);
+    }
+
+    100% {
+        filter: brightness(1);
+    }
 }
 
 /* Đảm bảo slideshow giữ kích thước, nằm dưới welcome-msg */
 .slideshow-outer {
-    margin-top: 0; /* không cần khoảng thừa */
+    margin-top: 5%;
+    /* không cần khoảng thừa */
 }
 
 /* Tùy chọn: hiệu ứng nhỏ */
-.welcome-msg { animation: welcomeFade 600ms ease both; }
+.welcome-msg {
+    animation: welcomeFade 600ms ease both;
+}
+
 @keyframes welcomeFade {
-    from { transform: translateY(-6px); opacity: 0; }
-    to   { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(-6px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Responsive */
@@ -536,8 +575,14 @@ body {
         flex-direction: column;
     }
 
-    .welcome-msg h1 { font-size: 18px; }
-    .welcome-msg .brand { font-size: 20px; padding: 4px 10px; }
+    .welcome-msg h1 {
+        font-size: 18px;
+    }
+
+    .welcome-msg .brand {
+        font-size: 20px;
+        padding: 4px 10px;
+    }
 }
 
 @media (max-width: 480px) {
