@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký - Hệ Thống</title>
-    <link rel="stylesheet" href="../styles/register.css">
+    <link rel="stylesheet" href="/src/styles/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <?php session_start(); ?>
@@ -19,8 +19,8 @@
 
             <div class="slideshow-outer">
                 <div class="slideshow-frame">
-                    <img id="slideshow-current" class="slide-img" src="../img/posters/1.jpg" alt="Poster current" draggable="false" />
-                    <img id="slideshow-next" class="slide-img slide-next" src="../img/posters/2.jpg" alt="Poster next" draggable="false" />
+                    <img id="slideshow-current" class="slide-img" src="/src/img/posters/1.jpg" alt="Poster current" draggable="false" />
+                    <img id="slideshow-next" class="slide-img slide-next" src="/src/img/posters/2.jpg" alt="Poster next" draggable="false" />
                 </div>
                 <div class="slideshow-dots" id="slideshow-dots"></div>
             </div>
@@ -42,7 +42,7 @@
                     </div>
                 <?php endif; ?>
 
-                <form action="../controllers/registerController.php" method="POST" class="login-form" id="registerForm">
+                <form action="/src/controllers/registerController.php" method="POST" class="login-form" id="registerForm">
                     <div class="form-group">
                         <label for="username">
                             <i class="fas fa-user"></i>
@@ -141,7 +141,7 @@
     </div>
 
     <!-- load external JS -->
-    <script src="../js/login.js"></script>
-    <script src="../js/register.js"></script>
+    <script src="/src/js/login.js"></script>
+    <script src="/src/js/register.js"></script>
 </body>
 </html>

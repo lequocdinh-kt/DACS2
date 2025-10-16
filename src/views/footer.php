@@ -54,12 +54,12 @@
         <!-- Right Column - Images Grid -->
         <!-- <div class="footer-column footer-images">
             <div class="footer-logo-image">
-                <img src="../img/logovku.png" alt="VKU Cinema Logo">
+                <img src="src/img/logovku.png" alt="VKU Cinema Logo">
             </div>
         </div> -->
     </div>
     <div class="map"><a href="#" class="map-link" id="toggleMapBtn">
-            <img src="../img/map.png" alt="Google Maps" class="map-icon">
+            <img src="src/img/map.png" alt="Google Maps" class="map-icon">
             <i class="fas fa-map-marker-alt"></i>
             XEM BẢN ĐỒ
         </a>
@@ -98,7 +98,7 @@
         </div>
 
         <div class="footer-bottom-center">
-            <img src="../img/iconvku.png" alt="Metiz Logo" class="metiz-logo">
+            <img src="src/img/iconvku.png" alt="Metiz Logo" class="metiz-logo">
         </div>
 
         <div class="footer-bottom-right">
@@ -109,4 +109,4 @@
 </footer>
 
 <!-- Footer JavaScript -->
-<script src="../js/footer.js"></script>
+<script src="src/js/footer.js"></script>

@@ -4,7 +4,7 @@
         <!-- Logo bên trái -->
         <div class="header-logo">
             <a href="index.php">
-                <img src="../img/logovku.png" alt="VKU Cinema Logo">
+                <img src="src/img/logovku.png" alt="VKU Cinema Logo">
                <div class="header-logo">
                 <h2>
                     <span class="logo-v">V</span></span><span class="logo-k">K</span><span class="logo-u">U</span>
@@ -48,9 +48,9 @@
                         ĐĂNG XUẤT
                     </a>
                 <?php else: ?>
-                    <a href="login.php" class="auth-link">ĐĂNG NHẬP</a>
+                    <a href="src/views/login.php" class="auth-link">ĐĂNG NHẬP</a>
                     <span class="auth-separator">/</span>
-                    <a href="register.php" class="auth-link">ĐĂNG KÝ</a>
+                    <a href="src/views/register.php" class="auth-link">ĐĂNG KÝ</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -86,16 +86,16 @@
                     <i class="fas fa-user-circle"></i>
                     <?php echo htmlspecialchars($_SESSION['user']['username'] ?? 'User'); ?>
                 </a>
-                <a href="../controllers/logoutController.php" class="mobile-logout">
+                <a href="src/controllers/logoutController.php" class="mobile-logout">
                     <i class="fas fa-sign-out-alt"></i> ĐĂNG XUẤT
                 </a>
             <?php else: ?>
                 <div class="mobile-auth">
-                    <a href="login.php">ĐĂNG NHẬP</a>
-                    <a href="register.php">ĐĂNG KÝ</a>
+                    <a href=src/views/login.php">ĐĂNG NHẬP</a>
+                    <a href="src/views/register.php">ĐĂNG KÝ</a>
                 </div>
             <?php endif; ?>
         </div>
     </div>
 </header>
-<script src="../js/header.js"></script>
+<script src="src/js/header.js"></script>
