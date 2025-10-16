@@ -91,7 +91,7 @@
                 </a>
             <?php else: ?>
                 <div class="mobile-auth">
-                    <a href=src/views/login.php">ĐĂNG NHẬP</a>
+                    <a href="src/views/login.php">ĐĂNG NHẬP</a>
                     <a href="src/views/register.php">ĐĂNG KÝ</a>
                 </div>
             <?php endif; ?>
