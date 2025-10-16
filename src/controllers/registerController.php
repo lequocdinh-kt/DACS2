@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'username' => $username,
         'email' => $email,
         'password' => $password,
-        'roleID' => 2 // Default role: customer
+        'roleID' => 1 // Default role: customer
     ];
     
     $userId = create_user($userData);
