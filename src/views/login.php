@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<?php session_start(); ?>
 <body>
     <div class="container">
         <!-- Phần bên trái - Hình ảnh -->
@@ -33,33 +34,27 @@
                     <p>Nhập thông tin của bạn để tiếp tục</p>
                 </div>
 
-                <?php if(isset($_GET['error'])): ?>
-                    <div class="alert alert-error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span>Tên đăng nhập hoặc mật khẩu không đúng!</span>
-                    </div>
-                <?php endif; ?>
-
-                <?php if(isset($_GET['success'])): ?>
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Đăng nhập thành công.</span>
+                <?php if(!empty($_SESSION['flash'])): ?>
+                    <?php $flash = $_SESSION['flash']; unset($_SESSION['flash']); ?>
+                    <div class="alert <?php echo $flash['type'] === 'success' ? 'alert-success' : 'alert-error'; ?>">
+                        <i class="<?php echo $flash['type'] === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'; ?>"></i>
+                        <span><?php echo htmlspecialchars($flash['message']); ?></span>
                     </div>
                 <?php endif; ?>
 
                 <form action="../controllers/loginController.php" method="POST" class="login-form">
                     <div class="form-group">
-                        <label for="username">
-                            <i class="fas fa-user"></i>
-                            Tên đăng nhập
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            Email
                         </label>
                         <input 
-                            type="text" 
-                            id="username" 
-                            name="username" 
-                            placeholder="Nhập tên đăng nhập"
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Nhập email của bạn"
                             required
-                            autocomplete="username"
+                            autocomplete="email"
                         >
                     </div>
 
