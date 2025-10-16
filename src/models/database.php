@@ -1,12 +1,14 @@
 <?php
-$dsn = 'mysql:host=localhost;port=3306;dbname=dacs2';
-$username = 'root';
-$password = '';
+$dsn = 'mysql:host=onehost-webhn072403.000nethost.com;port=3306;dbname=slrnkpifhosting_DACS2;charset=utf8';
+$username = 'slrnkpifhosting_xiaoying';
+$password = 'Dinh2006@'; // thay bằng mật khẩu thật trong OnePanel
+
 try {
     $db = new PDO($dsn, $username, $password);
-    // echo "Connected to database";
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // echo "✅ Kết nối thành công!";
 } catch (PDOException $e) {
-    $error_message = $e->getMessage();
-    include('database_error.php');
+    echo "❌ Lỗi kết nối CSDL: " . $e->getMessage();
     exit();
 }
+?>
