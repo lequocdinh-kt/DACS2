@@ -1,7 +1,7 @@
 <?php
 $dsn = 'mysql:host=onehost-webhn072403.000nethost.com;port=3306;dbname=slrnkpifhosting_DACS2;charset=utf8';
 $username = 'slrnkpifhosting_xiaoying';
-$password = 'Dinh2006@'; // thay bằng mật khẩu thật trong OnePanel
+$password = 'i[~+5xn4?eyX4VX'; // thay bằng mật khẩu thật trong OnePanel
 
 try {
     $db = new PDO($dsn, $username, $password);
