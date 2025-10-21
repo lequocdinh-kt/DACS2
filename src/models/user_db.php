@@ -103,4 +103,46 @@ function update_last_login($userID) {
     try { return $stmt->execute(); } catch (Exception $e) { return false; }
 }
 
+/**
+ * Check if email exists
+ */
+function email_exists($email) {
+    global $db;
+    $sql = 'SELECT COUNT(*) FROM `user` WHERE email = :email';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':email', $email);
+    $stmt->execute();
+    return $stmt->fetchColumn() > 0;
+}
+
+/**
+ * Check if username exists
+ */
+function username_exists($username) {
+    global $db;
+    $sql = 'SELECT COUNT(*) FROM `user` WHERE username = :username';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':username', $username);
+    $stmt->execute();
+    return $stmt->fetchColumn() > 0;
+}
+
+/**
+ * Register a new user
+ */
+function register_user($username, $email, $password) {
+    global $db;
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $sql = 'INSERT INTO `user` (username, email, password, roleID) VALUES (:username, :email, :password, 2)';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':username', $username);
+    $stmt->bindValue(':email', $email);
+    $stmt->bindValue(':password', $hashedPassword);
+    try {
+        return $stmt->execute();
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
 ?>
