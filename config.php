@@ -5,7 +5,7 @@
  */
 
 // Phát hiện môi trường (localhost hay hosting)
-$isLocalhost = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', 'localhost:8080']);
+$isLocalhost = in_array($_SERVER['HTTP_HOST'], ['localhost:3000', '127.0.0.1', 'localhost:8080']);
 
 if ($isLocalhost) {
     // Cấu hình cho LOCALHOST (XAMPP)

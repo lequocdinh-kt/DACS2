@@ -16,7 +16,7 @@ function create_booking($userID, $showtimeID, $seatIDs, $totalPrice) {
         $expiredAt = date('Y-m-d H:i:s', strtotime('+15 minutes'));
         
         $stmt = $db->prepare("
-            INSERT INTO Bookings (userID, showtimeID, bookingCode, totalPrice, totalSeats, paymentStatus, expiredAt)
+            INSERT INTO bookings (userID, showtimeID, bookingCode, totalPrice, totalSeats, paymentStatus, expiredAt)
             VALUES (?, ?, ?, ?, ?, 'pending', ?)
         ");
         
@@ -24,15 +24,15 @@ function create_booking($userID, $showtimeID, $seatIDs, $totalPrice) {
         $bookingID = $db->lastInsertId();
         
         $stmt = $db->prepare("
-            INSERT INTO BookingSeats (bookingID, seatID, price)
-            SELECT ?, seatID, price FROM Seats WHERE seatID = ?
+            INSERT INTO bookingseats (bookingID, seatID, price)
+            SELECT ?, seatID, price FROM seats WHERE seatID = ?
         ");
         
         foreach ($seatIDs as $seatID) {
             $stmt->execute([$bookingID, $seatID]);
         }
         
-        $stmt = $db->prepare("DELETE FROM SeatLocks WHERE showtimeID = ? AND userID = ?");
+        $stmt = $db->prepare("DELETE FROM seatlocks WHERE showtimeID = ? AND userID = ?");
         $stmt->execute([$showtimeID, $userID]);
         
         $db->commit();
@@ -51,11 +51,11 @@ function get_booking_by_id($bookingID) {
         SELECT b.*, u.username, u.email, st.showDate, st.showTime,
                m.title as movieTitle, m.posterURL, m.duration, m.genre,
                r.roomName
-        FROM Bookings b
-        INNER JOIN User u ON b.userID = u.userID
-        INNER JOIN Showtimes st ON b.showtimeID = st.showtimeID
-        INNER JOIN Movie m ON st.movieID = m.movieID
-        INNER JOIN Rooms r ON st.roomID = r.roomID
+        FROM bookings b
+        INNER JOIN user u ON b.userID = u.userID
+        INNER JOIN showtimes st ON b.showtimeID = st.showtimeID
+        INNER JOIN movie m ON st.movieID = m.movieID
+        INNER JOIN rooms r ON st.roomID = r.roomID
         WHERE b.bookingID = ?
     ");
     
@@ -71,8 +71,8 @@ function get_booking_with_details($bookingID) {
     
     $stmt = $db->prepare("
         SELECT s.seatID, s.seatRow, s.seatNumber, s.seatType, bs.price
-        FROM BookingSeats bs
-        INNER JOIN Seats s ON bs.seatID = s.seatID
+        FROM bookingseats bs
+        INNER JOIN seats s ON bs.seatID = s.seatID
         WHERE bs.bookingID = ?
         ORDER BY s.seatRow, s.seatNumber
     ");
@@ -98,13 +98,13 @@ function update_booking_payment_status($bookingID, $status, $paymentMethod = nul
     
     if ($status === 'paid') {
         $stmt = $db->prepare("
-            UPDATE Bookings 
+            UPDATE bookings 
             SET paymentStatus = ?, paymentMethod = COALESCE(?, paymentMethod), paidAt = NOW()
             WHERE bookingID = ?
         ");
         return $stmt->execute([$status, $paymentMethod, $bookingID]);
     } else {
-        $stmt = $db->prepare("UPDATE Bookings SET paymentStatus = ? WHERE bookingID = ?");
+        $stmt = $db->prepare("UPDATE bookings SET paymentStatus = ? WHERE bookingID = ?");
         return $stmt->execute([$status, $bookingID]);
     }
 }
@@ -116,12 +116,12 @@ function get_user_bookings($userID, $status = null) {
         $stmt = $db->prepare("
             SELECT b.*, m.title as movieTitle, m.posterURL, st.showDate, st.showTime, r.roomName,
                    GROUP_CONCAT(CONCAT(s.seatRow, s.seatNumber) ORDER BY s.seatRow, s.seatNumber SEPARATOR ', ') as seats
-            FROM Bookings b
-            INNER JOIN Showtimes st ON b.showtimeID = st.showtimeID
-            INNER JOIN Movie m ON st.movieID = m.movieID
-            INNER JOIN Rooms r ON st.roomID = r.roomID
-            LEFT JOIN BookingSeats bs ON b.bookingID = bs.bookingID
-            LEFT JOIN Seats s ON bs.seatID = s.seatID
+            FROM bookings b
+            INNER JOIN showtimes st ON b.showtimeID = st.showtimeID
+            INNER JOIN movie m ON st.movieID = m.movieID
+            INNER JOIN rooms r ON st.roomID = r.roomID
+            LEFT JOIN bookingseats bs ON b.bookingID = bs.bookingID
+            LEFT JOIN seats s ON bs.seatID = s.seatID
             WHERE b.userID = ? AND b.paymentStatus = ?
             GROUP BY b.bookingID
             ORDER BY b.bookingDate DESC
@@ -131,12 +131,12 @@ function get_user_bookings($userID, $status = null) {
         $stmt = $db->prepare("
             SELECT b.*, m.title as movieTitle, m.posterURL, st.showDate, st.showTime, r.roomName,
                    GROUP_CONCAT(CONCAT(s.seatRow, s.seatNumber) ORDER BY s.seatRow, s.seatNumber SEPARATOR ', ') as seats
-            FROM Bookings b
-            INNER JOIN Showtimes st ON b.showtimeID = st.showtimeID
-            INNER JOIN Movie m ON st.movieID = m.movieID
-            INNER JOIN Rooms r ON st.roomID = r.roomID
-            LEFT JOIN BookingSeats bs ON b.bookingID = bs.bookingID
-            LEFT JOIN Seats s ON bs.seatID = s.seatID
+            FROM bookings b
+            INNER JOIN showtimes st ON b.showtimeID = st.showtimeID
+            INNER JOIN movie m ON st.movieID = m.movieID
+            INNER JOIN rooms r ON st.roomID = r.roomID
+            LEFT JOIN bookingseats bs ON b.bookingID = bs.bookingID
+            LEFT JOIN seats s ON bs.seatID = s.seatID
             WHERE b.userID = ?
             GROUP BY b.bookingID
             ORDER BY b.bookingDate DESC
@@ -152,8 +152,8 @@ function cancel_booking($bookingID, $userID) {
     
     $stmt = $db->prepare("
         SELECT b.bookingID, st.showDate, st.showTime
-        FROM Bookings b
-        INNER JOIN Showtimes st ON b.showtimeID = st.showtimeID
+        FROM bookings b
+        INNER JOIN showtimes st ON b.showtimeID = st.showtimeID
         WHERE b.bookingID = ? AND b.userID = ? AND b.paymentStatus IN ('pending', 'paid')
     ");
     

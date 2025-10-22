@@ -16,14 +16,14 @@ function get_seats_by_showtime($showtimeID) {
                    ELSE 'available'
                END as status,
                sl.userID as lockedByUserID
-        FROM Seats s
-        INNER JOIN Showtimes st ON s.roomID = st.roomID
-        LEFT JOIN BookingSeats bs ON s.seatID = bs.seatID 
+        FROM seats s
+        INNER JOIN showtimes st ON s.roomID = st.roomID
+        LEFT JOIN bookingseats bs ON s.seatID = bs.seatID 
             AND bs.bookingID IN (
-                SELECT b.bookingID FROM Bookings b 
+                SELECT b.bookingID FROM bookings b 
                 WHERE b.showtimeID = ? AND b.paymentStatus IN ('pending', 'paid')
             )
-        LEFT JOIN SeatLocks sl ON s.seatID = sl.seatID 
+        LEFT JOIN seatlocks sl ON s.seatID = sl.seatID 
             AND sl.showtimeID = ? AND sl.expiresAt > NOW()
         WHERE st.showtimeID = ?
         ORDER BY s.seatRow, s.seatNumber
@@ -43,7 +43,7 @@ function lock_seats($showtimeID, $seatIDs, $userID, $minutes = 15) {
     try {
         $db->beginTransaction();
         
-        $stmt = $db->prepare("INSERT INTO SeatLocks (showtimeID, seatID, userID, expiresAt) VALUES (?, ?, ?, ?)");
+        $stmt = $db->prepare("INSERT INTO seatlocks (showtimeID, seatID, userID, expiresAt) VALUES (?, ?, ?, ?)");
         
         foreach ($seatIDs as $seatID) {
             $stmt->execute([$showtimeID, $seatID, $userID, $expiresAt]);
@@ -60,14 +60,14 @@ function lock_seats($showtimeID, $seatIDs, $userID, $minutes = 15) {
 function unlock_seats_by_user($showtimeID, $userID) {
     global $db;
     
-    $stmt = $db->prepare("DELETE FROM SeatLocks WHERE showtimeID = ? AND userID = ?");
+    $stmt = $db->prepare("DELETE FROM seatlocks WHERE showtimeID = ? AND userID = ?");
     return $stmt->execute([$showtimeID, $userID]);
 }
 
 function cleanup_expired_locks() {
     global $db;
     
-    $stmt = $db->prepare("DELETE FROM SeatLocks WHERE expiresAt < NOW()");
+    $stmt = $db->prepare("DELETE FROM seatlocks WHERE expiresAt < NOW()");
     return $stmt->execute();
 }
 
@@ -79,14 +79,14 @@ function check_seats_available($showtimeID, $seatIDs) {
     
     $stmt = $db->prepare("
         SELECT s.seatID
-        FROM Seats s
-        INNER JOIN Showtimes st ON s.roomID = st.roomID
-        LEFT JOIN BookingSeats bs ON s.seatID = bs.seatID 
+        FROM seats s
+        INNER JOIN showtimes st ON s.roomID = st.roomID
+        LEFT JOIN bookingseats bs ON s.seatID = bs.seatID 
             AND bs.bookingID IN (
-                SELECT b.bookingID FROM Bookings b 
+                SELECT b.bookingID FROM bookings b 
                 WHERE b.showtimeID = ? AND b.paymentStatus IN ('pending', 'paid')
             )
-        LEFT JOIN SeatLocks sl ON s.seatID = sl.seatID 
+        LEFT JOIN seatlocks sl ON s.seatID = sl.seatID 
             AND sl.showtimeID = ? AND sl.expiresAt > NOW()
         WHERE st.showtimeID = ? AND s.seatID IN ($placeholders)
         AND bs.bookingSeatID IS NULL AND sl.lockID IS NULL
@@ -106,14 +106,14 @@ function check_seats_available_for_user($showtimeID, $seatIDs, $userID) {
     
     $stmt = $db->prepare("
         SELECT s.seatID
-        FROM Seats s
-        INNER JOIN Showtimes st ON s.roomID = st.roomID
-        LEFT JOIN BookingSeats bs ON s.seatID = bs.seatID 
+        FROM seats s
+        INNER JOIN showtimes st ON s.roomID = st.roomID
+        LEFT JOIN bookingseats bs ON s.seatID = bs.seatID 
             AND bs.bookingID IN (
-                SELECT b.bookingID FROM Bookings b 
+                SELECT b.bookingID FROM bookings b 
                 WHERE b.showtimeID = ? AND b.paymentStatus IN ('pending', 'paid')
             )
-        LEFT JOIN SeatLocks sl ON s.seatID = sl.seatID 
+        LEFT JOIN seatlocks sl ON s.seatID = sl.seatID 
             AND sl.showtimeID = ? AND sl.userID != ? AND sl.expiresAt > NOW()
         WHERE st.showtimeID = ? AND s.seatID IN ($placeholders)
         AND bs.bookingSeatID IS NULL AND sl.lockID IS NULL

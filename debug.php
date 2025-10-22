@@ -129,6 +129,28 @@ try {
     echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
 }
 
+// 10. Test Booking URL
+echo "<h2>10. Test Booking Step 1</h2>";
+echo "<p>Kiểm tra xem trang booking có lỗi không...</p>";
+try {
+    $_GET['movieID'] = 1; // Giả lập movieID
+    ob_start();
+    include __DIR__ . '/src/views/booking_step1_showtimes.php';
+    $output = ob_get_clean();
+    
+    if (strlen($output) > 100) {
+        echo "<p style='color:green;'>✅ Trang booking load thành công</p>";
+        echo "<p>Output length: " . strlen($output) . " bytes</p>";
+    } else {
+        echo "<p style='color:orange;'>⚠️ Trang booking load nhưng output ngắn</p>";
+        echo "<pre>" . htmlspecialchars(substr($output, 0, 500)) . "</pre>";
+    }
+} catch (Exception $e) {
+    echo "<p style='color:red;'>❌ Lỗi khi load booking:</p>";
+    echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+    echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
+}
+
 echo "<hr>";
 echo "<h2>⚠️ LƯU Ý: XÓA FILE NÀY SAU KHI DEBUG XONG!</h2>";
 echo "<p>File này để lộ thông tin hệ thống, không nên để trên hosting lâu dài.</p>";

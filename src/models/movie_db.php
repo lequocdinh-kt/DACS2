@@ -16,7 +16,7 @@ require_once 'database.php';
 function create_movie($data) {
     global $db;
     
-    $sql = 'INSERT INTO Movie (title, genre, duration, description, rating, movieStatus, posterURL, posterHorizontalURL, trailerURL, author, releaseDate) 
+    $sql = 'INSERT INTO movie (title, genre, duration, description, rating, movieStatus, posterURL, posterHorizontalURL, trailerURL, author, releaseDate) 
             VALUES (:title, :genre, :duration, :description, :rating, :movieStatus, :posterURL, :posterHorizontalURL, :trailerURL, :author, :releaseDate)';
     
     $stmt = $db->prepare($sql);
@@ -48,7 +48,7 @@ function create_movie($data) {
 function get_movie_by_id($movieID) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie WHERE movieID = :movieID LIMIT 1';
+    $sql = 'SELECT * FROM movie WHERE movieID = :movieID LIMIT 1';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     $stmt->execute();
@@ -63,7 +63,7 @@ function get_movie_by_id($movieID) {
 function get_all_movies() {
     global $db;
     
-    $sql = 'SELECT * FROM Movie ORDER BY movieID DESC';
+    $sql = 'SELECT * FROM movie ORDER BY movieID DESC';
     $stmt = $db->query($sql);
     
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -77,7 +77,7 @@ function get_all_movies() {
 function get_movies_by_status($status) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie WHERE movieStatus = :status ORDER BY rating DESC';
+    $sql = 'SELECT * FROM movie WHERE movieStatus = :status ORDER BY rating DESC';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':status', $status);
     $stmt->execute();
@@ -109,7 +109,7 @@ function get_coming_soon_movies() {
 function get_movies_by_genre($genre) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie WHERE genre LIKE :genre ORDER BY rating DESC';
+    $sql = 'SELECT * FROM movie WHERE genre LIKE :genre ORDER BY rating DESC';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':genre', '%' . $genre . '%');
     $stmt->execute();
@@ -125,7 +125,7 @@ function get_movies_by_genre($genre) {
 function search_movies($keyword) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie 
+    $sql = 'SELECT * FROM movie 
             WHERE title LIKE :keyword 
             OR description LIKE :keyword 
             OR author LIKE :keyword 
@@ -146,7 +146,7 @@ function search_movies($keyword) {
 function get_hot_movies($limit = 6) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie 
+    $sql = 'SELECT * FROM movie 
             WHERE movieStatus = "now_showing" 
             ORDER BY rating DESC 
             LIMIT :limit';
@@ -166,7 +166,7 @@ function get_hot_movies($limit = 6) {
 function get_latest_movies($limit = 10) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie ORDER BY movieID DESC LIMIT :limit';
+    $sql = 'SELECT * FROM movie ORDER BY movieID DESC LIMIT :limit';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
@@ -182,7 +182,7 @@ function get_latest_movies($limit = 10) {
 function get_random_movies($limit = 5) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie 
+    $sql = 'SELECT * FROM movie 
             WHERE movieStatus = "now_showing" 
             ORDER BY RAND() 
             LIMIT :limit';
@@ -203,7 +203,7 @@ function get_random_movies($limit = 5) {
 function get_movies_by_rating_range($minRating, $maxRating = 5.0) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie 
+    $sql = 'SELECT * FROM movie 
             WHERE rating BETWEEN :minRating AND :maxRating 
             ORDER BY rating DESC';
     
@@ -222,7 +222,7 @@ function get_movies_by_rating_range($minRating, $maxRating = 5.0) {
 function count_total_movies() {
     global $db;
     
-    $sql = 'SELECT COUNT(*) as total FROM Movie';
+    $sql = 'SELECT COUNT(*) as total FROM movie';
     $stmt = $db->query($sql);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -237,7 +237,7 @@ function count_total_movies() {
 function count_movies_by_status($status) {
     global $db;
     
-    $sql = 'SELECT COUNT(*) as total FROM Movie WHERE movieStatus = :status';
+    $sql = 'SELECT COUNT(*) as total FROM movie WHERE movieStatus = :status';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':status', $status);
     $stmt->execute();
@@ -254,7 +254,7 @@ function count_movies_by_status($status) {
 function get_upcoming_movies_by_date($limit = 10) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie 
+    $sql = 'SELECT * FROM movie 
             WHERE movieStatus = "coming_soon" 
             AND releaseDate IS NOT NULL 
             ORDER BY releaseDate ASC 
@@ -275,7 +275,7 @@ function get_upcoming_movies_by_date($limit = 10) {
 function get_newly_released_movies($days = 30) {
     global $db;
     
-    $sql = 'SELECT * FROM Movie 
+    $sql = 'SELECT * FROM movie 
             WHERE movieStatus = "now_showing" 
             AND releaseDate IS NOT NULL 
             AND releaseDate >= DATE_SUB(NOW(), INTERVAL :days DAY) 
@@ -299,7 +299,7 @@ function get_newly_released_movies($days = 30) {
 function update_movie($movieID, $data) {
     global $db;
     
-    $sql = 'UPDATE Movie SET 
+    $sql = 'UPDATE movie SET 
             title = :title,
             genre = :genre,
             duration = :duration,
@@ -339,7 +339,7 @@ function update_movie($movieID, $data) {
 function update_movie_status($movieID, $status) {
     global $db;
     
-    $sql = 'UPDATE Movie SET movieStatus = :status WHERE movieID = :movieID';
+    $sql = 'UPDATE movie SET movieStatus = :status WHERE movieID = :movieID';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     $stmt->bindValue(':status', $status);
@@ -356,7 +356,7 @@ function update_movie_status($movieID, $status) {
 function update_movie_rating($movieID, $rating) {
     global $db;
     
-    $sql = 'UPDATE Movie SET rating = :rating WHERE movieID = :movieID';
+    $sql = 'UPDATE movie SET rating = :rating WHERE movieID = :movieID';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     $stmt->bindValue(':rating', $rating);
@@ -373,7 +373,7 @@ function update_movie_rating($movieID, $rating) {
 function update_movie_poster($movieID, $posterURL) {
     global $db;
     
-    $sql = 'UPDATE Movie SET posterURL = :posterURL WHERE movieID = :movieID';
+    $sql = 'UPDATE movie SET posterURL = :posterURL WHERE movieID = :movieID';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     $stmt->bindValue(':posterURL', $posterURL);
@@ -390,7 +390,7 @@ function update_movie_poster($movieID, $posterURL) {
 function update_movie_poster_horizontal($movieID, $posterHorizontalURL) {
     global $db;
     
-    $sql = 'UPDATE Movie SET posterHorizontalURL = :posterHorizontalURL WHERE movieID = :movieID';
+    $sql = 'UPDATE movie SET posterHorizontalURL = :posterHorizontalURL WHERE movieID = :movieID';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     $stmt->bindValue(':posterHorizontalURL', $posterHorizontalURL);
@@ -407,7 +407,7 @@ function update_movie_poster_horizontal($movieID, $posterHorizontalURL) {
 function update_movie_release_date($movieID, $releaseDate) {
     global $db;
     
-    $sql = 'UPDATE Movie SET releaseDate = :releaseDate WHERE movieID = :movieID';
+    $sql = 'UPDATE movie SET releaseDate = :releaseDate WHERE movieID = :movieID';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     $stmt->bindValue(':releaseDate', $releaseDate);
@@ -425,7 +425,7 @@ function update_movie_release_date($movieID, $releaseDate) {
 function delete_movie($movieID) {
     global $db;
     
-    $sql = 'DELETE FROM Movie WHERE movieID = :movieID';
+    $sql = 'DELETE FROM movie WHERE movieID = :movieID';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     
@@ -440,7 +440,7 @@ function delete_movie($movieID) {
 function delete_movies_by_status($status) {
     global $db;
     
-    $sql = 'DELETE FROM Movie WHERE movieStatus = :status';
+    $sql = 'DELETE FROM movie WHERE movieStatus = :status';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':status', $status);
     
@@ -457,7 +457,7 @@ function delete_movies_by_status($status) {
 function movie_exists($movieID) {
     global $db;
     
-    $sql = 'SELECT COUNT(*) as count FROM Movie WHERE movieID = :movieID';
+    $sql = 'SELECT COUNT(*) as count FROM movie WHERE movieID = :movieID';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':movieID', $movieID, PDO::PARAM_INT);
     $stmt->execute();
@@ -473,7 +473,7 @@ function movie_exists($movieID) {
 function get_all_genres() {
     global $db;
     
-    $sql = 'SELECT DISTINCT genre FROM Movie ORDER BY genre ASC';
+    $sql = 'SELECT DISTINCT genre FROM movie ORDER BY genre ASC';
     $stmt = $db->query($sql);
     
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -486,7 +486,7 @@ function get_all_genres() {
 function get_all_authors() {
     global $db;
     
-    $sql = 'SELECT DISTINCT author FROM Movie ORDER BY author ASC';
+    $sql = 'SELECT DISTINCT author FROM movie ORDER BY author ASC';
     $stmt = $db->query($sql);
     
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -506,12 +506,12 @@ function get_movies_paginated($page = 1, $perPage = 12, $status = null) {
     
     // Count total
     if ($status) {
-        $countSql = 'SELECT COUNT(*) as total FROM Movie WHERE movieStatus = :status';
+        $countSql = 'SELECT COUNT(*) as total FROM movie WHERE movieStatus = :status';
         $stmt = $db->prepare($countSql);
         $stmt->bindValue(':status', $status);
         $stmt->execute();
     } else {
-        $countSql = 'SELECT COUNT(*) as total FROM Movie';
+        $countSql = 'SELECT COUNT(*) as total FROM movie';
         $stmt = $db->query($countSql);
     }
     $totalResult = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -519,14 +519,14 @@ function get_movies_paginated($page = 1, $perPage = 12, $status = null) {
     
     // Get movies
     if ($status) {
-        $sql = 'SELECT * FROM Movie WHERE movieStatus = :status ORDER BY movieID DESC LIMIT :limit OFFSET :offset';
+        $sql = 'SELECT * FROM movie WHERE movieStatus = :status ORDER BY movieID DESC LIMIT :limit OFFSET :offset';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':status', $status);
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
     } else {
-        $sql = 'SELECT * FROM Movie ORDER BY movieID DESC LIMIT :limit OFFSET :offset';
+        $sql = 'SELECT * FROM movie ORDER BY movieID DESC LIMIT :limit OFFSET :offset';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);

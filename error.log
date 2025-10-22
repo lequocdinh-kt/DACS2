@@ -1,0 +1,20 @@
+[22-Oct-2025 19:35:08 Europe/Berlin] Error in booking_step1_showtimes.php: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'slrnkpifhosting_DACS2.Showtimes' doesn't exist
+[22-Oct-2025 19:35:08 Europe/Berlin] Stack trace: #0 E:\school\hoc ki 1 2025-2026\DACS2\src\models\showtime_db.php(64): PDO->prepare('\r\n        SELEC...')
+#1 E:\school\hoc ki 1 2025-2026\DACS2\src\views\booking_step1_showtimes.php(34): get_available_dates_by_movie('1', 7)
+#2 {main}
+[22-Oct-2025 19:35:17 Europe/Berlin] Error in booking_step1_showtimes.php: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'slrnkpifhosting_DACS2.Showtimes' doesn't exist
+[22-Oct-2025 19:35:17 Europe/Berlin] Stack trace: #0 E:\school\hoc ki 1 2025-2026\DACS2\src\models\showtime_db.php(64): PDO->prepare('\r\n        SELEC...')
+#1 E:\school\hoc ki 1 2025-2026\DACS2\src\views\booking_step1_showtimes.php(34): get_available_dates_by_movie('1', 7)
+#2 {main}
+[22-Oct-2025 19:36:00 Europe/Berlin] Error in booking_step1_showtimes.php: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'slrnkpifhosting_DACS2.Showtimes' doesn't exist
+[22-Oct-2025 19:36:00 Europe/Berlin] Stack trace: #0 E:\school\hoc ki 1 2025-2026\DACS2\src\models\showtime_db.php(64): PDO->prepare('\r\n        SELEC...')
+#1 E:\school\hoc ki 1 2025-2026\DACS2\src\views\booking_step1_showtimes.php(34): get_available_dates_by_movie('1', 7)
+#2 {main}
+[22-Oct-2025 19:36:03 Europe/Berlin] Error in booking_step1_showtimes.php: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'slrnkpifhosting_DACS2.Showtimes' doesn't exist
+[22-Oct-2025 19:36:03 Europe/Berlin] Stack trace: #0 E:\school\hoc ki 1 2025-2026\DACS2\src\models\showtime_db.php(64): PDO->prepare('\r\n        SELEC...')
+#1 E:\school\hoc ki 1 2025-2026\DACS2\src\views\booking_step1_showtimes.php(34): get_available_dates_by_movie('2', 7)
+#2 {main}
+[22-Oct-2025 19:41:12 Europe/Berlin] Error in booking_step1_showtimes.php: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'slrnkpifhosting_DACS2.Showtimes' doesn't exist
+[22-Oct-2025 19:41:12 Europe/Berlin] Stack trace: #0 E:\school\hoc ki 1 2025-2026\DACS2\src\models\showtime_db.php(64): PDO->prepare('\r\n        SELEC...')
+#1 E:\school\hoc ki 1 2025-2026\DACS2\src\views\booking_step1_showtimes.php(34): get_available_dates_by_movie('1', 7)
+#2 {main}

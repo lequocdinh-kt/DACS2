@@ -9,7 +9,7 @@ function create_payment($bookingID, $amount, $paymentMethod = 'qr', $description
     global $db;
     
     $stmt = $db->prepare("
-        INSERT INTO Payments (bookingID, amount, paymentMethod, paymentStatus)
+        INSERT INTO payments (bookingID, amount, paymentMethod, paymentStatus)
         VALUES (?, ?, ?, 'pending')
     ");
     
@@ -25,7 +25,7 @@ function get_payment_by_booking($bookingID) {
     
     $stmt = $db->prepare("
         SELECT *
-        FROM Payments
+        FROM payments
         WHERE bookingID = ?
         ORDER BY paymentID DESC
         LIMIT 1
@@ -43,14 +43,14 @@ function confirm_payment($paymentID, $transactionCode = null) {
         
         // Update payment
         $stmt = $db->prepare("
-            UPDATE Payments 
+            UPDATE payments 
             SET paymentStatus = 'completed', transactionID = ?, completedAt = NOW()
             WHERE paymentID = ?
         ");
         $stmt->execute([$transactionCode, $paymentID]);
         
         // Get booking info
-        $stmt = $db->prepare("SELECT bookingID FROM Payments WHERE paymentID = ?");
+        $stmt = $db->prepare("SELECT bookingID FROM payments WHERE paymentID = ?");
         $stmt->execute([$paymentID]);
         $payment = $stmt->fetch(PDO::FETCH_ASSOC);
         

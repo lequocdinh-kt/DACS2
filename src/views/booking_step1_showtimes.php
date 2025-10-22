@@ -2,30 +2,43 @@
 /**
  * BƯỚC 1: Chọn suất chiếu
  */
-session_start();
 
-// Lấy movieID
-$movieID = $_GET['movieID'] ?? null;
-if (!$movieID) {
-    header('Location: /');
-    exit();
+// Bắt lỗi toàn bộ file
+try {
+    session_start();
+
+    // Lấy movieID
+    $movieID = $_GET['movieID'] ?? null;
+    if (!$movieID) {
+        header('Location: /');
+        exit();
+    }
+
+    // Kiểm tra đăng nhập - nếu chưa đăng nhập sẽ hiển thị modal
+    $requireLogin = !isset($_SESSION['userID']);
+
+    // Load config first
+    if (!defined('DB_HOST')) {
+        require_once __DIR__ . '/../../config.php';
+    }
+
+    require_once __DIR__ . '/../models/movie_db.php';
+    require_once __DIR__ . '/../models/showtime_db.php';
+
+    $movie = get_movie_by_id($movieID);
+    if (!$movie) {
+        header('Location: /');
+        exit();
+    }
+
+    $dates = get_available_dates_by_movie($movieID, 7);
+    $selectedDate = $_GET['date'] ?? ($dates[0] ?? date('Y-m-d'));
+    $showtimes = get_showtimes_by_movie($movieID, $selectedDate);
+} catch (Exception $e) {
+    error_log("Error in booking_step1_showtimes.php: " . $e->getMessage());
+    error_log("Stack trace: " . $e->getTraceAsString());
+    die("Đã xảy ra lỗi. Vui lòng thử lại sau. (Error: " . $e->getMessage() . ")");
 }
-
-// Kiểm tra đăng nhập - nếu chưa đăng nhập sẽ hiển thị modal
-$requireLogin = !isset($_SESSION['userID']);
-
-require_once __DIR__ . '/../models/movie_db.php';
-require_once __DIR__ . '/../models/showtime_db.php';
-
-$movie = get_movie_by_id($movieID);
-if (!$movie) {
-    header('Location: /');
-    exit();
-}
-
-$dates = get_available_dates_by_movie($movieID, 7);
-$selectedDate = $_GET['date'] ?? ($dates[0] ?? date('Y-m-d'));
-$showtimes = get_showtimes_by_movie($movieID, $selectedDate);
 
 // Helper functions
 function format_date_vn($date) {

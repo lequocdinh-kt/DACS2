@@ -24,6 +24,23 @@ try {
         exit;
     }
 
+    // Diagnostic: fetch user record first to separate "not found" vs "wrong password"
+    $fetchedUser = get_user_by_email($email);
+    if (!$fetchedUser) {
+        error_log("Login diagnostic: user not found for email={$email}");
+        echo json_encode(['success' => false, 'message' => 'Email hoặc mật khẩu không đúng!']);
+        exit;
+    }
+
+    // Verify password manually to log result (do NOT log the password)
+    $passwordOk = password_verify($password, $fetchedUser['password']);
+    if (!$passwordOk) {
+        error_log("Login diagnostic: password_verify failed for email={$email}");
+        echo json_encode(['success' => false, 'message' => 'Email hoặc mật khẩu không đúng!']);
+        exit;
+    }
+
+    // If password ok, authenticate_user will return the sanitized user array (without password)
     $user = authenticate_user($email, $password);
     if ($user) {
         $_SESSION['user'] = $user;
