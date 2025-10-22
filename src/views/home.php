@@ -88,58 +88,66 @@ require_once __DIR__ . '/../controllers/homeController.php';
                     </a>
                 </div>
             </div>
-            <div class="movies-grid">
-                <?php if (!empty($nowShowingMovies)): ?>
-                    <?php foreach ($nowShowingMovies as $movie): ?>
-                        <div class="movie-card" data-movie-id="<?php echo $movie['movieID']; ?>">
-                            <div class="movie-poster">
-                                <img src="<?php echo htmlspecialchars($movie['posterURL']); ?>" 
-                                     alt="<?php echo htmlspecialchars($movie['title']); ?>">
-                                <div class="movie-overlay">
-                                    <?php if (!empty($movie['trailerURL'])): ?>
-                                        <?php $videoId = get_youtube_video_id($movie['trailerURL']); ?>
-                                        <?php if ($videoId): ?>
-                                            <button class="btn-play" onclick="openTrailer('<?php echo $videoId; ?>', '<?php echo htmlspecialchars($movie['title']); ?>')">
-                                                <i class="fas fa-play"></i>
-                                            </button>
+            <?php if (!empty($nowShowingMovies)): ?>
+                <div class="movies-slider">
+                    <button class="slider-btn prev" onclick="slideMovies('next', 'nowShowingTrack')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="movies-slider-wrapper">
+                        <div class="movies-track" id="nowShowingTrack">
+                        <?php foreach ($nowShowingMovies as $movie): ?>
+                            <div class="movie-card-small">
+                                <div class="small-poster">
+                                    <img src="<?php echo htmlspecialchars($movie['posterURL']); ?>" 
+                                         alt="<?php echo htmlspecialchars($movie['title']); ?>">
+                                    <div class="small-overlay">
+                                        <?php if (!empty($movie['trailerURL'])): ?>
+                                            <?php $videoId = get_youtube_video_id($movie['trailerURL']); ?>
+                                            <?php if ($videoId): ?>
+                                                <button class="btn-play-small" onclick="openTrailer('<?php echo $videoId; ?>', '<?php echo htmlspecialchars($movie['title']); ?>')">
+                                                    <i class="fas fa-play"></i>
+                                                </button>
+                                            <?php endif; ?>
                                         <?php endif; ?>
-                                    <?php endif; ?>
-                                    <div class="overlay-info">
-                                        <h3><?php echo htmlspecialchars($movie['title']); ?></h3>
-                                        <p><i class="fas fa-clock"></i> <?php echo format_duration($movie['duration']); ?></p>
-                                        <p><i class="fas fa-user"></i> <?php echo htmlspecialchars($movie['author']); ?></p>
                                     </div>
+                                    <?php if ($movie['rating'] >= 8.0): ?>
+                                        <span class="movie-badge hot">HOT</span>
+                                    <?php elseif ($movie['rating'] >= 7.0): ?>
+                                        <span class="movie-badge new">MỚI</span>
+                                    <?php endif; ?>
                                 </div>
-                                <?php if ($movie['rating'] >= 8.0): ?>
-                                    <span class="movie-badge hot">HOT</span>
-                                <?php elseif ($movie['rating'] >= 7.0): ?>
-                                    <span class="movie-badge new">MỚI</span>
-                                <?php endif; ?>
-                            </div>
-                            <div class="movie-info">
-                                <h3><?php echo htmlspecialchars($movie['title']); ?></h3>
-                                <p class="movie-genre">
-                                    <i class="fas fa-tag"></i> 
-                                    <?php echo htmlspecialchars($movie['genre']); ?>
-                                </p>
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span><?php echo $movie['rating']; ?></span>
+                                <div class="card-info">
+                                    <h4><?php echo htmlspecialchars($movie['title']); ?></h4>
+                                    <p class="small-genre">
+                                        <i class="fas fa-tag"></i> 
+                                        <?php echo htmlspecialchars(substr($movie['genre'], 0, 20)); ?>
+                                    </p>
+                                    <p class="small-duration">
+                                        <i class="fas fa-clock"></i> <?php echo format_duration($movie['duration']); ?>
+                                    </p>
+                                    <div class="small-rating">
+                                        <i class="fas fa-star"></i>
+                                        <span><?php echo $movie['rating']; ?></span>
+                                    </div>
+                                    <a href="/src/views/booking.php?movieID=<?php echo $movie['movieID']; ?>" 
+                                       class="btn-booking-small">
+                                        <i class="fas fa-ticket-alt"></i> Đặt vé
+                                    </a>
                                 </div>
-                                <a href="/src/views/booking.php?movieID=<?php echo $movie['movieID']; ?>" 
-                                   class="btn-booking">
-                                    Đặt vé
-                                </a>
                             </div>
+                        <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="no-movies">
-                        <i class="fas fa-film"></i>
-                        <p>Hiện chưa có phim nào đang chiếu</p>
                     </div>
-                <?php endif; ?>
-            </div>
+                    <button class="slider-btn next" onclick="slideMovies('prev', 'nowShowingTrack')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            <?php else: ?>
+                <div class="no-movies">
+                    <i class="fas fa-film"></i>
+                    <p>Hiện chưa có phim nào đang chiếu</p>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -157,7 +165,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
             </div>
             <?php if (!empty($comingSoonMovies)): ?>
                 <div class="movies-slider">
-                    <button class="slider-btn prev" onclick="slideMovies('prev')">
+                    <button class="slider-btn prev" onclick="slideMovies('prev', 'comingSoonTrack')">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                     <div class="movies-slider-wrapper">
@@ -218,7 +226,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                         <?php endforeach; ?>
                         </div>
                     </div>
-                    <button class="slider-btn next" onclick="slideMovies('next')">
+                    <button class="slider-btn next" onclick="slideMovies('next', 'comingSoonTrack')">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
@@ -242,7 +250,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
             </div>
             <div class="news-grid">
                 <div class="news-card">
-                    <img src="/src/img/news/promo1.jpg" alt="Promotion 1">
+                    <!-- <img src="/src/img/news/promo1.jpg" alt="Promotion 1"> -->
                     <div class="news-content">
                         <span class="news-tag">Ưu đãi</span>
                         <h3>Giảm 30% vé cho sinh viên</h3>
@@ -251,7 +259,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                     </div>
                 </div>
                 <div class="news-card">
-                    <img src="/src/img/news/promo2.jpg" alt="Promotion 2">
+                    <!-- <img src="/src/img/news/promo2.jpg" alt="Promotion 2"> -->
                     <div class="news-content">
                         <span class="news-tag">Sự kiện</span>
                         <h3>Đêm hội phim Châu Á</h3>
@@ -260,7 +268,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                     </div>
                 </div>
                 <div class="news-card">
-                    <img src="/src/img/news/promo3.jpg" alt="Promotion 3">
+                    <!-- <img src="/src/img/news/promo3.jpg" alt="Promotion 3"> -->
                     <div class="news-content">
                         <span class="news-tag">Tin tức</span>
                         <h3>Khai trương phòng chiếu IMAX</h3>

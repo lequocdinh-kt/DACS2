@@ -581,6 +581,31 @@ body {
     background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
+.btn-booking-small {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-booking-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+    background: linear-gradient(135deg, #ff4b2b 0%, #ff416c 100%);
+}
+
 .coming-badge {
     position: absolute;
     top: 15px;
@@ -606,6 +631,15 @@ body {
 }
 
 .small-genre {
+    font-size: 14px;
+    color: #a0aec0;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.small-duration {
     font-size: 14px;
     color: #a0aec0;
     margin-bottom: 8px;

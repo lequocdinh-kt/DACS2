@@ -77,47 +77,104 @@ function loadShowtimes() {
 
 // Coming Soon Movies Slider
 let currentPosition = 0;
+let nowShowingPosition = 0;
 const track = document.getElementById('comingSoonTrack');
+const nowShowingTrack = document.getElementById('nowShowingTrack');
 let isSliding = false;
 
-function slideMovies(direction) {
-    if (!track || isSliding) return;
+function slideMovies(direction, trackId = 'comingSoonTrack') {
+    if (isSliding) return;
+    
+    const currentTrack = document.getElementById(trackId);
+    if (!currentTrack) {
+        console.log('Track not found:', trackId);
+        return;
+    }
     
     isSliding = true;
-    const cards = track.querySelectorAll('.movie-card-small');
-    if (cards.length === 0) return;
+    const cards = currentTrack.querySelectorAll('.movie-card-small');
+    if (cards.length === 0) {
+        isSliding = false;
+        console.log('No cards found');
+        return;
+    }
     
     const cardWidth = cards[0].offsetWidth + 20; // width + gap
-    const wrapper = track.parentElement;
+    const wrapper = currentTrack.parentElement;
     const wrapperWidth = wrapper.offsetWidth;
     const visibleCards = Math.floor(wrapperWidth / cardWidth);
     const maxPosition = -(cards.length - visibleCards) * cardWidth;
     
+    console.log('Debug:', {
+        trackId,
+        cardsCount: cards.length,
+        cardWidth,
+        wrapperWidth,
+        visibleCards,
+        maxPosition
+    });
+    
+    // Nếu tất cả cards đều hiển thị, không cần slide
+    if (maxPosition >= 0) {
+        console.log('All cards visible, no need to slide');
+        isSliding = false;
+        return;
+    }
+    
+    // Sử dụng biến position riêng cho mỗi track
+    let position = trackId === 'nowShowingTrack' ? nowShowingPosition : currentPosition;
+    
     if (direction === 'next') {
-        currentPosition -= cardWidth * visibleCards;
-        if (currentPosition < maxPosition) {
-            currentPosition = 0; // Loop back to start
+        // Nút phải: đi từ trái sang phải (giảm position để slide sang trái)
+        position -= cardWidth * visibleCards;
+        // Nếu đã hết phim, quay lại đầu
+        if (position < maxPosition) {
+            position = 0;
         }
     } else {
-        currentPosition += cardWidth * visibleCards;
-        if (currentPosition > 0) {
-            currentPosition = maxPosition < 0 ? maxPosition : 0; // Loop to end
+        // Nút trái: đi từ phải sang trái (tăng position để slide sang phải)
+        position += cardWidth * visibleCards;
+        // Nếu đã về đầu, nhảy đến cuối
+        if (position > 0) {
+            position = maxPosition;
         }
     }
     
-    track.style.transform = `translateX(${currentPosition}px)`;
+    // Lưu lại position cho track tương ứng
+    if (trackId === 'nowShowingTrack') {
+        nowShowingPosition = position;
+    } else {
+        currentPosition = position;
+    }
+    
+    currentTrack.style.transform = `translateX(${position}px)`;
+    
+    console.log('Sliding:', trackId, direction, 'Position:', position);
     
     setTimeout(() => {
         isSliding = false;
     }, 600);
 }
 
+// Expose function to global scope
+window.slideMovies = slideMovies;
+
 // Auto slide for coming soon movies every 5 seconds
 if (track) {
     const cards = track.querySelectorAll('.movie-card-small');
     if (cards.length > 4) {
         setInterval(() => {
-            slideMovies('next');
+            slideMovies('next', 'comingSoonTrack');
+        }, 5000);
+    }
+}
+
+// Auto slide for now showing movies every 5 seconds
+if (nowShowingTrack) {
+    const cards = nowShowingTrack.querySelectorAll('.movie-card-small');
+    if (cards.length > 4) {
+        setInterval(() => {
+            slideMovies('next', 'nowShowingTrack');
         }, 5000);
     }
 }
