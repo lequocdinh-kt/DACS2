@@ -359,6 +359,51 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+/**
+ * Kiểm tra đăng nhập trước khi đặt vé
+ */
+function checkLoginBeforeBooking(event, movieID) {
+    // Kiểm tra xem có session userID không (PHP sẽ set biến này)
+    if (typeof isUserLoggedIn !== 'undefined' && !isUserLoggedIn) {
+        event.preventDefault(); // Ngăn chặn chuyển trang
+        
+        // Mở modal đăng nhập
+        if (typeof openAuthModal === 'function') {
+            openAuthModal('login');
+            
+            // Lưu movieID vào sessionStorage để sau khi đăng nhập sẽ redirect đến trang đặt vé
+            sessionStorage.setItem('pendingBooking', movieID);
+        } else {
+            // Fallback nếu không có modal - redirect đến trang login
+            window.location.href = '/src/views/login.php?redirect=/src/views/booking_step1_showtimes.php?movieID=' + movieID;
+        }
+        
+        return false;
+    }
+    
+    return true;
+}
+
+/**
+ * Sau khi đăng nhập thành công, redirect đến trang đặt vé nếu có
+ */
+function checkPendingBooking() {
+    const pendingMovieID = sessionStorage.getItem('pendingBooking');
+    if (pendingMovieID) {
+        sessionStorage.removeItem('pendingBooking');
+        window.location.href = '/src/views/booking_step1_showtimes.php?movieID=' + pendingMovieID;
+    }
+}
+
+// Kiểm tra pending booking khi trang load
+document.addEventListener('DOMContentLoaded', function() {
+    // Chỉ check nếu user đã đăng nhập
+    if (typeof isUserLoggedIn !== 'undefined' && isUserLoggedIn) {
+        checkPendingBooking();
+    }
+});
+
 // Expose functions to global scope
 window.openTrailer = openTrailer;
 window.closeTrailer = closeTrailer;
+window.checkLoginBeforeBooking = checkLoginBeforeBooking;

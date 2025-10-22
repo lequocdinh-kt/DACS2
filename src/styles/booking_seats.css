@@ -1,0 +1,457 @@
+/* ==============================
+   BOOKING SEATS - CSS
+   ============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.booking-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+.booking-header {
+    background: white;
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-back {
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back:hover {
+    background: #5568d3;
+    transform: translateX(-5px);
+}
+
+.booking-header h1 {
+    font-size: 1.8em;
+    color: #333;
+}
+
+.timer {
+    background: #ff4444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Showtime Info Card */
+.showtime-info-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.mini-poster {
+    width: 80px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.info-details h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-meta {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.info-meta span {
+    background: #f0f0f0;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.info-meta span i {
+    margin-right: 5px;
+}
+
+/* Progress Steps */
+.booking-steps {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-number {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s;
+}
+
+.step.active .step-number {
+    background: #667eea;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+.step.completed .step-number {
+    background: #4caf50;
+    color: white;
+}
+
+.step-label {
+    font-size: 0.85em;
+    color: #666;
+    font-weight: 500;
+}
+
+.step-line {
+    width: 60px;
+    height: 2px;
+    background: #e0e0e0;
+    margin: 0 10px;
+}
+
+.step-line.completed {
+    background: #4caf50;
+}
+
+/* Cinema Screen */
+.screen-container {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.screen {
+    background: linear-gradient(to bottom, #444, #222);
+    color: white;
+    padding: 15px 100px;
+    border-radius: 0 0 50% 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.screen i {
+    margin-right: 10px;
+}
+
+/* Seats Container */
+.seats-container {
+    background: white;
+    border-radius: 15px;
+    padding: 40px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.row-label {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #667eea;
+    font-size: 1.1em;
+}
+
+.seats-wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+/* Seat */
+.seat {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px 8px 0 0;
+    background: #4caf50;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    user-select: none;
+}
+
+.seat:hover:not([data-disabled]) {
+    transform: scale(1.15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.seat-number {
+    color: white;
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+/* Seat States */
+.seat.available {
+    background: #4caf50;
+}
+
+.seat.selected {
+    background: #667eea;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.seat.booked {
+    background: #999;
+    cursor: not-allowed;
+}
+
+.seat.locked {
+    background: #ff9800;
+    cursor: not-allowed;
+    animation: blink 1.5s infinite;
+}
+
+.seat.my-lock {
+    background: #667eea;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Seat Types */
+.seat.vip {
+    background: #ffd700;
+}
+
+.seat.vip.selected {
+    background: #ffaa00;
+}
+
+.seat.couple {
+    width: 85px;
+}
+
+/* Legend */
+.seat-legend {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-item .seat {
+    width: 30px;
+    height: 30px;
+    cursor: default;
+}
+
+.legend-item span {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Booking Summary */
+.booking-summary {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    bottom: 20px;
+}
+
+.summary-content {
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.summary-row.total {
+    background: #667eea;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.btn-continue {
+    width: 100%;
+    padding: 15px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-continue:hover:not(:disabled) {
+    background: #5568d3;
+    transform: scale(1.02);
+}
+
+.btn-continue:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Warning */
+.booking-warning {
+    background: #fff3cd;
+    border: 2px solid #ffeb3b;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #856404;
+}
+
+.booking-warning i {
+    font-size: 1.5em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .booking-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .booking-header h1 {
+        font-size: 1.3em;
+    }
+    
+    .showtime-info-card {
+        flex-direction: column;
+    }
+    
+    .screen {
+        padding: 12px 50px;
+        font-size: 0.9em;
+    }
+    
+    .seat {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .seats-wrapper {
+        gap: 5px;
+    }
+    
+    .seat-row {
+        gap: 5px;
+    }
+    
+    .row-label {
+        width: 25px;
+        font-size: 0.9em;
+    }
+    
+    .booking-steps {
+        overflow-x: auto;
+        padding: 20px 10px;
+    }
+    
+    .step-line {
+        width: 30px;
+    }
+    
+    .seat-legend {
+        gap: 15px;
+    }
+}

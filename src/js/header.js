@@ -318,3 +318,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Export functions to global scope for use in other scripts
+window.openAuthModal = openAuthModal;
+window.closeAuthModal = closeAuthModal;
+window.switchAuthForm = switchAuthForm;

@@ -36,7 +36,9 @@ require_once __DIR__ . '/../controllers/homeController.php';
                                     <span><i class="fas fa-star"></i> <?php echo $movie['rating']; ?></span>
                                 </div>
                                 <div class="banner-buttons">
-                                    <a href="/src/views/booking.php?movieID=<?php echo $movie['movieID']; ?>" class="btn-primary">
+                                    <a href="/src/views/booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" 
+                                       class="btn-primary" 
+                                       onclick="return checkLoginBeforeBooking(event, <?php echo $movie['movieID']; ?>)">
                                         <i class="fas fa-ticket-alt"></i> Đặt vé ngay
                                     </a>
                                     <a href="/src/views/movie_detail.php?id=<?php echo $movie['movieID']; ?>" class="btn-secondary">
@@ -129,8 +131,9 @@ require_once __DIR__ . '/../controllers/homeController.php';
                                         <i class="fas fa-star"></i>
                                         <span><?php echo $movie['rating']; ?></span>
                                     </div>
-                                    <a href="/src/views/booking.php?movieID=<?php echo $movie['movieID']; ?>" 
-                                       class="btn-booking-small">
+                                    <a href="/src/views/booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" 
+                                       class="btn-booking-small" 
+                                       onclick="return checkLoginBeforeBooking(event, <?php echo $movie['movieID']; ?>)">
                                         <i class="fas fa-ticket-alt"></i> Đặt vé
                                     </a>
                                 </div>
@@ -300,7 +303,11 @@ require_once __DIR__ . '/../controllers/homeController.php';
         </div>
     </div>
 
-
+    <!-- Pass PHP session state to JavaScript -->
+    <script>
+        // Biến global để kiểm tra đăng nhập
+        var isUserLoggedIn = <?php echo isset($_SESSION['userID']) ? 'true' : 'false'; ?>;
+    </script>
     <script src="/src/js/home.js"></script>
 </body>
 </html>
