@@ -23,7 +23,7 @@ if ($isLocalhost) {
     
 } else {
     // Cấu hình cho HOSTING (cPanel)
-    define('DB_HOST', 'onehost-webhn072403.000nethost.com');  // Thường là localhost trên cPanel
+    define('DB_HOST', 'localhost');  // Thường là localhost trên cPanel
     define('DB_NAME', 'slrnkpifhosting_DACS2');  // Đổi thành tên database thực tế
     define('DB_USER', 'slrnkpifhosting_xiaoying');  // Đổi thành user database
     define('DB_PASS', 'cCQ!FyTtD;)n1IN');  // Đổi thành password
