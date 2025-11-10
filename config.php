@@ -31,9 +31,9 @@ if ($isLocalhost) {
     define('BASE_URL', 'https://lequocdinh.id.vn');
     define('BASE_PATH', '/');
     
-    // Ẩn lỗi trên production
-    ini_set('display_errors', 0);
-    error_reporting(0);
+    // TẠM THỜI BẬT LỖI ĐỂ DEBUG - NHỚ TẮT SAU KHI FIX XONG!
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
     ini_set('log_errors', 1);
     ini_set('error_log', __DIR__ . '/error.log');
 }
