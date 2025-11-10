@@ -23,15 +23,16 @@ if ($isLocalhost) {
     
 } else {
     // Cấu hình cho HOSTING (cPanel)
-    define('DB_HOST', 'localhost');  // Thường là localhost trên cPanel
-    define('DB_NAME', 'slrnkpifhosting_DACS2');  // Đổi thành tên database thực tế
-    define('DB_USER', 'slrnkpifhosting_xiaoying');  // Đổi thành user database
-    define('DB_PASS', 'cCQ!FyTtD;)n1IN');  // Đổi thành password
+    // LƯU Ý: Kiểm tra thông tin chính xác trong cPanel → MySQL Databases
+    define('DB_HOST', 'localhost');  // Thường là 'localhost' trên hầu hết hosting
+    define('DB_NAME', 'slrnkpifhosting_DACS2');
+    define('DB_USER', 'slrnkpifhosting_xiaoying');
+    define('DB_PASS', 'cCQ!FyTtD;)n1IN');
     
     define('BASE_URL', 'https://lequocdinh.id.vn');
     define('BASE_PATH', '/');
     
-    // TẠM THỜI BẬT LỖI ĐỂ DEBUG - NHỚ TẮT SAU KHI FIX XONG!
+    // Bật lỗi tạm thời để debug (TẮT sau khi fix xong!)
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
     ini_set('log_errors', 1);
