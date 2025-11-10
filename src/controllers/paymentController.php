@@ -419,7 +419,7 @@ function checkBankAPI($bookingID, $expectedAmount) {
     // return (time() % 40) > 20;
     
     // ==== API THẬT - CASSO.VN ====
-    $cassoApiKey = 'AK_CS.cb233d00af6411f0ba45593407176be8.8PgT5lWKcnEmHbG4DiO2svgwbIafPPDorZZB67H04SppLJ1c7JvqVehunbj5L8GPajwjRGSm'; // Lấy từ Casso Dashboard
+    $cassoApiKey = 'AK_CS.b7c0fc30be0411f0a73fcb966f33aa53.kSGJs2qRSV16vbwLf0cqKQfdVz4ymIfDYHJzTc9JAs0dQbFQQIBbrZ4TWsOWQ5B45j9MjKzR'; // Lấy từ Casso Dashboard
     
     // Log để debug
     error_log("🔍 Checking bank API for booking: $bookingID, amount: $expectedAmount");
