@@ -25,38 +25,23 @@ try {
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     
-    // Kết nối thành công (không echo để tránh làm hỏng output)
-    // error_log("✅ Database connected: $dbname");
-    
 } catch (PDOException $e) {
     // Log lỗi
-    error_log("❌ Database connection error: " . $e->getMessage());
+    error_log("Database Error: " . $e->getMessage());
     
-    // Hiển thị lỗi thân thiện (chỉ khi development)
+    // Hiển thị lỗi đơn giản
     if (defined('DB_HOST') && DB_HOST === 'localhost') {
-        die("
-            <div style='font-family: Arial; padding: 20px; background: #ffebee; border-left: 4px solid #f44336;'>
-                <h3>❌ Lỗi Kết Nối Database</h3>
-                <p><strong>Message:</strong> {$e->getMessage()}</p>
-                <p><strong>Host:</strong> $host</p>
-                <p><strong>Database:</strong> $dbname</p>
-                <p><strong>User:</strong> $username</p>
-                <hr>
-                <h4>✅ Giải pháp:</h4>
-                <ol>
-                    <li>Kiểm tra XAMPP/WAMP đã chạy chưa?</li>
-                    <li>Database '<strong>$dbname</strong>' đã tạo chưa?</li>
-                    <li>Import file <code>database_core.sql</code></li>
-                    <li>Kiểm tra username/password MySQL</li>
-                </ol>
-            </div>
-        ");
+        die('<div style="padding:20px;background:#ffebee;border-left:4px solid #f44336;">
+            <h3>Database Connection Error</h3>
+            <p><strong>Message:</strong> ' . htmlspecialchars($e->getMessage()) . '</p>
+            <p><strong>Host:</strong> ' . htmlspecialchars($host) . '</p>
+            <p><strong>Database:</strong> ' . htmlspecialchars($dbname) . '</p>
+            <p><strong>User:</strong> ' . htmlspecialchars($username) . '</p>
+        </div>');
     } else {
-        // Production: Không hiển thị chi tiết lỗi
-        die("Database connection error. Please contact administrator.");
+        die('Database connection error. Please contact administrator.');
     }
 }
-?>
 
 
 
