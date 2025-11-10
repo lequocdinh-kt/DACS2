@@ -26,7 +26,7 @@ if ($isLocalhost) {
     define('DB_HOST', 'onehost-webhn072403.000nethost.com');  // Thường là localhost trên cPanel
     define('DB_NAME', 'slrnkpifhosting_DACS2');  // Đổi thành tên database thực tế
     define('DB_USER', 'slrnkpifhosting_xiaoying');  // Đổi thành user database
-    define('DB_PASS', '2D3i$>?+ZZ!`_bc');  // Đổi thành password
+    define('DB_PASS', 'cCQ!FyTtD;)n1IN');  // Đổi thành password
     
     define('BASE_URL', 'https://lequocdinh.id.vn');
     define('BASE_PATH', '/');
