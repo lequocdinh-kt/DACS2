@@ -20,8 +20,8 @@ body {
 /* Hero Banner */
 .hero-banner {
     position: relative;
-    height: 70vh;
-    min-height: 500px;
+    width: 100%;
+    aspect-ratio: 2048 / 858;
     overflow: hidden;
 }
 
@@ -498,7 +498,8 @@ body {
 
 .small-poster {
     position: relative;
-    height: 350px;
+    width: 100%;
+    aspect-ratio: 47 / 70;
     overflow: hidden;
 }
 
