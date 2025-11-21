@@ -214,7 +214,7 @@ manager@vkucinema.com → Manager (password: 123456)
 | `posterURL` | VARCHAR(500) | | Link poster dọc |
 | `posterHorizontalURL` | VARCHAR(500) | | Link poster ngang |
 | `trailerURL` | VARCHAR(500) | | Link trailer YouTube |
-| `author` | VARCHAR(255) | | Đạo diễn |
+| `author` | VARCHAR(255) | | Đạo diễn |0
 | `releaseDate` | DATE | | Ngày ra mắt |
 | `ageRating` | VARCHAR(10) | DEFAULT 'P' | Độ tuổi (P, C13, C16, C18) |
 | `language` | VARCHAR(50) | DEFAULT 'Vietnamese' | Ngôn ngữ |

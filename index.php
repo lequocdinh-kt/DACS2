@@ -20,7 +20,6 @@ session_start();
     
     <?php include 'src/views/home.php'; ?>
 
-
     <?php include 'src/views/footer.php'; ?>
 </body>
 

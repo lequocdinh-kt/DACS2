@@ -384,8 +384,15 @@ body {
     gap: 12px;
 }
 
-/* Responsive */
+/* ==================== MOBILE RESPONSIVE ==================== */
+
+/* Tablet (768px and below) */
 @media (max-width: 768px) {
+    /* BANNER - Tablet */
+    .hero-banner {
+        aspect-ratio: 16 / 9; /* Tỷ lệ dễ nhìn hơn trên tablet */
+    }
+    
     .banner-overlay {
         padding: 0 30px;
     }
@@ -394,16 +401,58 @@ body {
         font-size: 36px;
     }
     
+    .banner-description {
+        font-size: 16px;
+    }
+    
     .banner-buttons {
         flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .banner-controls {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .banner-dots {
+        bottom: 15px;
+    }
+    
+    /* SECTION HEADER - Tablet */
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .section-header h2 {
+        font-size: 28px;
+    }
+    
+    /* MOVIES SECTION - Tablet */
+    .movies-section {
+        padding: 50px 0;
     }
     
     .movies-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+    
+    /* NEWS SECTION - Tablet */
+    .news-section {
+        padding: 50px 0;
     }
     
     .news-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
 
@@ -756,7 +805,7 @@ body {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
 
-/* Responsive for Coming Soon */
+/* MOVIE SLIDER - Tablet (768px and below) */
 @media (max-width: 768px) {
     .movies-slider {
         padding: 0 50px;
@@ -769,11 +818,7 @@ body {
     }
     
     .movie-card-small {
-        flex: 0 0 200px;
-    }
-    
-    .small-poster {
-        height: 280px;
+        flex: 0 0 180px; /* Nhỏ hơn cho tablet */
     }
     
     .btn-play-small {
@@ -782,7 +827,8 @@ body {
         font-size: 18px;
     }
     
-    .btn-detail-small {
+    .btn-detail-small,
+    .btn-booking-small {
         padding: 10px 12px;
         font-size: 13px;
     }
@@ -798,6 +844,11 @@ body {
     
     .card-info h4 {
         font-size: 16px;
+    }
+    
+    .small-genre,
+    .small-duration {
+        font-size: 12px;
     }
 }
 
@@ -919,7 +970,7 @@ body {
     }
 }
 
-/* Responsive Modal */
+/* TRAILER MODAL - Tablet (768px and below) */
 @media (max-width: 768px) {
     .trailer-modal-content {
         width: 95%;
@@ -940,14 +991,194 @@ body {
     }
 }
 
+/* ==================== MOBILE PHONE (480px and below) ==================== */
 @media (max-width: 480px) {
+    /* BANNER - Mobile */
+    .hero-banner {
+        aspect-ratio: 4 / 3; /* Tỷ lệ vuông hơn cho mobile */
+    }
+    
+    .banner-overlay {
+        padding: 0 20px;
+    }
+    
+    .banner-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .banner-description {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .banner-meta {
+        font-size: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    /* ẨN CÁC NÚT Ở BANNER TRÊN MOBILE */
+    .banner-buttons {
+        display: none !important;
+    }
+    
+    .btn-primary, .btn-secondary, .btn-trailer {
+        display: none !important;
+    }
+    
+    .banner-prev, .banner-next {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .banner-controls {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .banner-dots {
+        bottom: 10px;
+    }
+    
+    /* SECTION HEADER - Mobile */
+    .section-header h2 {
+        font-size: 24px;
+    }
+    
+    .movie-count {
+        font-size: 14px;
+    }
+    
+    .view-all {
+        font-size: 14px;
+    }
+    
+    /* MOVIES SECTION - Mobile */
+    .movies-section {
+        padding: 30px 0;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* MOVIE SLIDER - Mobile */
+    .movies-slider {
+        padding: 0;
+        margin: 0 auto;
+    }
+    
+    /* ẨN NÚT TRÁI PHẢI TRÊN MOBILE - Dùng touch swipe */
+    .slider-btn {
+        display: none !important;
+    }
+    
+    /* Cho phép swipe trên mobile */
+    .movies-slider-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x center; /* Snap vào trung tâm */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+        scroll-padding: calc(50% - 110px); /* Padding để card ở giữa */
+    }
+    
+    .movies-slider-wrapper::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    
+    .movies-track {
+        transition: none; /* Tắt transition cho touch scroll mượt hơn */
+        padding: 0 calc(50% - 110px); /* Padding để card đầu/cuối ở giữa */
+        justify-content: flex-start;
+    }
+    
+    .movie-card-small {
+        flex: 0 0 220px; /* Kích thước card lớn hơn, hiện 1 card */
+        scroll-snap-align: center; /* Card snap vào giữa */
+        scroll-snap-stop: always; /* Luôn dừng tại mỗi card */
+    }
+    
+    .btn-play-small {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .card-info {
+        padding: 15px;
+    }
+    
+    .card-info h4 {
+        font-size: 14px;
+    }
+    
+    .small-genre,
+    .small-duration {
+        font-size: 11px;
+    }
+    
+    .small-rating {
+        font-size: 14px;
+    }
+    
+    .btn-detail-small,
+    .btn-booking-small {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    
+    .countdown-timer {
+        font-size: 10px;
+        padding: 5px 8px;
+    }
+    
+    .movie-badge,
+    .coming-badge {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+    
+    /* NEWS SECTION - Mobile */
+    .news-section {
+        padding: 30px 0;
+    }
+    
+    .news-card img {
+        height: 180px;
+    }
+    
+    .news-content {
+        padding: 20px;
+    }
+    
+    .news-content h3 {
+        font-size: 18px;
+    }
+    
+    .news-content p {
+        font-size: 14px;
+    }
+    
+    /* TRAILER MODAL - Mobile */
     .trailer-modal-content {
         width: 98%;
         padding: 15px;
     }
     
     .trailer-title {
-        font-size: 18px;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    .trailer-close-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
     }
 }
 

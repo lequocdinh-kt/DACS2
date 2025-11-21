@@ -92,7 +92,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
             </div>
             <?php if (!empty($nowShowingMovies)): ?>
                 <div class="movies-slider">
-                    <button class="slider-btn prev" onclick="slideMovies('next', 'nowShowingTrack')">
+                    <button class="slider-btn prev" onclick="slideMovies('prev', 'nowShowingTrack')">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                     <div class="movies-slider-wrapper">
@@ -141,7 +141,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                         <?php endforeach; ?>
                         </div>
                     </div>
-                    <button class="slider-btn next" onclick="slideMovies('prev', 'nowShowingTrack')">
+                    <button class="slider-btn next" onclick="slideMovies('next', 'nowShowingTrack')">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
