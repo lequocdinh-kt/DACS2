@@ -1,5 +1,5 @@
 /* ==============================
-   BOOKING SHOWTIMES - CSS
+   BOOKING SHOWTIMES - CSS (CGV Style)
    ============================== */
 
 * {
@@ -10,9 +10,10 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0a0e27;
     min-height: 100vh;
     padding: 20px;
+    color: #fff;
 }
 
 .booking-container {
@@ -22,18 +23,20 @@ body {
 
 /* Header */
 .booking-header {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .btn-back {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-decoration: none;
     padding: 12px 25px;
@@ -45,24 +48,26 @@ body {
 }
 
 .btn-back:hover {
-    background: #5568d3;
     transform: translateX(-5px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
 .booking-header h1 {
     font-size: 2em;
-    color: #333;
+    color: #fff;
     flex: 1;
     text-align: center;
 }
 
 /* Movie Info Card */
 .movie-info-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     display: flex;
     gap: 30px;
 }
@@ -72,7 +77,7 @@ body {
     height: 300px;
     border-radius: 10px;
     object-fit: cover;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .movie-details {
@@ -81,7 +86,7 @@ body {
 
 .movie-details h2 {
     font-size: 2em;
-    color: #333;
+    color: #fff;
     margin-bottom: 15px;
 }
 
@@ -93,10 +98,10 @@ body {
 }
 
 .movie-meta span {
-    background: #f0f0f0;
+    background: rgba(255, 255, 255, 0.1);
     padding: 8px 15px;
     border-radius: 20px;
-    color: #666;
+    color: #ccc;
     font-size: 0.9em;
 }
 
@@ -104,19 +109,21 @@ body {
     margin-right: 5px;
 }
 
-.movie-description {
-    color: #666;
-    line-height: 1.8;
-    margin-bottom: 15px;
+.age-rating {
+    background: #ff6b35 !important;
+    color: white !important;
+    font-weight: 600;
 }
 
 /* Progress Steps */
 .booking-steps {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -133,8 +140,8 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #e0e0e0;
-    color: #999;
+    background: rgba(255, 255, 255, 0.1);
+    color: #666;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,26 +151,26 @@ body {
 }
 
 .step.active .step-number {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
 }
 
-.step.completed .step-number {
-    background: #4caf50;
-    color: white;
-}
-
 .step-label {
     font-size: 0.9em;
-    color: #666;
+    color: #999;
     font-weight: 500;
+}
+
+.step.active .step-label {
+    color: #fff;
+    font-weight: 600;
 }
 
 .step-line {
     width: 80px;
     height: 2px;
-    background: #e0e0e0;
+    background: rgba(255, 255, 255, 0.1);
     margin: 0 10px;
 }
 
@@ -171,242 +178,357 @@ body {
     background: #4caf50;
 }
 
-/* Date Selector */
-.date-selector {
-    background: white;
+/* Section Container */
+.section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.date-selector h2 {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.dates-container {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-}
-
-.dates-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-.dates-container::-webkit-scrollbar-thumb {
-    background: #667eea;
-    border-radius: 4px;
-}
-
-.date-item {
-    min-width: 120px;
-    padding: 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    background: white;
-}
-
-.date-item:hover {
-    border-color: #667eea;
-    transform: translateY(-5px);
-}
-
-.date-item.active {
-    background: #667eea;
-    border-color: #667eea;
-    color: white;
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
-
-.date-day {
-    font-size: 0.9em;
-    margin-bottom: 5px;
-}
-
-.date-number {
+.section h3 {
     font-size: 1.5em;
-    font-weight: bold;
+    margin-bottom: 25px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.date-month {
-    font-size: 0.85em;
-    margin-top: 5px;
+.section h3 i {
+    color: #667eea;
 }
 
-/* Showtimes List */
-.showtimes-section {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.showtimes-section h2 {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.showtimes-grid {
+/* ==============================
+   DATE CALENDAR (CGV Style)
+   ============================== */
+.date-calendar {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 12px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-.showtime-card {
-    border: 2px solid #e0e0e0;
+.date-calendar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.date-calendar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.date-btn {
+    padding: 15px 10px;
+    text-align: center;
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
-    padding: 20px;
-    transition: all 0.3s;
+    text-decoration: none;
+    color: #999;
+    transition: all 0.3s ease;
+    font-size: 14px;
     cursor: pointer;
-    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
 }
 
-.showtime-card:hover {
+.date-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 107, 53, 0.3);
+}
+
+.date-btn.active {
+    border-color: #ff6b35;
+    background: rgba(255, 107, 53, 0.15);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+.date-btn .day-name {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+}
+
+.date-btn.active .day-name {
+    color: #ff6b35;
+}
+
+.date-btn .day-number {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* ==============================
+   ROOM TYPE FILTER
+   ============================== */
+.room-filter {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
     border-color: #667eea;
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+    color: #fff;
+    background: rgba(102, 126, 234, 0.1);
 }
 
-.showtime-card.full {
-    opacity: 0.5;
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* ==============================
+   SHOWTIMES BY CINEMA (CGV Style)
+   ============================== */
+.showtimes-by-cinema {
+    /* Container for all cinemas */
+}
+
+.cinema-block {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cinema-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #fff;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cinema-name i {
+    color: #ff6b35;
+}
+
+.room-showtimes {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.room-showtimes:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.room-label {
+    font-size: 15px;
+    color: #ccc;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.room-label i {
+    color: #667eea;
+    font-size: 14px;
+}
+
+.room-type-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.time-btn {
+    padding: 18px 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 110px;
+}
+
+.time-btn:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.time-btn .time-text {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.time-btn .seats-info {
+    font-size: 13px;
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.time-btn.full {
+    opacity: 0.4;
+    pointer-events: none;
     cursor: not-allowed;
 }
 
-.showtime-time {
-    font-size: 2em;
-    font-weight: bold;
-    color: #667eea;
-    margin-bottom: 10px;
-}
-
-.showtime-room {
-    color: #666;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.room-badge {
-    background: #f0f0f0;
-    padding: 4px 10px;
-    border-radius: 5px;
-    font-size: 0.85em;
-    margin-left: 10px;
-}
-
-.room-badge.vip {
-    background: #ffd700;
-    color: #333;
-}
-
-.room-badge.imax {
-    background: #ff4444;
-    color: white;
-}
-
-.showtime-seats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #e0e0e0;
-}
-
-.seats-available {
-    color: #4caf50;
-    font-weight: bold;
-}
-
-.seats-available.low {
-    color: #ff9800;
-}
-
-.seats-available.full {
+.time-btn.full .seats-info {
     color: #f44336;
 }
 
-.showtime-price {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-}
-
-.btn-select {
-    width: 100%;
-    padding: 12px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: all 0.3s;
-}
-
-.btn-select:hover {
-    background: #5568d3;
-    transform: scale(1.05);
-}
-
-.btn-select:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-}
-
-/* Loading */
-.loading {
+/* No Showtimes */
+.no-showtimes {
     text-align: center;
-    padding: 50px;
+    padding: 60px 20px;
     color: #666;
 }
 
-.loading i {
-    font-size: 3em;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Empty State */
-.empty-state {
-    text-align: center;
-    padding: 50px;
-    color: #999;
-}
-
-.empty-state i {
+.no-showtimes i {
     font-size: 4em;
     margin-bottom: 20px;
+    color: #444;
 }
 
-/* Responsive */
+.no-showtimes p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.no-showtimes .sub-text {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Booking Note */
+.booking-note {
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.booking-note h4 {
+    color: #ff6b35;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+.booking-note ul {
+    list-style: none;
+    padding: 0;
+}
+
+.booking-note li {
+    color: #ccc;
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.booking-note li:before {
+    content: '•';
+    color: #ff6b35;
+    font-weight: bold;
+    position: absolute;
+    left: 8px;
+}
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
     .booking-header {
-        flex-direction: column;
+        flex-direction: row;
         gap: 15px;
+        padding: 20px;
+        position: relative;
+    }
+    
+    .btn-back {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        padding: 10px;
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        justify-content: center;
+    }
+    
+    .btn-back .btn-text {
+        display: none;
+    }
+    
+    .btn-back:hover {
+        transform: scale(1.1);
+    }
+    
+    .btn-back svg,
+    .btn-back i {
+        margin: 0 !important;
     }
     
     .booking-header h1 {
         font-size: 1.5em;
+        margin-left: 50px;
     }
     
     .movie-info-card {
         flex-direction: column;
         align-items: center;
+        padding: 20px;
     }
     
     .movie-poster {
@@ -433,7 +555,55 @@ body {
         font-size: 0.75em;
     }
     
-    .showtimes-grid {
-        grid-template-columns: 1fr;
+    .section {
+        padding: 20px;
+    }
+    
+    .date-calendar {
+        grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+        gap: 8px;
+    }
+    
+    .date-btn {
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+    
+    .date-btn .day-number {
+        font-size: 16px;
+    }
+    
+    .room-filter {
+        gap: 8px;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    
+    .cinema-block {
+        padding: 20px 15px;
+    }
+    
+    .cinema-name {
+        font-size: 18px;
+    }
+    
+    .time-slots {
+        gap: 10px;
+    }
+    
+    .time-btn {
+        padding: 12px 18px;
+        min-width: 80px;
+    }
+    
+    .time-btn .time-text {
+        font-size: 14px;
+    }
+    
+    .time-btn .seats-info {
+        font-size: 10px;
     }
 }

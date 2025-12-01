@@ -31,9 +31,28 @@ try {
         exit();
     }
 
-    $dates = get_available_dates_by_movie($movieID, 7);
-    $selectedDate = $_GET['date'] ?? ($dates[0] ?? date('Y-m-d'));
+    // Tạo 20 ngày từ hôm nay
+    $dates = [];
+    for ($i = 0; $i < 20; $i++) {
+        $dates[] = date('Y-m-d', strtotime("+$i days"));
+    }
+    
+    $selectedDate = $_GET['date'] ?? $dates[0];
     $showtimes = get_showtimes_by_movie($movieID, $selectedDate);
+    
+    // Group showtimes by room
+    $groupedShowtimes = [];
+    foreach ($showtimes as $showtime) {
+        $roomKey = $showtime['roomName'];
+        if (!isset($groupedShowtimes[$roomKey])) {
+            $groupedShowtimes[$roomKey] = [
+                'roomName' => $showtime['roomName'],
+                'roomType' => $showtime['roomType'],
+                'times' => []
+            ];
+        }
+        $groupedShowtimes[$roomKey]['times'][] = $showtime;
+    }
 } catch (Exception $e) {
     error_log("Error in booking_step1_showtimes.php: " . $e->getMessage());
     error_log("Stack trace: " . $e->getTraceAsString());
@@ -54,6 +73,16 @@ function format_date_vn($date) {
     
     $days = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
     return $days[$d->format('w')] . ', ' . $d->format('d/m');
+}
+
+function format_date_calendar($date) {
+    $d = new DateTime($date);
+    $daysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return [
+        'dayName' => $daysEn[$d->format('w')],
+        'dayNumber' => $d->format('d'),
+        'month' => $d->format('m')
+    ];
 }
 
 function format_time($time) {
@@ -148,8 +177,8 @@ function get_room_type_label($type) {
     <div class="booking-container"<?php if ($requireLogin): ?> style="filter: blur(5px); pointer-events: none;"<?php endif; ?>>
         <!-- Header -->
         <div class="booking-header">
-            <a href="javascript:history.back()" class="btn-back">
-                <i class="fas fa-arrow-left"></i> Quay lại
+            <a href="javascript:history.back()" class="btn-back" title="Quay lại">
+                <i class="fas fa-arrow-left"></i><span class="btn-text"> Quay lại</span>
             </a>
             <h1>Đặt vé xem phim</h1>
         </div>
@@ -197,13 +226,26 @@ function get_room_type_label($type) {
         <!-- Date Selector -->
         <div class="section">
             <h3><i class="fas fa-calendar-alt"></i> Chọn ngày chiếu</h3>
-            <div class="date-selector">
+            <div class="date-calendar">
                 <?php foreach ($dates as $date): ?>
+                    <?php $dateInfo = format_date_calendar($date); ?>
                     <a href="?movieID=<?php echo $movieID; ?>&date=<?php echo $date; ?>" 
                        class="date-btn <?php echo $date === $selectedDate ? 'active' : ''; ?>">
-                        <?php echo format_date_vn($date); ?>
+                        <span class="day-name"><?php echo $dateInfo['dayName']; ?></span>
+                        <span class="day-number"><?php echo $dateInfo['dayNumber']; ?></span>
                     </a>
                 <?php endforeach; ?>
+            </div>
+        </div>
+        
+        <!-- Room Type Filter -->
+        <div class="section">
+            <h3><i class="fas fa-filter"></i> Loại phòng chiếu</h3>
+            <div class="room-filter">
+                <button class="filter-btn active" data-type="all">Tất cả</button>
+                <button class="filter-btn" data-type="2D">2D</button>
+                <button class="filter-btn" data-type="3D">3D</button>
+                <button class="filter-btn" data-type="IMAX">IMAX</button>
             </div>
         </div>
 
@@ -214,43 +256,42 @@ function get_room_type_label($type) {
             <?php if (empty($showtimes)): ?>
                 <div class="no-showtimes">
                     <i class="fas fa-calendar-times"></i>
-                    <p>Không có suất chiếu nào trong ngày này</p>
-                    <p class="sub-text">Vui lòng chọn ngày khác</p>
+                    <p>Không có suất chiếu nào trong ngày <strong><?php echo format_date_vn($selectedDate); ?></strong></p>
+                    <p class="sub-text">Rạp chưa lên lịch chiếu cho ngày này. Vui lòng chọn ngày khác hoặc quay lại sau.</p>
                 </div>
             <?php else: ?>
-                <div class="showtimes-list">
-                    <?php foreach ($showtimes as $showtime): ?>
-                        <div class="showtime-card <?php echo $showtime['availableSeats'] == 0 ? 'full' : ''; ?>">
-                            <div class="showtime-info">
-                                <div class="showtime-time">
-                                    <i class="fas fa-clock"></i>
-                                    <?php echo format_time($showtime['showTime']); ?>
+                <div class="showtimes-by-cinema">
+                    <div class="cinema-block">
+                        <h4 class="cinema-name">
+                            <i class="fas fa-map-marker-alt"></i> VKU Cinema Complex
+                        </h4>
+                        
+                        <?php foreach ($groupedShowtimes as $room): ?>
+                            <div class="room-showtimes" data-room-type="<?php echo strtoupper($room['roomType']); ?>">
+                                <div class="room-label">
+                                    <i class="fas fa-door-open"></i>
+                                    <?php echo $room['roomName']; ?> - 
+                                    <span class="room-type-badge"><?php echo strtoupper($room['roomType']); ?></span>
                                 </div>
-                                <div class="showtime-room">
-                                    <?php echo $showtime['roomName']; ?> - 
-                                    <?php echo get_room_type_label($showtime['roomType']); ?>
-                                </div>
-                                <div class="showtime-seats">
-                                    <i class="fas fa-chair"></i>
-                                    <?php echo $showtime['availableSeats']; ?>/<?php echo $showtime['totalSeats']; ?> ghế trống
-                                </div>
-                                <div class="showtime-price">
-                                    <?php echo number_format($showtime['basePrice']); ?>đ
+                                <div class="time-slots">
+                                    <?php foreach ($room['times'] as $time): ?>
+                                        <?php if ($time['availableSeats'] > 0): ?>
+                                            <a href="/src/views/booking_step2_seats.php?showtimeID=<?php echo $time['showtimeID']; ?>" 
+                                               class="time-btn">
+                                                <span class="time-text"><?php echo format_time($time['showTime']); ?></span>
+                                                <span class="seats-info"><?php echo $time['availableSeats']; ?> ghế</span>
+                                            </a>
+                                        <?php else: ?>
+                                            <span class="time-btn full">
+                                                <span class="time-text"><?php echo format_time($time['showTime']); ?></span>
+                                                <span class="seats-info">Hết chỗ</span>
+                                            </span>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
-                            
-                            <?php if ($showtime['availableSeats'] > 0): ?>
-                                <a href="/src/views/booking_step2_seats.php?showtimeID=<?php echo $showtime['showtimeID']; ?>" 
-                                   class="btn-select-showtime">
-                                    <i class="fas fa-arrow-right"></i> Chọn
-                                </a>
-                            <?php else: ?>
-                                <button class="btn-full" disabled>
-                                    <i class="fas fa-times"></i> Hết chỗ
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
@@ -280,7 +321,26 @@ function get_room_type_label($type) {
         }
     </script>
     <?php else: ?>
-    <script src="/src/js/booking_showtimes.js"></script>
+    <script>
+        // Filter showtimes by room type
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const type = this.dataset.type;
+                const rooms = document.querySelectorAll('.room-showtimes');
+                
+                rooms.forEach(room => {
+                    if (type === 'all' || room.dataset.roomType === type) {
+                        room.style.display = 'block';
+                    } else {
+                        room.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
     <?php endif; ?>
 </body>
 </html>
