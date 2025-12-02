@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/../models/database.php';
 require_once __DIR__ . '/../models/movie_db.php';
+require_once __DIR__ . '/../models/news_db.php';
 
 // Lấy phim cho hero banner (5 phim ngẫu nhiên đang chiếu)
 $bannerMovies = get_random_movies(5);
@@ -31,5 +32,9 @@ $bookingMovies = get_now_showing_movies();
 $totalMovies = count_total_movies();
 $nowShowingCount = count_movies_by_status('now_showing');
 $comingSoonCount = count_movies_by_status('coming_soon');
+
+// Lấy tin tức mới nhất (3 tin)
+$latestNews = get_latest_news(3);
+$newsCount = count_news();
 
 ?>

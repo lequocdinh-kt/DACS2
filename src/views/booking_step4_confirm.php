@@ -55,127 +55,142 @@ function format_date_vn($date) {
     <link rel="stylesheet" href="/src/styles/booking_confirm.css">
 </head>
 <body>
-    <div class="confirm-container">
+    <div class="booking-container">
+        <!-- Header -->
+        <div class="booking-header">
+            <a href="/" class="btn-back" title="Về trang chủ">
+                <i class="fas fa-home"></i><span class="btn-text"> Trang chủ</span>
+            </a>
+            <h1>Đặt vé thành công</h1>
+            <div class="header-spacer"></div>
+        </div>
+
         <!-- Success Animation -->
         <div class="success-animation">
             <div class="checkmark-circle">
                 <div class="checkmark"></div>
             </div>
+            <h2 class="success-title">Đặt vé thành công!</h2>
+            <p class="success-subtitle">Cảm ơn bạn đã đặt vé tại VKU Cinema</p>
         </div>
 
-        <h1 class="success-title">Đặt vé thành công!</h1>
-        <p class="success-subtitle">Cảm ơn bạn đã đặt vé tại VKU Cinema</p>
-
-        <!-- Booking Code -->
+        <!-- Booking Code Section -->
         <div class="booking-code-section">
-            <h2>Mã vé của bạn</h2>
+            <h3>Mã đặt vé của bạn</h3>
             <div class="booking-code-display">
                 <?php echo $booking['bookingCode']; ?>
             </div>
-            <p class="code-instruction">Vui lòng xuất trình mã này tại quầy để nhận vé</p>
+            <p class="code-instruction">
+                <i class="fas fa-info-circle"></i> 
+                Vui lòng xuất trình mã này tại quầy để nhận vé
+            </p>
         </div>
 
-        <!-- QR Code -->
-        <div class="qr-ticket-section">
-            <img src="<?php echo $qrCodeUrl; ?>" alt="QR Code" class="qr-ticket">
-            <p>Quét mã QR để check-in nhanh</p>
-        </div>
-
-        <!-- Ticket Details -->
-        <div class="ticket-card">
-            <div class="ticket-header">
-                <h3><i class="fas fa-ticket-alt"></i> Thông tin vé</h3>
-            </div>
-            
-            <div class="ticket-body">
-                <div class="ticket-row">
-                    <div class="ticket-poster">
-                        <img src="<?php echo htmlspecialchars($booking['posterURL']); ?>" 
-                             alt="<?php echo htmlspecialchars($booking['movieTitle']); ?>">
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column: QR Code -->
+            <div class="qr-section">
+                <div class="section-card">
+                    <h3><i class="fas fa-qrcode"></i> QR Code Check-in</h3>
+                    <div class="qr-container">
+                        <img src="<?php echo $qrCodeUrl; ?>" alt="QR Code" class="qr-image">
+                        <p class="qr-instruction">Quét mã để check-in nhanh tại rạp</p>
                     </div>
-                    <div class="ticket-info">
-                        <h2><?php echo htmlspecialchars($booking['movieTitle']); ?></h2>
-                        <div class="ticket-meta">
-                            <span><i class="fas fa-clock"></i> <?php echo $booking['duration']; ?> phút</span>
-                            <span><i class="fas fa-tag"></i> <?php echo htmlspecialchars($booking['genre']); ?></span>
+                </div>
+
+                <!-- Important Notes -->
+                <div class="section-card notes-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Lưu ý quan trọng</h3>
+                    <ul class="notes-list">
+                        <li><i class="fas fa-check-circle"></i> Có mặt trước <strong>15 phút</strong></li>
+                        <li><i class="fas fa-check-circle"></i> Mang <strong>CCCD/CMND</strong> để đối chiếu</li>
+                        <li><i class="fas fa-check-circle"></i> Xuất trình <strong>mã vé</strong> hoặc <strong>QR code</strong></li>
+                        <li><i class="fas fa-check-circle"></i> Vé <strong>không hoàn trả</strong> hoặc đổi</li>
+                        <li><i class="fas fa-check-circle"></i> Không mang thức ăn từ bên ngoài</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column: Ticket Details -->
+            <div class="ticket-section">
+                <div class="section-card ticket-card">
+                    <h3><i class="fas fa-ticket-alt"></i> Thông tin vé</h3>
+                    
+                    <div class="movie-info">
+                        <img src="<?php echo htmlspecialchars($booking['posterURL']); ?>" 
+                             alt="<?php echo htmlspecialchars($booking['movieTitle']); ?>"
+                             class="movie-poster">
+                        <div class="movie-details">
+                            <h2><?php echo htmlspecialchars($booking['movieTitle']); ?></h2>
+                            <div class="movie-meta">
+                                <span><i class="fas fa-clock"></i> <?php echo $booking['duration']; ?> phút</span>
+                                <span><i class="fas fa-tag"></i> <?php echo htmlspecialchars($booking['genre']); ?></span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="ticket-divider"></div>
+                    <div class="ticket-divider"></div>
 
-                <div class="ticket-details">
-                    <div class="detail-row">
-                        <span class="label"><i class="fas fa-calendar"></i> Ngày chiếu:</span>
-                        <span class="value"><?php echo format_date_vn($booking['showDate']); ?></span>
+                    <div class="ticket-details">
+                        <div class="detail-row">
+                            <span class="label"><i class="fas fa-calendar-alt"></i> Ngày chiếu</span>
+                            <span class="value"><?php echo format_date_vn($booking['showDate']); ?></span>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <span class="label"><i class="fas fa-clock"></i> Giờ chiếu</span>
+                            <span class="value"><?php echo format_time($booking['showTime']); ?></span>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <span class="label"><i class="fas fa-door-open"></i> Phòng chiếu</span>
+                            <span class="value"><?php echo $booking['roomName']; ?></span>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <span class="label"><i class="fas fa-couch"></i> Ghế ngồi</span>
+                            <span class="value seats-value"><?php echo $booking['seats']; ?></span>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <span class="label"><i class="fas fa-users"></i> Số lượng</span>
+                            <span class="value"><?php echo $booking['totalSeats']; ?> vé</span>
+                        </div>
                     </div>
-                    
-                    <div class="detail-row">
-                        <span class="label"><i class="fas fa-clock"></i> Giờ chiếu:</span>
-                        <span class="value"><?php echo format_time($booking['showTime']); ?></span>
-                    </div>
-                    
-                    <div class="detail-row">
-                        <span class="label"><i class="fas fa-door-open"></i> Phòng chiếu:</span>
-                        <span class="value"><?php echo $booking['roomName']; ?></span>
-                    </div>
-                    
-                    <div class="detail-row">
-                        <span class="label"><i class="fas fa-chair"></i> Ghế ngồi:</span>
-                        <span class="value seats-display"><?php echo $booking['seats']; ?></span>
-                    </div>
-                    
-                    <div class="detail-row">
-                        <span class="label"><i class="fas fa-users"></i> Số lượng:</span>
-                        <span class="value"><?php echo $booking['totalSeats']; ?> vé</span>
-                    </div>
-                </div>
 
-                <div class="ticket-divider"></div>
+                    <div class="ticket-divider"></div>
 
-                <div class="ticket-total">
-                    <span class="label">Tổng tiền:</span>
-                    <span class="value"><?php echo number_format($booking['totalPrice']); ?>đ</span>
-                </div>
+                    <div class="ticket-total">
+                        <span class="label">Tổng tiền</span>
+                        <span class="value"><?php echo number_format($booking['totalPrice']); ?>đ</span>
+                    </div>
 
-                <div class="payment-info">
-                    <span class="paid-badge"><i class="fas fa-check-circle"></i> Đã thanh toán</span>
-                    <span class="payment-method">
-                        <?php 
-                        $methods = [
-                            'qr' => 'Chuyển khoản QR',
-                            'cash' => 'Tiền mặt',
-                            'card' => 'Thẻ tín dụng',
-                            'momo' => 'Ví MoMo',
-                            'zalopay' => 'ZaloPay'
-                        ];
-                        echo $methods[$booking['paymentMethod']] ?? 'QR Code';
-                        ?>
-                    </span>
+                    <div class="payment-status">
+                        <span class="status-badge paid">
+                            <i class="fas fa-check-circle"></i> Đã thanh toán
+                        </span>
+                        <span class="payment-method">
+                            <i class="fas fa-credit-card"></i>
+                            <?php 
+                            $methods = [
+                                'qr' => 'Chuyển khoản QR',
+                                'cash' => 'Tiền mặt',
+                                'card' => 'Thẻ tín dụng',
+                                'momo' => 'Ví MoMo',
+                                'zalopay' => 'ZaloPay'
+                            ];
+                            echo $methods[$booking['paymentMethod']] ?? 'QR Code';
+                            ?>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Important Notes -->
-        <div class="important-notes">
-            <h3><i class="fas fa-exclamation-circle"></i> Lưu ý quan trọng</h3>
-            <ul>
-                <li><i class="fas fa-check"></i> Vui lòng có mặt trước giờ chiếu <strong>15 phút</strong></li>
-                <li><i class="fas fa-check"></i> Mang theo <strong>CCCD/CMND</strong> để đối chiếu thông tin</li>
-                <li><i class="fas fa-check"></i> Xuất trình <strong>mã vé</strong> hoặc <strong>QR code</strong> tại quầy</li>
-                <li><i class="fas fa-check"></i> Vé đã mua <strong>không thể hoàn trả</strong> hoặc đổi</li>
-                <li><i class="fas fa-check"></i> Không mang thức ăn, đồ uống từ bên ngoài vào rạp</li>
-            </ul>
         </div>
 
         <!-- Action Buttons -->
         <div class="action-buttons">
             <button onclick="window.print()" class="btn-action btn-print">
                 <i class="fas fa-print"></i> In vé
-            </button>
-            
-            <button onclick="downloadTicket()" class="btn-action btn-download">
-                <i class="fas fa-download"></i> Tải vé
             </button>
             
             <a href="/src/views/my_bookings.php" class="btn-action btn-history">
@@ -188,45 +203,39 @@ function format_date_vn($date) {
         </div>
 
         <!-- Email Confirmation -->
-        <div class="email-sent">
-            <i class="fas fa-envelope-circle-check"></i>
+        <div class="email-notice">
+            <i class="fas fa-envelope"></i>
             <p>Thông tin vé đã được gửi đến email: <strong><?php echo htmlspecialchars($booking['email']); ?></strong></p>
         </div>
     </div>
 
     <script>
-        // Lưu vào localStorage để có thể xem offline
-        const bookingData = <?php echo json_encode($booking); ?>;
-        localStorage.setItem('lastBooking_<?php echo $bookingID; ?>', JSON.stringify(bookingData));
-        
-        // Hiệu ứng success
+        // Success animation
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 document.querySelector('.checkmark').style.display = 'block';
             }, 200);
+            
+            // Confetti effect
+            createConfetti();
         });
 
-        // Download ticket
-        function downloadTicket() {
-            // Tạo canvas và vẽ ticket để download
-            window.print();
-        }
-
-        // Show confetti effect
+        // Confetti animation
         function createConfetti() {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe'];
             for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 3 + 's';
-                confetti.style.backgroundColor = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7'][Math.floor(Math.random() * 5)];
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => confetti.remove(), 3000);
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 30);
             }
         }
-
-        createConfetti();
     </script>
 </body>
 </html>

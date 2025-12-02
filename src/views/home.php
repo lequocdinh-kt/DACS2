@@ -252,33 +252,50 @@ require_once __DIR__ . '/../controllers/homeController.php';
                 </a>
             </div>
             <div class="news-grid">
-                <div class="news-card">
-                    <!-- <img src="/src/img/news/promo1.jpg" alt="Promotion 1"> -->
-                    <div class="news-content">
-                        <span class="news-tag">Ưu đãi</span>
-                        <h3>Giảm 30% vé cho sinh viên</h3>
-                        <p>Chương trình ưu đãi đặc biệt dành riêng cho sinh viên VKU. Xuất trình thẻ sinh viên để nhận ưu đãi...</p>
-                        <a href="#">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                <?php if (!empty($latestNews)): ?>
+                    <?php foreach ($latestNews as $news): ?>
+                        <div class="news-card">
+                            <?php if (!empty($news['imageURL'])): ?>
+                                <img src="<?php echo htmlspecialchars($news['imageURL']); ?>" 
+                                     alt="<?php echo htmlspecialchars($news['title']); ?>">
+                            <?php endif; ?>
+                            <div class="news-content">
+                                <span class="news-tag"><?php echo htmlspecialchars(format_news_type($news['type'])); ?></span>
+                                <h3><?php echo htmlspecialchars($news['title']); ?></h3>
+                                <p><?php echo htmlspecialchars($news['summary']); ?></p>
+                                <a href="/src/views/news_detail.php?id=<?php echo $news['newsID']; ?>">
+                                    Xem thêm <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <!-- Fallback nếu chưa có dữ liệu -->
+                    <div class="news-card">
+                        <div class="news-content">
+                            <span class="news-tag">Ưu đãi</span>
+                            <h3>Giảm 30% vé cho sinh viên</h3>
+                            <p>Chương trình ưu đãi đặc biệt dành riêng cho sinh viên VKU. Xuất trình thẻ sinh viên để nhận ưu đãi...</p>
+                            <a href="#">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="news-card">
-                    <!-- <img src="/src/img/news/promo2.jpg" alt="Promotion 2"> -->
-                    <div class="news-content">
-                        <span class="news-tag">Sự kiện</span>
-                        <h3>Đêm hội phim Châu Á</h3>
-                        <p>Tham gia cùng chúng tôi trong đêm hội phim Châu Á với những tác phẩm đặc sắc nhất...</p>
-                        <a href="#">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                    <div class="news-card">
+                        <div class="news-content">
+                            <span class="news-tag">Sự kiện</span>
+                            <h3>Đêm hội phim Châu Á</h3>
+                            <p>Tham gia cùng chúng tôi trong đêm hội phim Châu Á với những tác phẩm đặc sắc nhất...</p>
+                            <a href="#">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="news-card">
-                    <!-- <img src="/src/img/news/promo3.jpg" alt="Promotion 3"> -->
-                    <div class="news-content">
-                        <span class="news-tag">Tin tức</span>
-                        <h3>Khai trương phòng chiếu IMAX</h3>
-                        <p>VKU Cinema tự hào giới thiệu phòng chiếu IMAX đầu tiên tại Đà Nẵng với trải nghiệm đỉnh cao...</p>
-                        <a href="#">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                    <div class="news-card">
+                        <div class="news-content">
+                            <span class="news-tag">Tin tức</span>
+                            <h3>Khai trương phòng chiếu IMAX</h3>
+                            <p>VKU Cinema tự hào giới thiệu phòng chiếu IMAX đầu tiên tại Đà Nẵng với trải nghiệm đỉnh cao...</p>
+                            <a href="#">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

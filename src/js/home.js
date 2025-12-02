@@ -27,21 +27,79 @@ function initBannerSlider() {
     
     const dots = document.querySelectorAll('.banner-dot');
     
+    function updateBannerButtons(slideIndex) {
+        const activeSlide = slides[slideIndex];
+        const movieID = activeSlide.dataset.movieId;
+        
+        console.log('Updating buttons for slide:', slideIndex, 'movieID:', movieID);
+        
+        if (!movieID) {
+            console.warn('No movieID found for slide:', slideIndex);
+            return;
+        }
+        
+        // Tìm tất cả các nút trong tất cả slides
+        slides.forEach((slide, idx) => {
+            const bannerContent = slide.querySelector('.banner-content');
+            if (!bannerContent) return;
+            
+            // Nếu đây là slide active, cập nhật buttons
+            if (idx === slideIndex) {
+                // Cập nhật nút đặt vé
+                const bookingBtn = bannerContent.querySelector('.btn-primary');
+                if (bookingBtn) {
+                    bookingBtn.href = `/src/views/booking_step1_showtimes.php?movieID=${movieID}`;
+                    bookingBtn.setAttribute('onclick', `return checkLoginBeforeBooking(event, ${movieID})`);
+                    console.log('Updated booking button href:', bookingBtn.href);
+                }
+                
+                // Cập nhật nút chi tiết
+                const detailBtn = bannerContent.querySelector('.btn-secondary');
+                if (detailBtn) {
+                    detailBtn.href = `/src/views/movie_detail.php?id=${movieID}`;
+                    console.log('Updated detail button href:', detailBtn.href);
+                }
+                
+                // Cập nhật nút trailer
+                const trailerBtn = bannerContent.querySelector('.btn-trailer');
+                if (trailerBtn) {
+                    // Trailer button dùng onclick với videoId, không cần update
+                    console.log('Trailer button found (uses onclick)');
+                }
+            }
+        });
+    }
+    
     function goToSlide(n) {
+        // Xóa active class
         slides[currentSlide].classList.remove('active');
         dots[currentSlide].classList.remove('active');
+        
+        // Tính slide mới
         currentSlide = (n + slides.length) % slides.length;
+        
+        // Thêm active class
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
+        
+        // Cập nhật buttons ngay lập tức
+        setTimeout(() => {
+            updateBannerButtons(currentSlide);
+        }, 50);
     }
     
     // Nút điều khiển
     document.querySelector('.banner-next')?.addEventListener('click', () => goToSlide(currentSlide + 1));
     document.querySelector('.banner-prev')?.addEventListener('click', () => goToSlide(currentSlide - 1));
     
-    // Auto slide 5s
+    // Cập nhật buttons cho slide đầu tiên
+    setTimeout(() => {
+        updateBannerButtons(0);
+    }, 100);
+    
+    // Auto slide 8s (tăng từ 5s lên 8s)
     if (slides.length > 1) {
-        setInterval(() => goToSlide(currentSlide + 1), 5000);
+        setInterval(() => goToSlide(currentSlide + 1), 8000);
     }
 }
 
