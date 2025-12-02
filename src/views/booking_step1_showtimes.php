@@ -148,7 +148,7 @@ function get_room_type_label($type) {
     <div class="booking-container"<?php if ($requireLogin): ?> style="filter: blur(5px); pointer-events: none;"<?php endif; ?>>
         <!-- Header -->
         <div class="booking-header">
-            <a href="javascript:history.back()" class="btn-back">
+            <a href="/" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Quay lại
             </a>
             <h1>Đặt vé xem phim</h1>
