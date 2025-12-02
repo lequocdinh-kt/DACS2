@@ -1,5 +1,5 @@
 /* ==============================
-   BOOKING PAYMENT - CSS
+   BOOKING PAYMENT - CSS (CGV Style)
    ============================== */
 
 * {
@@ -10,9 +10,10 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0a0e27;
     min-height: 100vh;
     padding: 20px;
+    color: #fff;
 }
 
 .payment-container {
@@ -22,22 +23,49 @@ body {
 
 /* Header */
 .payment-header {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-back {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-text {
+    display: inline;
 }
 
 .payment-header h1 {
     font-size: 2em;
-    color: #333;
-    margin-bottom: 15px;
+    color: #fff;
+    flex: 1;
+    text-align: center;
 }
 
 .timer-warning {
-    background: #ff4444;
+    background: linear-gradient(135deg, #ff6b35 0%, #f44336 100%);
     color: white;
     padding: 12px 25px;
     border-radius: 8px;
@@ -46,6 +74,8 @@ body {
     align-items: center;
     gap: 10px;
     animation: pulse 2s infinite;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    white-space: nowrap;
 }
 
 @keyframes pulse {
@@ -55,11 +85,13 @@ body {
 
 /* Progress Steps */
 .booking-steps {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
-    padding: 25px;
+    padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,25 +101,25 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .step-number {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background: #e0e0e0;
-    color: #999;
+    background: rgba(255, 255, 255, 0.1);
+    color: #666;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
     transition: all 0.3s;
 }
 
 .step.active .step-number {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
 }
@@ -98,15 +130,21 @@ body {
 }
 
 .step-label {
-    font-size: 0.85em;
-    color: #666;
+    font-size: 0.9em;
+    color: #999;
     font-weight: 500;
 }
 
+.step.active .step-label,
+.step.completed .step-label {
+    color: #fff;
+    font-weight: 600;
+}
+
 .step-line {
-    width: 60px;
+    width: 80px;
     height: 2px;
-    background: #e0e0e0;
+    background: rgba(255, 255, 255, 0.1);
     margin: 0 10px;
 }
 
@@ -124,19 +162,25 @@ body {
 
 /* Booking Info */
 .booking-info {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .booking-info h2 {
     font-size: 1.5em;
-    color: #333;
-    margin-bottom: 20px;
+    color: #fff;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.booking-info h2 i {
+    color: #667eea;
 }
 
 .info-section {
@@ -157,29 +201,44 @@ body {
 .info-item {
     display: flex;
     justify-content: space-between;
-    padding: 12px;
-    background: #f9f9f9;
-    border-radius: 8px;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    color: #ccc;
 }
 
 .info-item label {
-    color: #666;
+    color: #999;
     font-weight: 500;
 }
 
+.info-item span,
+.info-item strong {
+    color: #fff;
+}
+
 .info-item.total {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+    font-size: 1.1em;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.info-item.total label {
+    color: #fff;
+    font-weight: 600;
 }
 
 .booking-code {
-    background: #fff3cd;
+    background: rgba(255, 107, 53, 0.2);
     padding: 8px 15px;
-    border-radius: 5px;
-    color: #856404;
+    border-radius: 8px;
+    color: #ff6b35;
     font-family: monospace;
     font-size: 1.1em;
     letter-spacing: 2px;
+    font-weight: bold;
 }
 
 .seats-list {
@@ -194,19 +253,25 @@ body {
 
 /* Payment Method */
 .payment-method {
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .payment-method h2 {
     font-size: 1.5em;
-    color: #333;
-    margin-bottom: 20px;
+    color: #fff;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.payment-method h2 i {
+    color: #667eea;
 }
 
 .qr-section {
@@ -224,7 +289,8 @@ body {
     height: 300px;
     border: 5px solid #667eea;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    background: white;
 }
 
 .qr-overlay {
@@ -252,15 +318,16 @@ body {
 
 /* Bank Info */
 .bank-info {
-    background: #f9f9f9;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
     text-align: left;
 }
 
 .bank-info h3 {
-    color: #333;
+    color: #fff;
     margin-bottom: 15px;
     font-size: 1.2em;
 }
@@ -270,50 +337,53 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    padding: 10px;
-    background: white;
-    border-radius: 5px;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
 }
 
 .bank-detail.important {
-    background: #fff3cd;
-    border: 2px solid #ffc107;
+    background: rgba(255, 107, 53, 0.15);
+    border: 2px solid rgba(255, 107, 53, 0.4);
 }
 
 .bank-detail label {
-    color: #666;
+    color: #999;
     font-weight: 500;
 }
 
 .bank-detail strong {
-    color: #333;
+    color: #fff;
 }
 
 .btn-copy {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .btn-copy:hover {
-    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
 }
 
 /* Instructions */
 .payment-instructions {
-    background: #e3f2fd;
-    border-radius: 10px;
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
     text-align: left;
 }
 
 .payment-instructions h3 {
-    color: #1976d2;
+    color: #667eea;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
@@ -326,21 +396,21 @@ body {
 
 .payment-instructions li {
     margin-bottom: 8px;
-    color: #333;
+    color: #ccc;
     line-height: 1.6;
 }
 
 /* Payment Note */
 .payment-note {
-    background: #fff3cd;
-    border: 2px solid #ffc107;
-    border-radius: 10px;
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 12px;
     padding: 20px;
     text-align: left;
 }
 
 .payment-note strong {
-    color: #ff4444;
+    color: #ff6b35;
 }
 
 .payment-note ul {
@@ -350,7 +420,16 @@ body {
 
 .payment-note li {
     margin-bottom: 8px;
-    color: #856404;
+    color: #ccc;
+}
+
+.payment-note code {
+    background: rgba(255, 107, 53, 0.2);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff6b35;
 }
 
 /* Payment Status */
@@ -359,10 +438,12 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 50px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     text-align: center;
     z-index: 1000;
 }
@@ -380,14 +461,37 @@ body {
 }
 
 .payment-status h2 {
-    color: #333;
+    color: #fff;
     margin-bottom: 10px;
+}
+
+.payment-status p {
+    color: #ccc;
 }
 
 /* Responsive */
 @media (max-width: 968px) {
     .payment-content {
         grid-template-columns: 1fr;
+    }
+    
+    .payment-header {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .payment-header h1 {
+        font-size: 1.6em;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .timer-warning {
+        font-size: 0.85em;
+        padding: 10px 15px;
+        width: auto;
+        margin: 0 auto;
     }
     
     .qr-code {
@@ -398,10 +502,32 @@ body {
     .booking-steps {
         overflow-x: auto;
         padding: 20px 10px;
+        justify-content: flex-start;
     }
     
     .step-line {
-        width: 30px;
+        width: 40px;
+        min-width: 40px;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+    }
+    
+    .step-label {
+        font-size: 0.75em;
+        white-space: nowrap;
+    }
+    
+    .booking-info,
+    .payment-method {
+        padding: 20px;
+    }
+    
+    .bank-detail {
+        flex-wrap: wrap;
     }
 }
 
@@ -410,18 +536,221 @@ body {
         padding: 10px;
     }
     
+    .payment-header {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .btn-back {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        padding: 8px;
+        min-width: 36px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        justify-content: center;
+        z-index: 10;
+    }
+    
+    .btn-back .btn-text {
+        display: none;
+    }
+    
+    .btn-back:hover {
+        transform: scale(1.05);
+    }
+    
+    .btn-back i {
+        margin: 0 !important;
+    }
+    
     .payment-header h1 {
-        font-size: 1.5em;
+        font-size: 1.3em;
+        width: 100%;
+        margin: 0;
+        padding: 0 45px;
+    }
+    
+    .timer-warning {
+        font-size: 0.8em;
+        padding: 8px 12px;
+        width: 100%;
+        justify-content: center;
+        margin: 0;
+        flex-wrap: wrap;
+        text-align: center;
+        gap: 5px;
+    }
+    
+    .timer-warning i {
+        margin-right: 0;
+    }
+    
+    .booking-steps {
+        padding: 15px 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .step {
+        min-width: 70px;
+    }
+    
+    .step-line {
+        width: 30px;
+        min-width: 30px;
+    }
+    
+    .step-number {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9em;
+    }
+    
+    .step-label {
+        font-size: 0.7em;
+    }
+    
+    .booking-info,
+    .payment-method {
+        padding: 20px 15px;
+    }
+    
+    .booking-info h2,
+    .payment-method h2 {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+    
+    .movie-thumb {
+        max-width: 150px;
+    }
+    
+    .info-item {
+        padding: 10px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .info-item label {
+        font-size: 0.85em;
+    }
+    
+    .info-item span,
+    .info-item strong {
+        font-size: 0.95em;
+    }
+    
+    .booking-code {
+        font-size: 0.95em;
+        padding: 6px 12px;
+        letter-spacing: 1px;
+    }
+    
+    .total-amount {
+        font-size: 1.2em;
     }
     
     .qr-code {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 220px;
+        border-width: 3px;
+    }
+    
+    .bank-info {
+        padding: 15px;
+    }
+    
+    .bank-info h3 {
+        font-size: 1.1em;
+        margin-bottom: 12px;
     }
     
     .bank-detail {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
+        padding: 10px 12px;
+    }
+    
+    .bank-detail label {
+        font-size: 0.85em;
+    }
+    
+    .bank-detail strong {
+        font-size: 0.95em;
+        word-break: break-all;
+    }
+    
+    .btn-copy {
+        align-self: flex-end;
+        padding: 5px 10px;
+        font-size: 0.85em;
+    }
+    
+    .payment-instructions,
+    .payment-note {
+        padding: 15px;
+    }
+    
+    .payment-instructions h3,
+    .payment-note strong {
+        font-size: 1em;
+    }
+    
+    .payment-instructions ol,
+    .payment-note ul {
+        padding-left: 20px;
+    }
+    
+    .payment-instructions li,
+    .payment-note li {
+        font-size: 0.85em;
+        margin-bottom: 6px;
+    }
+    
+    .payment-note code {
+        font-size: 0.8em;
+        padding: 4px 8px;
+        display: inline-block;
+        word-break: break-all;
+    }
+    
+    .dev-payment-button {
+        padding: 12px !important;
+    }
+    
+    .btn-dev-confirm {
+        font-size: 0.9em !important;
+        padding: 10px 20px !important;
+    }
+    
+    .dev-payment-button p {
+        font-size: 0.85em !important;
+    }
+    
+    .payment-status {
+        padding: 25px 20px;
+        width: 90%;
+        max-width: 320px;
+    }
+    
+    .status-icon {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+    
+    .payment-status h2 {
+        font-size: 1.3em;
+        margin-bottom: 8px;
+    }
+    
+    .payment-status p {
+        font-size: 0.9em;
     }
 }

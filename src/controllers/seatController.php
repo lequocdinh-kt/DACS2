@@ -14,6 +14,11 @@ if (!isset($_SESSION['userID'])) {
 
 require_once __DIR__ . '/../models/database.php';
 require_once __DIR__ . '/../models/seat_db.php';
+require_once __DIR__ . '/../models/booking_db.php';
+
+// Cleanup expired locks và bookings tự động khi truy cập controller
+cleanup_expired_locks();
+cleanup_expired_bookings();
 
 $action = $_POST['action'] ?? $_GET['action'] ?? null;
 
@@ -157,7 +162,7 @@ function unlock_seats_action() {
 }
 
 /**
- * Refresh trạng thái ghế (dọn dẹp expired locks)
+ * Refresh trạng thái ghế (dọn dẹp expired locks và bookings)
  */
 function refresh_seats() {
     $showtimeID = $_GET['showtimeID'] ?? null;
@@ -170,6 +175,9 @@ function refresh_seats() {
     try {
         // Cleanup expired locks
         cleanup_expired_locks();
+        
+        // Cleanup expired bookings
+        cleanup_expired_bookings();
         
         // Lấy danh sách ghế mới nhất
         $seats = get_seats_by_showtime($showtimeID);

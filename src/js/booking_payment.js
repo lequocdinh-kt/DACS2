@@ -215,6 +215,59 @@ function manualConfirmPayment() {
 }
 
 /**
+ * DEV/DEBUG: Xác nhận thanh toán nhanh để test
+ */
+function devConfirmPayment() {
+    if (!confirm('🚨 Xác nhận thanh toán giả lập?\n\nChức năng này chỉ dùng để DEV/DEBUG!')) {
+        return;
+    }
+    
+    console.log('🔧 DEV: Đang xác nhận thanh toán...');
+    
+    const btn = document.querySelector('.btn-dev-confirm');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+    }
+    
+    fetch('/src/controllers/paymentController.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=confirm_payment_manual&bookingID=${window.bookingID}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('🔧 DEV: Response:', data);
+        
+        if (data.success) {
+            console.log('✅ DEV: Thanh toán thành công!');
+            showPaymentSuccess();
+            
+            // Chuyển trang sau 2 giây
+            setTimeout(() => {
+                window.location.href = `/src/views/booking_step4_confirm.php?bookingID=${window.bookingID}`;
+            }, 2000);
+        } else {
+            alert('❌ Lỗi: ' + (data.message || 'Không thể xác nhận thanh toán'));
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Xác nhận thanh toán (DEV)';
+            }
+        }
+    })
+    .catch(error => {
+        console.error('❌ DEV: Error:', error);
+        alert('Có lỗi xảy ra: ' + error.message);
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-check-circle"></i> Xác nhận thanh toán (DEV)';
+        }
+    });
+}
+
+/**
  * Cleanup khi rời trang
  */
 window.addEventListener('beforeunload', function() {

@@ -52,6 +52,10 @@ body {
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
+.btn-text {
+    display: inline;
+}
+
 .booking-header h1 {
     font-size: 2em;
     color: #fff;

@@ -20,6 +20,11 @@ if (!$showtimeID) {
 
 require_once __DIR__ . '/../models/showtime_db.php';
 require_once __DIR__ . '/../models/seat_db.php';
+require_once __DIR__ . '/../models/booking_db.php';
+
+// Cleanup expired locks và bookings
+cleanup_expired_locks();
+cleanup_expired_bookings();
 
 $showtime = get_showtime_by_id($showtimeID);
 if (!$showtime || $showtime['status'] !== 'available') {
@@ -64,8 +69,8 @@ function format_date_vn($date) {
     <div class="booking-container">
         <!-- Header -->
         <div class="booking-header">
-            <a href="/src/views/booking_step1_showtimes.php?movieID=<?php echo $showtime['movieID']; ?>" class="btn-back">
-                <i class="fas fa-arrow-left"></i> Quay lại
+            <a href="/src/views/booking_step1_showtimes.php?movieID=<?php echo $showtime['movieID']; ?>" class="btn-back" title="Quay lại">
+                <i class="fas fa-arrow-left"></i><span class="btn-text"> Quay lại</span>
             </a>
             <h1>Chọn ghế ngồi</h1>
             <div class="timer" id="countdown">

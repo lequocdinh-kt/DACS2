@@ -169,3 +169,26 @@ function cancel_booking($bookingID, $userID) {
     
     return update_booking_payment_status($bookingID, 'cancelled');
 }
+
+/**
+ * Cleanup expired bookings - tự động hủy các booking quá hạn chưa thanh toán
+ */
+function cleanup_expired_bookings() {
+    global $db;
+    
+    try {
+        // Cập nhật tất cả booking pending đã quá expiredAt thành expired
+        $stmt = $db->prepare("
+            UPDATE bookings 
+            SET paymentStatus = 'expired' 
+            WHERE paymentStatus = 'pending' 
+            AND expiredAt < NOW()
+        ");
+        
+        $stmt->execute();
+        return $stmt->rowCount(); // Trả về số booking đã cleanup
+    } catch (Exception $e) {
+        error_log("Cleanup expired bookings error: " . $e->getMessage());
+        return 0;
+    }
+}

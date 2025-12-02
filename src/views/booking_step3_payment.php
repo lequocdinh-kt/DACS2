@@ -71,6 +71,9 @@ function format_date_vn($date) {
     <div class="payment-container">
         <!-- Header -->
         <div class="payment-header">
+            <a href="/" class="btn-back" title="Quay lại">
+                <i class="fas fa-arrow-left"></i><span class="btn-text"> Quay lại</span>
+            </a>
             <h1>Thanh toán đặt vé</h1>
             <div class="timer-warning" id="countdown">
                 <i class="fas fa-clock"></i>
@@ -228,6 +231,19 @@ function format_date_vn($date) {
                             <li>⚡ <strong>Tự động xác nhận</strong> - Hệ thống sẽ tự động chuyển trang sau khi phát hiện chuyển khoản (5-30 giây)</li>
                             <li>❌ <strong>Không tắt trang</strong> này trong quá trình chờ xác nhận</li>
                         </ul>
+                    </div>
+                    
+                    <!-- DEV/DEBUG: Nút xác nhận thanh toán nhanh -->
+                    <div class="dev-payment-button" style="margin-top: 20px; padding: 15px; background: rgba(255, 152, 0, 0.1); border: 2px dashed rgba(255, 152, 0, 0.5); border-radius: 10px; text-align: center;">
+                        <p style="color: #ff9800; font-weight: bold; margin-bottom: 10px;">
+                            <i class="fas fa-code"></i> CHẾ ĐỘ DEV/DEBUG
+                        </p>
+                        <button onclick="devConfirmPayment()" class="btn-dev-confirm" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);">
+                            <i class="fas fa-check-circle"></i> Xác nhận thanh toán (DEV)
+                        </button>
+                        <p style="color: #999; font-size: 0.85em; margin-top: 8px;">
+                            Nút này chỉ dùng để test - Xóa trước khi deploy production!
+                        </p>
                     </div>
                 </div>
             </div>

@@ -260,7 +260,7 @@ function verify_transaction_action() {
  * Xác nhận thanh toán thủ công (người dùng tự xác nhận đã chuyển khoản)
  */
 function confirm_payment_manual() {
-    $bookingID = $_POST['booking_id'] ?? null;
+    $bookingID = $_POST['bookingID'] ?? $_POST['booking_id'] ?? null;
     $userID = $_SESSION['userID'];
     
     if (!$bookingID) {
@@ -295,7 +295,7 @@ function confirm_payment_manual() {
         }
         
         // Xác nhận thanh toán
-        $transactionCode = 'MANUAL_' . time();
+        $transactionCode = 'DEV_MANUAL_' . time() . '_' . $bookingID;
         confirm_payment($payment['paymentID'], $transactionCode);
         
         // Cập nhật trạng thái booking
@@ -303,7 +303,9 @@ function confirm_payment_manual() {
         
         echo json_encode([
             'success' => true,
-            'message' => 'Xác nhận thanh toán thành công'
+            'message' => 'Xác nhận thanh toán thành công (DEV MODE)',
+            'bookingID' => $bookingID,
+            'bookingCode' => $booking['bookingCode']
         ]);
         
     } catch (Exception $e) {

@@ -21,7 +21,8 @@ function get_seats_by_showtime($showtimeID) {
         LEFT JOIN bookingseats bs ON s.seatID = bs.seatID 
             AND bs.bookingID IN (
                 SELECT b.bookingID FROM bookings b 
-                WHERE b.showtimeID = ? AND b.paymentStatus IN ('pending', 'paid')
+                WHERE b.showtimeID = ? 
+                AND b.paymentStatus = 'paid'
             )
         LEFT JOIN seatlocks sl ON s.seatID = sl.seatID 
             AND sl.showtimeID = ? AND sl.expiresAt > NOW()
@@ -84,7 +85,8 @@ function check_seats_available($showtimeID, $seatIDs) {
         LEFT JOIN bookingseats bs ON s.seatID = bs.seatID 
             AND bs.bookingID IN (
                 SELECT b.bookingID FROM bookings b 
-                WHERE b.showtimeID = ? AND b.paymentStatus IN ('pending', 'paid')
+                WHERE b.showtimeID = ? 
+                AND b.paymentStatus = 'paid'
             )
         LEFT JOIN seatlocks sl ON s.seatID = sl.seatID 
             AND sl.showtimeID = ? AND sl.expiresAt > NOW()
@@ -111,7 +113,8 @@ function check_seats_available_for_user($showtimeID, $seatIDs, $userID) {
         LEFT JOIN bookingseats bs ON s.seatID = bs.seatID 
             AND bs.bookingID IN (
                 SELECT b.bookingID FROM bookings b 
-                WHERE b.showtimeID = ? AND b.paymentStatus IN ('pending', 'paid')
+                WHERE b.showtimeID = ? 
+                AND b.paymentStatus = 'paid'
             )
         LEFT JOIN seatlocks sl ON s.seatID = sl.seatID 
             AND sl.showtimeID = ? AND sl.userID != ? AND sl.expiresAt > NOW()
