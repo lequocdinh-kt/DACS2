@@ -287,7 +287,8 @@ function checkLoginBeforeBooking(event, movieID) {
             openAuthModal('login');
             sessionStorage.setItem('pendingBooking', movieID);
         } else {
-            window.location.href = `/src/views/login.php?redirect=/src/views/booking_step1_showtimes.php?movieID=${movieID}`;
+            sessionStorage.setItem('pendingBooking', movieID);
+            window.location.href = `/?openLogin=1`;
         }
         return false;
     }

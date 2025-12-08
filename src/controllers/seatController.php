@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['userID'])) {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized', 'redirect' => '/src/views/login.php']);
+    echo json_encode(['success' => false, 'message' => 'Vui lòng đăng nhập để tiếp tục', 'requireLogin' => true]);
     exit();
 }
 

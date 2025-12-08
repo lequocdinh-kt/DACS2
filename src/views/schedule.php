@@ -4,13 +4,6 @@ require_once __DIR__ . '/../models/showtime_db.php';
 ?>
 <main class="schedule-main">
     <div class="schedule-container">
-        <!-- Hero Section -->
-        <section class="schedule-hero">
-            <div class="hero-content">
-                <h1><i class="fas fa-calendar-alt"></i> Lịch chiếu</h1>
-            </div>
-        </section>
-
         <!-- Date Filter -->
         <section class="date-filter">
             <h3 class="section-title">Chọn ngày chiếu</h3>
@@ -47,4 +40,4 @@ require_once __DIR__ . '/../models/showtime_db.php';
     </div>
 </main>
 
-<script src="src/js/schedule.js"></script>
+<script src="/src/js/schedule.js"></script>

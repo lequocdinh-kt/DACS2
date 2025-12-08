@@ -73,6 +73,10 @@ function checkPaymentStatus() {
     fetch(`/src/controllers/paymentController.php?action=check_payment&bookingID=${bookingID}`)
         .then(response => response.json())
         .then(data => {
+            if (data.requireLogin) {
+                window.location.href = '/?openLogin=1';
+                return;
+            }
             if (data.success) {
                 if (data.paymentStatus === 'paid') {
                     // Thanh toán thành công
@@ -202,6 +206,10 @@ function manualConfirmPayment() {
     })
     .then(response => response.json())
     .then(data => {
+        if (data.requireLogin) {
+            window.location.href = '/?openLogin=1';
+            return;
+        }
         if (data.success) {
             showPaymentSuccess();
         } else {
@@ -240,6 +248,11 @@ function devConfirmPayment() {
     .then(response => response.json())
     .then(data => {
         console.log('🔧 DEV: Response:', data);
+        
+        if (data.requireLogin) {
+            window.location.href = '/?openLogin=1';
+            return;
+        }
         
         if (data.success) {
             console.log('✅ DEV: Thanh toán thành công!');

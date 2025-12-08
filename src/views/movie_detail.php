@@ -6,7 +6,6 @@ if (!defined('INCLUDED_FROM_INDEX')) {
 }
 
 require_once __DIR__ . '/../models/movie_db.php';
-require_once __DIR__ . '/../models/showtime_db.php';
 
 // Get movie ID from URL
 $movieID = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -23,9 +22,6 @@ if (!$movie) {
     header('Location: /index.php');
     exit;
 }
-
-// Get upcoming showtimes for this movie
-$upcomingShowtimes = get_upcoming_showtimes_by_movie($movieID, 7); // Next 7 days
 
 // Helper function to extract YouTube video ID
 function get_youtube_id($url) {
@@ -106,10 +102,16 @@ $youtubeID = get_youtube_id($movie['trailerURL']);
                             </div>
 
                             <div class="movie-actions">
-                                <?php if ($movie['movieStatus'] === 'now_showing' && !empty($upcomingShowtimes)): ?>
-                                    <a href="booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" class="btn-booking-large">
-                                        <i class="fas fa-ticket-alt"></i> Đặt vé ngay
-                                    </a>
+                                <?php if ($movie['movieStatus'] === 'now_showing'): ?>
+                                    <?php if (isset($_SESSION['userID'])): ?>
+                                        <a href="/src/views/booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" class="btn-booking-large">
+                                            <i class="fas fa-ticket-alt"></i> Đặt vé ngay
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="javascript:void(0)" onclick="openAuthModal('login')" class="btn-booking-large">
+                                            <i class="fas fa-ticket-alt"></i> Đặt vé ngay
+                                        </a>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if ($youtubeID): ?>
                                     <button class="btn-trailer-large" onclick="openTrailerModal('<?php echo $youtubeID; ?>')">
@@ -155,82 +157,7 @@ $youtubeID = get_youtube_id($movie['trailerURL']);
                 </div>
                 <?php endif; ?>
 
-                <!-- Showtimes -->
-                <?php if ($movie['movieStatus'] === 'now_showing' && !empty($upcomingShowtimes)): ?>
-                <div class="content-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-clock"></i> Lịch chiếu sắp tới
-                    </h2>
-                    <div class="showtimes-list">
-                        <?php 
-                        $showtimesByDate = [];
-                        foreach ($upcomingShowtimes as $showtime) {
-                            $date = $showtime['showDate'];
-                            if (!isset($showtimesByDate[$date])) {
-                                $showtimesByDate[$date] = [];
-                            }
-                            $showtimesByDate[$date][] = $showtime;
-                        }
-                        ?>
-                        <?php foreach ($showtimesByDate as $date => $showtimes): ?>
-                            <div class="showtime-date-group">
-                                <h3 class="showtime-date">
-                                    <i class="fas fa-calendar-day"></i>
-                                    <?php 
-                                    $dateObj = new DateTime($date);
-                                    $today = new DateTime();
-                                    $tomorrow = (clone $today)->modify('+1 day');
-                                    
-                                    if ($dateObj->format('Y-m-d') === $today->format('Y-m-d')) {
-                                        echo 'Hôm nay - ';
-                                    } elseif ($dateObj->format('Y-m-d') === $tomorrow->format('Y-m-d')) {
-                                        echo 'Ngày mai - ';
-                                    }
-                                    echo $dateObj->format('d/m/Y');
-                                    ?>
-                                </h3>
-                                <div class="showtime-buttons">
-                                    <?php foreach ($showtimes as $showtime): ?>
-                                        <?php
-                                        $availableSeats = $showtime['totalSeats'] - $showtime['bookedSeats'];
-                                        $isAvailable = $availableSeats > 0;
-                                        ?>
-                                        <a href="<?php echo $isAvailable ? 'booking_step2_seats.php?showtimeID=' . $showtime['showtimeID'] : '#'; ?>" 
-                                           class="showtime-btn <?php echo !$isAvailable ? 'disabled' : ''; ?>">
-                                            <div class="showtime-time">
-                                                <?php echo date('H:i', strtotime($showtime['showTime'])); ?>
-                                            </div>
-                                            <div class="showtime-info">
-                                                <span class="showtime-format"><?php echo htmlspecialchars($showtime['format']); ?></span>
-                                                <span class="showtime-seats">
-                                                    <?php if ($isAvailable): ?>
-                                                        <i class="fas fa-chair"></i> <?php echo $availableSeats; ?> ghế
-                                                    <?php else: ?>
-                                                        <i class="fas fa-ban"></i> Hết vé
-                                                    <?php endif; ?>
-                                                </span>
-                                            </div>
-                                        </a>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="view-all-showtimes">
-                        <a href="booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" class="btn-view-all">
-                            <i class="fas fa-calendar-alt"></i> Xem tất cả lịch chiếu
-                        </a>
-                    </div>
-                </div>
-                <?php elseif ($movie['movieStatus'] === 'coming_soon'): ?>
-                <div class="content-section">
-                    <div class="coming-soon-notice">
-                        <i class="fas fa-calendar-alt"></i>
-                        <h3>Phim sắp chiếu</h3>
-                        <p>Phim sẽ được công chiếu từ ngày <?php echo date('d/m/Y', strtotime($movie['releaseDate'])); ?></p>
-                    </div>
-                </div>
-                <?php endif; ?>
+
             </div>
         </section>
     </main>

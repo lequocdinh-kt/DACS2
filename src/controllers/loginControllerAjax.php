@@ -50,9 +50,21 @@ try {
         // Update last login (optional)
         update_last_login($user['userID']);
 
+        // Check if there's a redirect URL saved
+        $redirect = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : null;
+        
+        // Clear redirect session
+        if ($redirect) {
+            unset($_SESSION['redirect_after_login']);
+        }
+        
+        // Debug log
+        error_log("Login success - userID: {$user['userID']}, redirect: " . ($redirect ? $redirect : 'none'));
+
         echo json_encode([
             'success' => true, 
-            'message' => 'Đăng nhập thành công!', 
+            'message' => 'Đăng nhập thành công!',
+            'redirect' => $redirect,
             'user' => [
                 'username' => $user['username'], 
                 'roleID' => $user['roleID']

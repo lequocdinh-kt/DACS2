@@ -7,7 +7,8 @@ session_start();
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['userID'])) {
     $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-    header('Location: /src/views/login.php?message=' . urlencode('Vui lòng đăng nhập để đặt vé'));
+    $_SESSION['login_message'] = 'Vui lòng đăng nhập để đặt vé';
+    header('Location: /?openLogin=1');
     exit();
 }
 

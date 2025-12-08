@@ -115,6 +115,11 @@ function proceedToPayment() {
     })
     .then(response => response.json())
     .then(data => {
+        if (data.requireLogin) {
+            // Chuyển về trang chủ và mở modal đăng nhập
+            window.location.href = '/?openLogin=1';
+            return;
+        }
         if (data.success) {
             // Tạo booking
             createBooking(seatIDs);
@@ -149,6 +154,11 @@ function createBooking(seatIDs) {
     .then(response => response.json())
     .then(data => {
         console.log('Booking response:', data); // Debug
+        if (data.requireLogin) {
+            // Chuyển về trang chủ và mở modal đăng nhập
+            window.location.href = '/?openLogin=1';
+            return;
+        }
         if (data.success) {
             // Chuyển sang trang thanh toán
             window.location.href = `/src/views/booking_step3_payment.php?bookingID=${data.bookingID}`;

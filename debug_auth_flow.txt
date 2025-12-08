@@ -1,0 +1,72 @@
+=== DEBUG AUTH FLOW ===
+
+Luồng đăng nhập từ Schedule page:
+
+1. User chưa đăng nhập, click vào showtime button
+2. booking_step2_seats.php kiểm tra session, redirect về /?openLogin=1
+3. index.php nhận openLogin=1, mở modal đăng nhập
+4. User nhập thông tin và submit form
+5. auth.js gửi POST request đến loginControllerAjax.php
+6. loginControllerAjax.php:
+   - Kiểm tra user
+   - Set session userID, roleID
+   - Lấy redirect_after_login từ session
+   - Trả về JSON với redirect URL
+7. auth.js nhận response:
+   - Nếu có redirect URL → window.location.href = redirect
+   - Nếu không có → window.location.reload()
+
+=== CÁC ĐIỂM CẦN KIỂM TRA ===
+
+✅ booking_step2_seats.php - Set $_SESSION['redirect_after_login']
+✅ loginControllerAjax.php - Trả về redirect URL trong JSON response
+✅ auth.js - Xử lý redirect sau khi login thành công
+✅ Thêm console.log để debug
+
+=== TEST STEPS ===
+
+1. Mở browser console (F12)
+2. Đảm bảo chưa đăng nhập (logout nếu cần)
+3. Vào trang Schedule: http://localhost/?page=schedule
+4. Click vào 1 showtime button
+5. Xem console logs:
+   - URL redirect được lưu
+   - Modal mở
+   - Login request
+   - Response data
+   - Redirect URL
+
+=== EXPECTED CONSOLE OUTPUT ===
+
+[Schedule.js] SHOWTIME BUTTON CLICKED
+[Schedule.js] URL: /src/views/booking_step2_seats.php?showtimeID=XXX
+
+[Auth.js] OPENING AUTH MODAL
+[Auth.js] Form type: login
+[Auth.js] Current URL: http://localhost/?openLogin=1
+
+[Auth.js] LOGIN SUCCESS
+[Auth.js] Response data: {success: true, redirect: "/src/views/booking_step2_seats.php?showtimeID=XXX"}
+[Auth.js] Redirect URL: /src/views/booking_step2_seats.php?showtimeID=XXX
+[Auth.js] Redirecting to: /src/views/booking_step2_seats.php?showtimeID=XXX
+
+=== KNOWN ISSUES FIXED ===
+
+1. ❌ loginControllerAjax.php không trả về redirect URL
+   ✅ FIXED: Thêm logic lấy và trả về redirect_after_login
+
+2. ❌ auth.js chỉ reload page, không redirect về URL đã lưu
+   ✅ FIXED: Kiểm tra data.redirect và redirect nếu có
+
+3. ❌ Không có debug logs để trace flow
+   ✅ FIXED: Thêm console.log ở các bước quan trọng
+
+=== ADDITIONAL DEBUG ===
+
+Nếu vẫn còn lỗi, kiểm tra:
+- PHP error logs
+- Browser console
+- Network tab (XHR requests)
+- Session data trong PHP
+
+Created: 2025-12-09

@@ -61,6 +61,29 @@ $page_info = $valid_pages[$page];
     ?>
 
     <?php include 'src/views/footer.php'; ?>
+    
+    <?php if (isset($_GET['openLogin']) && $_GET['openLogin'] == '1'): ?>
+    <script>
+        // Mở modal đăng nhập khi có parameter openLogin=1
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof openAuthModal === 'function') {
+                openAuthModal('login');
+                <?php if (isset($_SESSION['login_message'])): ?>
+                // Hiển thị thông báo nếu có
+                setTimeout(function() {
+                    const loginAlert = document.getElementById('loginAlert');
+                    if (loginAlert) {
+                        loginAlert.textContent = '<?php echo addslashes($_SESSION['login_message']); ?>';
+                        loginAlert.className = 'alert alert-info';
+                        loginAlert.style.display = 'block';
+                    }
+                }, 100);
+                <?php unset($_SESSION['login_message']); ?>
+                <?php endif; ?>
+            }
+        });
+    </script>
+    <?php endif; ?>
 </body>
 
 </html>

@@ -6,7 +6,8 @@ session_start();
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['userID'])) {
-    header('Location: /src/views/login.php');
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+    header('Location: /?openLogin=1');
     exit();
 }
 
