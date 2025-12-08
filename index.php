@@ -1,5 +1,26 @@
 <?php 
-session_start(); 
+session_start();
+
+// Xác định trang cần hiển thị dựa vào query parameter
+$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+// Mapping các trang hợp lệ
+$valid_pages = [
+    'home' => ['file' => 'src/views/home.php', 'title' => 'Trang chủ', 'css' => 'src/styles/home.css'],
+    'schedule' => ['file' => 'src/views/schedule.php', 'title' => 'Lịch chiếu', 'css' => 'src/styles/schedule.css'],
+    'movies' => ['file' => 'src/views/movies.php', 'title' => 'Phim', 'css' => 'src/styles/movies.css'],
+    'movie_detail' => ['file' => 'src/views/movie_detail.php', 'title' => 'Chi tiết phim', 'css' => 'src/styles/movie_detail.css'],
+    'deals' => ['file' => 'src/views/deals.php', 'title' => 'Ưu đãi', 'css' => 'src/styles/deals.css'],
+    'news' => ['file' => 'src/views/news.php', 'title' => 'Tin tức phim', 'css' => 'src/styles/news.css'],
+    'member' => ['file' => 'src/views/member.php', 'title' => 'Thành viên', 'css' => 'src/styles/member.css']
+];
+
+// Kiểm tra trang có hợp lệ không
+if (!isset($valid_pages[$page])) {
+    $page = 'home';
+}
+
+$page_info = $valid_pages[$page];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,18 +28,37 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/styles/header.css">
-    <link rel="stylesheet" href="/src/styles/home.css">
-    <link rel="stylesheet" href="src/styles/footer.css">
+    <link rel="stylesheet" href="/src/styles/header.css">
+    <?php if (file_exists($page_info['css'])): ?>
+    <link rel="stylesheet" href="/<?php echo $page_info['css']; ?>">
+    <?php endif; ?>
+    <link rel="stylesheet" href="/src/styles/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <title>Vku Cinema</title>
+    <title><?php echo ($page === 'movie_detail' && isset($movie)) ? htmlspecialchars($movie['title']) . ' - VKU Cinema' : $page_info['title'] . ' - VKU Cinema'; ?></title>
 </head>
 
 <body>
     <?php include 'src/views/header.php'; ?>
     
-    <?php include 'src/views/home.php'; ?>
+    <?php 
+    // Define constant to allow view files to know they're included from index
+    define('INCLUDED_FROM_INDEX', true);
+    
+    error_log("index.php: About to include file: " . $page_info['file']);
+    
+    // Include nội dung trang tương ứng
+    if (file_exists($page_info['file'])) {
+        error_log("index.php: File exists, including...");
+        include $page_info['file'];
+        error_log("index.php: File included successfully");
+    } else {
+        error_log("index.php: File not found, using home.php");
+        include 'src/views/home.php';
+    }
+    
+    error_log("=== index.php: Request completed ===");
+    ?>
 
     <?php include 'src/views/footer.php'; ?>
 </body>

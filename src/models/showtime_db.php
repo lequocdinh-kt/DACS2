@@ -77,3 +77,26 @@ function check_showtime_availability($showtimeID) {
     $showtime = get_showtime_by_id($showtimeID);
     return $showtime ? $showtime['availableSeats'] > 0 : false;
 }
+
+function get_upcoming_showtimes_by_movie($movieID, $days = 7) {
+    global $db;
+    
+    $stmt = $db->prepare("
+        SELECT st.*, r.roomName, r.roomType as format, r.totalSeats,
+               COALESCE(COUNT(DISTINCT bs.seatID), 0) as bookedSeats,
+               (r.totalSeats - COALESCE(COUNT(DISTINCT bs.seatID), 0)) as availableSeats
+        FROM showtimes st
+        INNER JOIN rooms r ON st.roomID = r.roomID
+        LEFT JOIN bookings b ON st.showtimeID = b.showtimeID AND b.paymentStatus IN ('pending', 'paid')
+        LEFT JOIN bookingseats bs ON b.bookingID = bs.bookingID
+        WHERE st.movieID = ? 
+        AND st.showDate BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL ? DAY)
+        AND st.status = 'available'
+        AND CONCAT(st.showDate, ' ', st.showTime) > NOW()
+        GROUP BY st.showtimeID
+        ORDER BY st.showDate ASC, st.showTime ASC
+    ");
+    
+    $stmt->execute([$movieID, $days]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

@@ -1,4 +1,6 @@
 /* Reset và thiết lập chung */
+@import url('fonts.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-primary);
     background: linear-gradient(135deg, #FFEFD5 0%, #FFEBCD 100%);
     min-height: 100vh;
     display: flex;

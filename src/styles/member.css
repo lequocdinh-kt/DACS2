@@ -1,0 +1,24 @@
+/* Member Page Styles */
+
+@import url('fonts.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.member-main {
+    min-height: 100vh;
+    background: #0a0e1a;
+}
+
+.member-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+.tier-card:hover {
+    transform: translateY(-5px);
+}

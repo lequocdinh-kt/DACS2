@@ -5,19 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once __DIR__ . '/../controllers/homeController.php';
 ?>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VKU Cinema - Trang Chủ</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/src/styles/home.css">
-</head>
-<body>
 
     <!-- Hero Banner Slider -->
     <section class="hero-banner">
@@ -36,12 +23,12 @@ require_once __DIR__ . '/../controllers/homeController.php';
                                     <span><i class="fas fa-star"></i> <?php echo $movie['rating']; ?></span>
                                 </div>
                                 <div class="banner-buttons">
-                                    <a href="/src/views/booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" 
+                                    <a href="src/views/booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" 
                                        class="btn-primary" 
                                        onclick="return checkLoginBeforeBooking(event, <?php echo $movie['movieID']; ?>)">
                                         <i class="fas fa-ticket-alt"></i> Đặt vé ngay
                                     </a>
-                                    <a href="/src/views/movie_detail.php?id=<?php echo $movie['movieID']; ?>" class="btn-secondary">
+                                    <a href="/index.php?page=movie_detail&id=<?php echo $movie['movieID']; ?>" class="btn-secondary">
                                         <i class="fas fa-info-circle"></i> Chi tiết
                                     </a>
                                     <?php if (!empty($movie['trailerURL'])): ?>
@@ -85,7 +72,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                 <h2>PHIM ĐANG CHIẾU</h2>
                 <div class="header-info">
                     <span class="movie-count"><?php echo $nowShowingCount; ?> phim</span>
-                    <a href="/src/views/movies.php?status=now_showing" class="view-all">
+                    <a href="/index.php?page=movies&status=now_showing" class="view-all">
                         Xem tất cả <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -131,7 +118,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                                         <i class="fas fa-star"></i>
                                         <span><?php echo $movie['rating']; ?></span>
                                     </div>
-                                    <a href="/src/views/booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" 
+                                    <a href="src/views/booking_step1_showtimes.php?movieID=<?php echo $movie['movieID']; ?>" 
                                        class="btn-booking-small" 
                                        onclick="return checkLoginBeforeBooking(event, <?php echo $movie['movieID']; ?>)">
                                         <i class="fas fa-ticket-alt"></i> Đặt vé
@@ -161,7 +148,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                 <h2>PHIM SẮP CHIẾU</h2>
                 <div class="header-info">
                     <span class="movie-count"><?php echo $comingSoonCount; ?> phim</span>
-                    <a href="/src/views/movies.php?status=coming_soon" class="view-all">
+                    <a href="/index.php?page=movies&status=coming_soon" class="view-all">
                         Xem tất cả <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -220,7 +207,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                                         <i class="fas fa-star"></i>
                                         <span><?php echo $movie['rating']; ?></span>
                                     </div>
-                                    <a href="/src/views/movie_detail.php?id=<?php echo $movie['movieID']; ?>" 
+                                    <a href="/index.php?page=movie_detail&id=<?php echo $movie['movieID']; ?>" 
                                        class="btn-detail-small">
                                         <i class="fas fa-info-circle"></i> Chi tiết
                                     </a>
@@ -247,7 +234,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
         <div class="container">
             <div class="section-header">
                 <h2>TIN TỨC & ƯU ĐÃI</h2>
-                <a href="/src/views/news.php" class="view-all">
+                <a href="/index.php?page=news" class="view-all">
                     Xem tất cả <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -263,7 +250,7 @@ require_once __DIR__ . '/../controllers/homeController.php';
                                 <span class="news-tag"><?php echo htmlspecialchars(format_news_type($news['type'])); ?></span>
                                 <h3><?php echo htmlspecialchars($news['title']); ?></h3>
                                 <p><?php echo htmlspecialchars($news['summary']); ?></p>
-                                <a href="/src/views/news_detail.php?id=<?php echo $news['newsID']; ?>">
+                                <a href="/index.php?page=news_detail&id=<?php echo $news['newsID']; ?>">
                                     Xem thêm <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
@@ -325,6 +312,4 @@ require_once __DIR__ . '/../controllers/homeController.php';
         // Biến global để kiểm tra đăng nhập
         var isUserLoggedIn = <?php echo isset($_SESSION['userID']) ? 'true' : 'false'; ?>;
     </script>
-    <script src="/src/js/home.js"></script>
-</body>
-</html>
+    <script src="src/js/home.js"></script>

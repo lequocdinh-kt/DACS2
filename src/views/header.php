@@ -17,11 +17,11 @@
         <!-- Menu chính giữa -->
         <nav class="header-nav">
             <ul class="nav-menu">
-                <li><a href="index.php">LỊCH CHIẾU</a></li>
-                <li><a href="movies.php">PHIM</a></li>
-                <li><a href="deals.php">ƯU ĐÃI</a></li>
-                <li><a href="news.php">TIN TỨC PHIM</a></li>
-                <li><a href="member.php">THÀNH VIÊN</a></li>
+                <li><a href="index.php?page=schedule">LỊCH CHIẾU</a></li>
+                <li><a href="index.php?page=movies">PHIM</a></li>
+                <li><a href="index.php?page=deals">ƯU ĐÃI</a></li>
+                <li><a href="index.php?page=news">TIN TỨC PHIM</a></li>
+                <li><a href="index.php?page=member">THÀNH VIÊN</a></li>
             </ul>
         </nav>
 
@@ -70,11 +70,11 @@
             </button>
         </div>
         <ul class="mobile-nav-menu">
-            <li><a href="index.php">LỊCH CHIẾU</a></li>
-            <li><a href="movies.php">PHIM</a></li>
-            <li><a href="deals.php">ƯU ĐÃI</a></li>
-            <li><a href="news.php">TIN TỨC PHIM</a></li>
-            <li><a href="member.php">THÀNH VIÊN</a></li>
+            <li><a href="index.php?page=schedule">LỊCH CHIẾU</a></li>
+            <li><a href="index.php?page=movies">PHIM</a></li>
+            <li><a href="index.php?page=deals">ƯU ĐÃI</a></li>
+            <li><a href="index.php?page=news">TIN TỨC PHIM</a></li>
+            <li><a href="index.php?page=member">THÀNH VIÊN</a></li>
         </ul>
         <div class="mobile-menu-footer">
             <div class="mobile-info">

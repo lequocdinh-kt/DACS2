@@ -1,0 +1,399 @@
+/**
+ * VKU Cinema - Font System
+ * Định nghĩa và quản lý phông chữ toàn dự án
+ */
+
+/* ==================== FONT IMPORTS ==================== */
+
+/* Google Fonts - Roboto (Modern, Clean) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&display=swap');
+
+/* Google Fonts - Montserrat (Headings, Bold) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+/* Google Fonts - Poppins (Alternative, Friendly) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Google Fonts - Inter (Clean, Professional) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ==================== FONT VARIABLES ==================== */
+
+:root {
+    /* Primary Font Stack */
+    --font-primary: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    
+    /* Heading Font Stack */
+    --font-heading: 'Montserrat', 'Roboto', 'Arial Black', sans-serif;
+    
+    /* Alternative Font Stack */
+    --font-alt: 'Poppins', 'Roboto', 'Arial', sans-serif;
+    
+    /* Clean/Professional Font Stack */
+    --font-clean: 'Inter', 'Roboto', 'Arial', sans-serif;
+    
+    /* Monospace Font (for code, numbers) */
+    --font-mono: 'Courier New', 'Consolas', 'Monaco', monospace;
+    
+    /* Font Sizes */
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 24px;
+    --font-size-3xl: 28px;
+    --font-size-4xl: 32px;
+    --font-size-5xl: 36px;
+    --font-size-6xl: 48px;
+    --font-size-7xl: 56px;
+    --font-size-8xl: 64px;
+    
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+    
+    /* Line Heights */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.6;
+    --line-height-loose: 2;
+    
+    /* Letter Spacing */
+    --letter-spacing-tight: -0.5px;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 1px;
+    --letter-spacing-wider: 2px;
+    --letter-spacing-widest: 4px;
+}
+
+/* ==================== BASE FONT SETTINGS ==================== */
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ==================== HEADING STYLES ==================== */
+
+h1, h2, h3, h4, h5, h6,
+.heading {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    margin: 0;
+}
+
+h1, .h1 {
+    font-size: var(--font-size-6xl);
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+h2, .h2 {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+h3, .h3 {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+}
+
+h4, .h4 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+}
+
+h5, .h5 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+}
+
+h6, .h6 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* ==================== TEXT UTILITY CLASSES ==================== */
+
+/* Font Families */
+.font-primary { font-family: var(--font-primary); }
+.font-heading { font-family: var(--font-heading); }
+.font-alt { font-family: var(--font-alt); }
+.font-clean { font-family: var(--font-clean); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Font Sizes */
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
+.text-5xl { font-size: var(--font-size-5xl); }
+.text-6xl { font-size: var(--font-size-6xl); }
+.text-7xl { font-size: var(--font-size-7xl); }
+.text-8xl { font-size: var(--font-size-8xl); }
+
+/* Font Weights */
+.font-light { font-weight: var(--font-weight-light); }
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }
+.font-extrabold { font-weight: var(--font-weight-extrabold); }
+.font-black { font-weight: var(--font-weight-black); }
+
+/* Line Heights */
+.leading-tight { line-height: var(--line-height-tight); }
+.leading-normal { line-height: var(--line-height-normal); }
+.leading-relaxed { line-height: var(--line-height-relaxed); }
+.leading-loose { line-height: var(--line-height-loose); }
+
+/* Letter Spacing */
+.tracking-tight { letter-spacing: var(--letter-spacing-tight); }
+.tracking-normal { letter-spacing: var(--letter-spacing-normal); }
+.tracking-wide { letter-spacing: var(--letter-spacing-wide); }
+.tracking-wider { letter-spacing: var(--letter-spacing-wider); }
+.tracking-widest { letter-spacing: var(--letter-spacing-widest); }
+
+/* Text Transforms */
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* Text Decoration */
+.underline { text-decoration: underline; }
+.line-through { text-decoration: line-through; }
+.no-underline { text-decoration: none; }
+
+/* ==================== SPECIALIZED TEXT STYLES ==================== */
+
+/* Movie Title Style */
+.movie-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-6xl);
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-wide);
+    line-height: var(--line-height-tight);
+    text-transform: uppercase;
+}
+
+/* Section Title Style */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-wide);
+    line-height: var(--line-height-tight);
+}
+
+/* Card Title Style */
+.card-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+/* Description Text Style */
+.description-text {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    color: #e0e0e0;
+}
+
+/* Button Text Style */
+.button-text {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-normal);
+    text-transform: none;
+}
+
+/* Label Text Style */
+.label-text {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+}
+
+/* Meta Text Style (genre, duration, etc) */
+.meta-text {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: #b0b0b0;
+}
+
+/* Price/Number Style */
+.price-text {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+/* ==================== RESPONSIVE FONT SIZES ==================== */
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+    :root {
+        --font-size-6xl: 40px;
+        --font-size-5xl: 32px;
+        --font-size-4xl: 28px;
+        --font-size-3xl: 24px;
+        --font-size-2xl: 20px;
+    }
+    
+    h1, .h1, .movie-title {
+        font-size: 40px;
+    }
+    
+    h2, .h2, .section-title {
+        font-size: 32px;
+    }
+    
+    h3, .h3 {
+        font-size: 28px;
+    }
+    
+    h4, .h4 {
+        font-size: 24px;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    :root {
+        --font-size-6xl: 32px;
+        --font-size-5xl: 28px;
+        --font-size-4xl: 24px;
+        --font-size-3xl: 20px;
+        --font-size-2xl: 18px;
+        --font-size-base: 14px;
+    }
+    
+    h1, .h1, .movie-title {
+        font-size: 32px;
+        letter-spacing: 1px;
+    }
+    
+    h2, .h2, .section-title {
+        font-size: 28px;
+    }
+    
+    h3, .h3 {
+        font-size: 24px;
+    }
+    
+    h4, .h4 {
+        font-size: 20px;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+}
+
+/* ==================== FONT LOADING OPTIMIZATION ==================== */
+
+/* Prevent layout shift during font loading */
+@font-face {
+    font-family: 'Roboto';
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-display: swap;
+}
+
+/* ==================== TEXT SHADOW UTILITIES ==================== */
+
+.text-shadow-sm {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-md {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.text-shadow-lg {
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+}
+
+.text-shadow-xl {
+    text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+}
+
+.text-shadow-glow {
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+/* ==================== TRUNCATE TEXT UTILITIES ==================== */
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

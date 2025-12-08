@@ -1,4 +1,6 @@
 /* Footer Styles */
+@import url('fonts.css');
+
 .main-footer {
     background: linear-gradient(135deg, #0a1628 0%, #1a2744 100%);
     color: #ffffff;
@@ -74,11 +76,12 @@
 }
 
 .footer-logo h2 {
-    font-size: 48px;
-    font-weight: 900;
+    font-size: var(--font-size-6xl);
+    font-weight: var(--font-weight-black);
+    font-family: var(--font-heading);
     margin: 0;
     line-height: 1;
-    letter-spacing: 8px;
+    letter-spacing: var(--letter-spacing-widest);
 }
 
 /* Màu từng chữ VKU theo logo */
@@ -265,11 +268,12 @@
 
 /* Middle Columns - Links */
 .footer-links h3 {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-heading);
     margin-bottom: 20px;
     color: #ffffff;
-    letter-spacing: 1px;
+    letter-spacing: var(--letter-spacing-wide);
 }
 
 .footer-links ul {

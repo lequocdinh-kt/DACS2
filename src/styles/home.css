@@ -1,4 +1,6 @@
 /* Home Page Styles */
+@import url('fonts.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-primary);
     background: #0a0e27;
     color: #ffffff;
 }
@@ -72,9 +74,9 @@ body {
 }
 
 .banner-title {
-    font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 52px;
-    font-weight: 900;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-6xl);
+    font-weight: var(--font-weight-black);
     margin-bottom: 24px;
     color: #ffffff;
     text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9), 0 0 30px rgba(102, 126, 234, 0.3);
@@ -98,8 +100,8 @@ body {
     padding: 8px 16px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -109,10 +111,10 @@ body {
 }
 
 .banner-description {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     margin-bottom: 32px;
     color: #e0e0e0;
-    line-height: 1.6;
+    line-height: var(--line-height-relaxed);
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
     font-weight: 400;
     animation: fadeInUp 1s ease;
@@ -212,8 +214,9 @@ body {
 }
 
 .section-header h2 {
-    font-size: 36px;
-    font-weight: 900;
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-black);
+    font-family: var(--font-heading);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -223,7 +226,8 @@ body {
 .view-all {
     color: #667eea;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-primary);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -725,7 +729,9 @@ body {
 }
 
 .card-info h4 {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-heading);
     margin-bottom: 12px;
     white-space: nowrap;
     overflow: hidden;
@@ -733,7 +739,8 @@ body {
 }
 
 .small-genre {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     color: #a0aec0;
     margin-bottom: 8px;
     display: flex;
@@ -742,7 +749,8 @@ body {
 }
 
 .small-duration {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     color: #a0aec0;
     margin-bottom: 8px;
     display: flex;
@@ -973,8 +981,9 @@ body {
 }
 
 .trailer-title {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-heading);
     margin-bottom: 20px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;

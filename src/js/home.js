@@ -56,7 +56,7 @@ function initBannerSlider() {
                 // Cập nhật nút chi tiết
                 const detailBtn = bannerContent.querySelector('.btn-secondary');
                 if (detailBtn) {
-                    detailBtn.href = `/src/views/movie_detail.php?id=${movieID}`;
+                    detailBtn.href = `/index.php?page=movie_detail&id=${movieID}`;
                     console.log('Updated detail button href:', detailBtn.href);
                 }
                 
