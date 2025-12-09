@@ -87190,3 +87190,1371 @@ Data: {
     "availableSeats": 60
 }
 --------------------------------------------------------------------------------
+[2025-12-09T03:17:33.484Z] === SCHEDULE PAGE LOADED ===
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.485Z] Current URL
+Data: "http:\/\/localhost:3000\/index.php?page=schedule"
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.485Z] Origin
+Data: "http:\/\/localhost:3000"
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.486Z] Pathname
+Data: "\/index.php"
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.486Z] Loading schedule
+Data: {
+    "selectedDate": "2025-12-09",
+    "currentURL": "http:\/\/localhost:3000\/index.php?page=schedule",
+    "origin": "http:\/\/localhost:3000",
+    "pathname": "\/index.php"
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.487Z] Fetching from API
+Data: {
+    "apiUrl": "http:\/\/localhost:3000\/src\/controllers\/scheduleController.php?date=2025-12-09"
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.566Z] Schedule data received
+Data: {
+    "success": true,
+    "moviesCount": 6
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.568Z] === Creating Movie Schedule Item ===
+Data: {
+    "movieTitle": "Gangster Về Làng",
+    "movieID": 4,
+    "showtimesCount": 18
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.568Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13268,
+    "roomName": "VKU Cinema 3",
+    "showTime": "09:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13268",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.568Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13262,
+    "roomName": "VKU Cinema 2",
+    "showTime": "09:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13262",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.568Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13256,
+    "roomName": "VKU Cinema 1",
+    "showTime": "09:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13256",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.568Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13286,
+    "roomName": "VKU Cinema 3",
+    "showTime": "11:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13286",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.569Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13280,
+    "roomName": "VKU Cinema 2",
+    "showTime": "11:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13280",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.569Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13274,
+    "roomName": "VKU Cinema 1",
+    "showTime": "11:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13274",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.569Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13298,
+    "roomName": "VKU Cinema 2",
+    "showTime": "14:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13298",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.569Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13292,
+    "roomName": "VKU Cinema 1",
+    "showTime": "14:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13292",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.569Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13304,
+    "roomName": "VKU Cinema 3",
+    "showTime": "14:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13304",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.570Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13322,
+    "roomName": "VKU Cinema 3",
+    "showTime": "16:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13322",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.570Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13316,
+    "roomName": "VKU Cinema 2",
+    "showTime": "16:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13316",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.570Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13310,
+    "roomName": "VKU Cinema 1",
+    "showTime": "16:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13310",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.570Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13328,
+    "roomName": "VKU Cinema 1",
+    "showTime": "19:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13328",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.570Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13340,
+    "roomName": "VKU Cinema 3",
+    "showTime": "19:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13340",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.571Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13334,
+    "roomName": "VKU Cinema 2",
+    "showTime": "19:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13334",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.571Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13358,
+    "roomName": "VKU Cinema 3",
+    "showTime": "21:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13358",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.571Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13352,
+    "roomName": "VKU Cinema 2",
+    "showTime": "21:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13352",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.572Z] Creating showtime button for Gangster Về Làng
+Data: {
+    "movieID": 4,
+    "showtimeID": 13346,
+    "roomName": "VKU Cinema 1",
+    "showTime": "21:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13346",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.572Z] === Creating Movie Schedule Item ===
+Data: {
+    "movieTitle": "Phi Vụ Động Trời 2",
+    "movieID": 2,
+    "showtimesCount": 18
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.573Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13266,
+    "roomName": "VKU Cinema 3",
+    "showTime": "09:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13266",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.574Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13260,
+    "roomName": "VKU Cinema 2",
+    "showTime": "09:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13260",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.575Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13254,
+    "roomName": "VKU Cinema 1",
+    "showTime": "09:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13254",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.576Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13284,
+    "roomName": "VKU Cinema 3",
+    "showTime": "11:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13284",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.576Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13278,
+    "roomName": "VKU Cinema 2",
+    "showTime": "11:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13278",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.576Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13272,
+    "roomName": "VKU Cinema 1",
+    "showTime": "11:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13272",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.576Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13296,
+    "roomName": "VKU Cinema 2",
+    "showTime": "14:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13296",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.577Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13290,
+    "roomName": "VKU Cinema 1",
+    "showTime": "14:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13290",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.577Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13302,
+    "roomName": "VKU Cinema 3",
+    "showTime": "14:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13302",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.577Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13320,
+    "roomName": "VKU Cinema 3",
+    "showTime": "16:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13320",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.577Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13314,
+    "roomName": "VKU Cinema 2",
+    "showTime": "16:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13314",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.578Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13308,
+    "roomName": "VKU Cinema 1",
+    "showTime": "16:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13308",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.578Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13326,
+    "roomName": "VKU Cinema 1",
+    "showTime": "19:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13326",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.578Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13338,
+    "roomName": "VKU Cinema 3",
+    "showTime": "19:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13338",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.578Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13332,
+    "roomName": "VKU Cinema 2",
+    "showTime": "19:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13332",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.578Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13356,
+    "roomName": "VKU Cinema 3",
+    "showTime": "21:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13356",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.578Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13350,
+    "roomName": "VKU Cinema 2",
+    "showTime": "21:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13350",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.579Z] Creating showtime button for Phi Vụ Động Trời 2
+Data: {
+    "movieID": 2,
+    "showtimeID": 13344,
+    "roomName": "VKU Cinema 1",
+    "showTime": "21:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13344",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.579Z] === Creating Movie Schedule Item ===
+Data: {
+    "movieTitle": "Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện",
+    "movieID": 3,
+    "showtimesCount": 18
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.579Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13267,
+    "roomName": "VKU Cinema 3",
+    "showTime": "09:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13267",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.579Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13261,
+    "roomName": "VKU Cinema 2",
+    "showTime": "09:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13261",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.579Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13255,
+    "roomName": "VKU Cinema 1",
+    "showTime": "09:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13255",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.580Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13285,
+    "roomName": "VKU Cinema 3",
+    "showTime": "11:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13285",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.580Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13279,
+    "roomName": "VKU Cinema 2",
+    "showTime": "11:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13279",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.580Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13273,
+    "roomName": "VKU Cinema 1",
+    "showTime": "11:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13273",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.580Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13297,
+    "roomName": "VKU Cinema 2",
+    "showTime": "14:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13297",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.580Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13291,
+    "roomName": "VKU Cinema 1",
+    "showTime": "14:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13291",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.581Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13303,
+    "roomName": "VKU Cinema 3",
+    "showTime": "14:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13303",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.581Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13321,
+    "roomName": "VKU Cinema 3",
+    "showTime": "16:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13321",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.581Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13315,
+    "roomName": "VKU Cinema 2",
+    "showTime": "16:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13315",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.582Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13309,
+    "roomName": "VKU Cinema 1",
+    "showTime": "16:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13309",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.582Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13327,
+    "roomName": "VKU Cinema 1",
+    "showTime": "19:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13327",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.582Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13339,
+    "roomName": "VKU Cinema 3",
+    "showTime": "19:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13339",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.582Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13333,
+    "roomName": "VKU Cinema 2",
+    "showTime": "19:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13333",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.582Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13357,
+    "roomName": "VKU Cinema 3",
+    "showTime": "21:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13357",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.583Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13351,
+    "roomName": "VKU Cinema 2",
+    "showTime": "21:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13351",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.583Z] Creating showtime button for Phi Vụ Thế Kỷ - Thoắt Ẩn Thoắt Hiện
+Data: {
+    "movieID": 3,
+    "showtimeID": 13345,
+    "roomName": "VKU Cinema 1",
+    "showTime": "21:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13345",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.583Z] === Creating Movie Schedule Item ===
+Data: {
+    "movieTitle": "Phiên Chợ Của Quỷ",
+    "movieID": 5,
+    "showtimesCount": 18
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.583Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13269,
+    "roomName": "VKU Cinema 3",
+    "showTime": "09:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13269",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.584Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13263,
+    "roomName": "VKU Cinema 2",
+    "showTime": "09:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13263",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.584Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13257,
+    "roomName": "VKU Cinema 1",
+    "showTime": "09:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13257",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.584Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13287,
+    "roomName": "VKU Cinema 3",
+    "showTime": "11:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13287",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.584Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13281,
+    "roomName": "VKU Cinema 2",
+    "showTime": "11:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13281",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.585Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13275,
+    "roomName": "VKU Cinema 1",
+    "showTime": "11:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13275",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.585Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13299,
+    "roomName": "VKU Cinema 2",
+    "showTime": "14:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13299",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.585Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13293,
+    "roomName": "VKU Cinema 1",
+    "showTime": "14:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13293",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.585Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13305,
+    "roomName": "VKU Cinema 3",
+    "showTime": "14:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13305",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.585Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13323,
+    "roomName": "VKU Cinema 3",
+    "showTime": "16:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13323",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.586Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13317,
+    "roomName": "VKU Cinema 2",
+    "showTime": "16:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13317",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.586Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13311,
+    "roomName": "VKU Cinema 1",
+    "showTime": "16:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13311",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.586Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13329,
+    "roomName": "VKU Cinema 1",
+    "showTime": "19:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13329",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.587Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13341,
+    "roomName": "VKU Cinema 3",
+    "showTime": "19:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13341",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.587Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13335,
+    "roomName": "VKU Cinema 2",
+    "showTime": "19:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13335",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.587Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13359,
+    "roomName": "VKU Cinema 3",
+    "showTime": "21:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13359",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.587Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13353,
+    "roomName": "VKU Cinema 2",
+    "showTime": "21:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13353",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.588Z] Creating showtime button for Phiên Chợ Của Quỷ
+Data: {
+    "movieID": 5,
+    "showtimeID": 13347,
+    "roomName": "VKU Cinema 1",
+    "showTime": "21:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13347",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.588Z] === Creating Movie Schedule Item ===
+Data: {
+    "movieTitle": "Phòng Trọ Ma Bầu",
+    "movieID": 6,
+    "showtimesCount": 18
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.588Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13270,
+    "roomName": "VKU Cinema 3",
+    "showTime": "09:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13270",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.589Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13264,
+    "roomName": "VKU Cinema 2",
+    "showTime": "09:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13264",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.589Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13258,
+    "roomName": "VKU Cinema 1",
+    "showTime": "09:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13258",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.590Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13288,
+    "roomName": "VKU Cinema 3",
+    "showTime": "11:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13288",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.590Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13282,
+    "roomName": "VKU Cinema 2",
+    "showTime": "11:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13282",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.590Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13276,
+    "roomName": "VKU Cinema 1",
+    "showTime": "11:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13276",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.591Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13300,
+    "roomName": "VKU Cinema 2",
+    "showTime": "14:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13300",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.591Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13294,
+    "roomName": "VKU Cinema 1",
+    "showTime": "14:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13294",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.591Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13306,
+    "roomName": "VKU Cinema 3",
+    "showTime": "14:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13306",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.591Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13324,
+    "roomName": "VKU Cinema 3",
+    "showTime": "16:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13324",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.592Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13318,
+    "roomName": "VKU Cinema 2",
+    "showTime": "16:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13318",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.592Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13312,
+    "roomName": "VKU Cinema 1",
+    "showTime": "16:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13312",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.592Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13330,
+    "roomName": "VKU Cinema 1",
+    "showTime": "19:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13330",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.592Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13342,
+    "roomName": "VKU Cinema 3",
+    "showTime": "19:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13342",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.592Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13336,
+    "roomName": "VKU Cinema 2",
+    "showTime": "19:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13336",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.593Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13360,
+    "roomName": "VKU Cinema 3",
+    "showTime": "21:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13360",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.593Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13354,
+    "roomName": "VKU Cinema 2",
+    "showTime": "21:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13354",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.595Z] Creating showtime button for Phòng Trọ Ma Bầu
+Data: {
+    "movieID": 6,
+    "showtimeID": 13348,
+    "roomName": "VKU Cinema 1",
+    "showTime": "21:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13348",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.595Z] === Creating Movie Schedule Item ===
+Data: {
+    "movieTitle": "Truy Tìm Long Diên Hương",
+    "movieID": 1,
+    "showtimesCount": 18
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.595Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13253,
+    "roomName": "VKU Cinema 1",
+    "showTime": "09:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13253",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.596Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13265,
+    "roomName": "VKU Cinema 3",
+    "showTime": "09:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13265",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.596Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13259,
+    "roomName": "VKU Cinema 2",
+    "showTime": "09:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13259",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.596Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13283,
+    "roomName": "VKU Cinema 3",
+    "showTime": "11:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13283",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.596Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13277,
+    "roomName": "VKU Cinema 2",
+    "showTime": "11:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13277",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.596Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13271,
+    "roomName": "VKU Cinema 1",
+    "showTime": "11:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13271",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.597Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13289,
+    "roomName": "VKU Cinema 1",
+    "showTime": "14:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13289",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.597Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13301,
+    "roomName": "VKU Cinema 3",
+    "showTime": "14:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13301",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.598Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13295,
+    "roomName": "VKU Cinema 2",
+    "showTime": "14:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13295",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.598Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13319,
+    "roomName": "VKU Cinema 3",
+    "showTime": "16:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13319",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.598Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13313,
+    "roomName": "VKU Cinema 2",
+    "showTime": "16:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13313",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.599Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13307,
+    "roomName": "VKU Cinema 1",
+    "showTime": "16:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13307",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.599Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13337,
+    "roomName": "VKU Cinema 3",
+    "showTime": "19:00:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13337",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.600Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13331,
+    "roomName": "VKU Cinema 2",
+    "showTime": "19:00:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13331",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.600Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13325,
+    "roomName": "VKU Cinema 1",
+    "showTime": "19:00:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13325",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.600Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13349,
+    "roomName": "VKU Cinema 2",
+    "showTime": "21:30:00",
+    "format": "3D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13349",
+    "availableSeats": 80
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.601Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13343,
+    "roomName": "VKU Cinema 1",
+    "showTime": "21:30:00",
+    "format": "2D",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13343",
+    "availableSeats": 60
+}
+--------------------------------------------------------------------------------
+[2025-12-09T03:17:33.601Z] Creating showtime button for Truy Tìm Long Diên Hương
+Data: {
+    "movieID": 1,
+    "showtimeID": 13355,
+    "roomName": "VKU Cinema 3",
+    "showTime": "21:30:00",
+    "format": "IMAX",
+    "isFull": false,
+    "bookingUrl": "\/src\/views\/booking_step2_seats.php?showtimeID=13355",
+    "availableSeats": 100
+}
+--------------------------------------------------------------------------------
