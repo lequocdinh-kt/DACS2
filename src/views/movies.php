@@ -1,13 +1,5 @@
 <main class="movies-main">
     <div class="movies-container">
-        <!-- Header -->
-        <section class="movies-hero">
-            <h1>
-                <i class="fas fa-film"></i> Danh sách phim
-            </h1>
-            <p>Khám phá những bộ phim đang chiếu và sắp chiếu</p>
-        </section>
-
         <!-- Filter Section -->
         <section class="movies-filter">
             <div class="filter-wrapper">
@@ -36,3 +28,5 @@
         </section>
     </div>
 </main>
+
+<script src="/src/js/movies.js"></script>

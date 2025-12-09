@@ -20,40 +20,6 @@
     padding: 0 50px;
 }
 
-/* Hero Section */
-.movies-hero {
-    text-align: center;
-    padding: 40px 20px;
-    margin-bottom: 40px;
-}
-
-.movies-hero h1 {
-    color: #667eea;
-    font-size: 36px;
-    font-weight: 700;
-    margin: 0 0 15px 0;
-    text-transform: uppercase;
-    display: inline-flex;
-    align-items: center;
-    gap: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.movies-hero h1 i {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.movies-hero p {
-    color: #999;
-    font-size: 16px;
-}
-
 /* Filter Section */
 .movies-filter {
     background: rgba(255, 255, 255, 0.03);
@@ -237,6 +203,12 @@
     color: white;
 }
 
+.movie-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .movie-info {
     padding: 20px;
 }
@@ -248,6 +220,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
 }
 
 .movie-meta {
@@ -264,6 +237,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    text-decoration: none;
 }
 
 .movie-genre i,
@@ -279,6 +253,7 @@
     color: #ffd700;
     font-size: 16px;
     font-weight: 700;
+    text-decoration: none;
 }
 
 .movie-rating i {
@@ -334,10 +309,6 @@
         padding: 0 20px;
     }
 
-    .movies-hero h1 {
-        font-size: 28px;
-    }
-
     .filter-wrapper {
         flex-direction: column;
         align-items: stretch;
@@ -356,16 +327,6 @@
 @media (max-width: 480px) {
     .movies-main {
         padding: 20px 0;
-    }
-
-    .movies-hero {
-        padding: 20px;
-    }
-
-    .movies-hero h1 {
-        font-size: 24px;
-        flex-direction: column;
-        gap: 10px;
     }
 
     .filter-buttons {
