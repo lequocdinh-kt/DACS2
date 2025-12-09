@@ -12,7 +12,12 @@ $valid_pages = [
     'movie_detail' => ['file' => 'src/views/movie_detail.php', 'title' => 'Chi tiết phim', 'css' => 'src/styles/movie_detail.css'],
     'deals' => ['file' => 'src/views/deals.php', 'title' => 'Ưu đãi', 'css' => 'src/styles/deals.css'],
     'news' => ['file' => 'src/views/news.php', 'title' => 'Tin tức phim', 'css' => 'src/styles/news.css'],
-    'member' => ['file' => 'src/views/member.php', 'title' => 'Thành viên', 'css' => 'src/styles/member.css']
+    'member' => ['file' => 'src/views/member.php', 'title' => 'Thành viên', 'css' => 'src/styles/member.css'],
+    'tuyen-dung' => ['file' => 'src/views/tuyen-dung.php', 'title' => 'Tuyển dụng', 'css' => 'src/styles/info_pages.css'],
+    'lien-he' => ['file' => 'src/views/lien-he.php', 'title' => 'Liên hệ', 'css' => 'src/styles/info_pages.css'],
+    'dieu-khoan' => ['file' => 'src/views/dieu-khoan.php', 'title' => 'Điều khoản chung', 'css' => 'src/styles/info_pages.css'],
+    'cau-hoi' => ['file' => 'src/views/cau-hoi.php', 'title' => 'Câu hỏi thường gặp', 'css' => 'src/styles/info_pages.css'],
+    'dieu-khoan-giao-dich' => ['file' => 'src/views/dieu-khoan-giao-dich.php', 'title' => 'Điều khoản giao dịch', 'css' => 'src/styles/info_pages.css']
 ];
 
 // Kiểm tra trang có hợp lệ không

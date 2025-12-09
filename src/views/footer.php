@@ -36,8 +36,8 @@
             <h3>VKU CINEMA</h3>
             <ul>
                 <li><a href="https://vku.udn.vn/vi/">GIỚI THIỆU</a></li>
-                <li><a href="#">TUYỂN DỤNG</a></li>
-                <li><a href="#">LIÊN HỆ</a></li>
+                <li><a href="index.php?page=tuyen-dung">TUYỂN DỤNG</a></li>
+                <li><a href="index.php?page=lien-he">LIÊN HỆ</a></li>
             </ul>
         </div>
 
@@ -45,9 +45,9 @@
         <div class="footer-column footer-links">
             <h3>THÔNG TIN CHUNG</h3>
             <ul>
-                <li><a href="#">ĐIỀU KHOẢN CHUNG</a></li>
-                <li><a href="#">CÂU HỎI THƯỜNG GẶP</a></li>
-                <li><a href="#">ĐIỀU KHOẢN GIAO DỊCH</a></li>
+                <li><a href="index.php?page=dieu-khoan">ĐIỀU KHOẢN CHUNG</a></li>
+                <li><a href="index.php?page=cau-hoi">CÂU HỎI THƯỜNG GẶP</a></li>
+                <li><a href="index.php?page=dieu-khoan-giao-dich">ĐIỀU KHOẢN GIAO DỊCH</a></li>
             </ul>
         </div>
 
@@ -94,11 +94,11 @@
             <p>trường Đại học Công nghệ thông tin và Truyền thông Việt - Hàn</p>
             <p>email: dinhlq.24itb@vku.udn.vn | email: huynn.24itb@vku.udn.vn</p>
             <p>Địa chỉ : 470 Trần Đại Nghĩa, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng</p>
-            <>Điện thoại: 0795701805</ p>
+            <p>Điện thoại: 0795701805</p>
         </div>
 
         <div class="footer-bottom-center">
-            <img src="src/img/iconvku.png" alt="Metiz Logo" class="metiz-logo">
+            <img src="src/img/iconvku.png" alt="vku Logo" class="vku-logo">
         </div>
 
         <div class="footer-bottom-right">
