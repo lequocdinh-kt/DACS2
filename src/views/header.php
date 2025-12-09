@@ -30,11 +30,11 @@
             <div class="header-info">
                 <div class="hotline">
                     <i class="fas fa-phone-alt"></i>
-                    <span>HOTLINE: 0236 3630 689</span>
+                    <span>HOTLINE: 0795701805</span>
                 </div>
                 <div class="opening-hours">
                     <i class="fas fa-clock"></i>
-                    <span>GIỜ MỞ CỬA: 9:00 - 22:00</span>
+                    <span>GIỜ MỞ CỬA: cả ngày</span>
                 </div>
             </div>
             <div class="header-auth">
