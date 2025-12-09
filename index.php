@@ -14,7 +14,7 @@ $valid_pages = [
     'news' => ['file' => 'src/views/news.php', 'title' => 'Tin tức phim', 'css' => 'src/styles/news.css'],
     'member' => ['file' => 'src/views/member.php', 'title' => 'Thành viên', 'css' => 'src/styles/member.css']
 ];
-
+//test
 // Kiểm tra trang có hợp lệ không
 if (!isset($valid_pages[$page])) {
     $page = 'home';
