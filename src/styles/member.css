@@ -375,8 +375,7 @@
     gap: 10px;
 }
 
-.btn-detail,
-.btn-cancel {
+.btn-detail {
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
@@ -387,9 +386,6 @@
     display: flex;
     align-items: center;
     gap: 6px;
-}
-
-.btn-detail {
     background: rgba(102, 126, 234, 0.2);
     color: #667eea;
     border: 2px solid #667eea;
@@ -397,17 +393,6 @@
 
 .btn-detail:hover {
     background: #667eea;
-    color: white;
-}
-
-.btn-cancel {
-    background: rgba(255, 71, 87, 0.2);
-    color: #ff4757;
-    border: 2px solid #ff4757;
-}
-
-.btn-cancel:hover {
-    background: #ff4757;
     color: white;
 }
 
@@ -754,13 +739,9 @@
     
     .booking-actions {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
     }
     
-    .btn-detail,
-    .btn-cancel {
+    .btn-detail {
         width: 100%;
         justify-content: center;
         padding: 12px 15px;

@@ -225,11 +225,6 @@ function createBookingCard(booking) {
                         <button class="btn-detail" onclick="showBookingDetail(${booking.bookingID})">
                             <i class="fas fa-info-circle"></i> Chi tiết
                         </button>
-                        ${booking.canCancel ? `
-                            <button class="btn-cancel" onclick="cancelBooking(${booking.bookingID})">
-                                <i class="fas fa-times"></i> Hủy vé
-                            </button>
-                        ` : ''}
                     </div>
                 </div>
             </div>
@@ -333,38 +328,6 @@ async function showBookingDetail(bookingID) {
     } catch (error) {
         console.error('Error showing booking detail:', error);
         alert('Không thể tải chi tiết đặt vé');
-    }
-}
-
-/**
- * Hủy booking
- */
-async function cancelBooking(bookingID) {
-    if (!confirm('Bạn có chắc muốn hủy vé này?')) {
-        return;
-    }
-    
-    try {
-        const formData = new FormData();
-        formData.append('booking_id', bookingID);
-        
-        const response = await fetch('/src/controllers/memberController.php?action=cancel_booking', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            alert('Hủy vé thành công!');
-            // Reload lại nội dung
-            loadMemberContent();
-        } else {
-            alert(result.message || 'Không thể hủy vé');
-        }
-    } catch (error) {
-        console.error('Error cancelling booking:', error);
-        alert('Có lỗi xảy ra khi hủy vé');
     }
 }
 
