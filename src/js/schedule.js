@@ -2,27 +2,6 @@
  * VKU Cinema - Schedule Page JavaScript
  */
 
-// ==================== DEBUG LOGGER ====================
-function writeDebugLog(message, data = null) {
-    const timestamp = new Date().toISOString();
-    const logEntry = {
-        timestamp: timestamp,
-        message: message,
-        data: data
-    };
-    
-    console.log(`[${timestamp}] ${message}`, data || '');
-    
-    // Send to server to write to file
-    fetch('/src/controllers/debug_logger.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(logEntry)
-    }).catch(err => console.error('Failed to write debug log:', err));
-}
-
 // ==================== GLOBAL VARIABLES ====================
 let selectedDate = null;
 let allMoviesData = [];
@@ -30,11 +9,6 @@ let currentFilter = 'all';
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
-    writeDebugLog('=== SCHEDULE PAGE LOADED ===');
-    writeDebugLog('Current URL', window.location.href);
-    writeDebugLog('Origin', window.location.origin);
-    writeDebugLog('Pathname', window.location.pathname);
-    
     console.log('Schedule page loaded');
     initializeDateSlider();
     initializeFilterButtons();
@@ -152,13 +126,6 @@ function initializeFilterButtons() {
 async function loadSchedule() {
     const moviesList = document.getElementById('moviesList');
     
-    writeDebugLog('Loading schedule', {
-        selectedDate: selectedDate,
-        currentURL: window.location.href,
-        origin: window.location.origin,
-        pathname: window.location.pathname
-    });
-    
     // Show loading
     moviesList.innerHTML = `
         <div class="loading">
@@ -169,15 +136,9 @@ async function loadSchedule() {
     
     try {
         const apiUrl = `${window.location.origin}/src/controllers/scheduleController.php?date=${selectedDate}`;
-        writeDebugLog('Fetching from API', { apiUrl: apiUrl });
         
         const response = await fetch(apiUrl);
         const data = await response.json();
-        
-        writeDebugLog('Schedule data received', {
-            success: data.success,
-            moviesCount: data.movies ? data.movies.length : 0
-        });
         
         if (data.success) {
             allMoviesData = data.movies;
@@ -186,10 +147,7 @@ async function loadSchedule() {
             showEmptyState(data.message || 'Không có lịch chiếu');
         }
     } catch (error) {
-        writeDebugLog('ERROR loading schedule', {
-            error: error.message,
-            stack: error.stack
-        });
+        console.error('Error loading schedule:', error);
         showEmptyState('Có lỗi xảy ra khi tải lịch chiếu');
     }
 }
@@ -207,12 +165,6 @@ function displayMovies(movies) {
 }
 
 function createMovieScheduleItem(movie) {
-    writeDebugLog('=== Creating Movie Schedule Item ===', {
-        movieTitle: movie.title,
-        movieID: movie.movieID,
-        showtimesCount: movie.showtimes ? movie.showtimes.length : 0
-    });
-    
     const showtimesHtml = movie.showtimes.map(showtime => {
         const isFull = showtime.availableSeats <= 0;
         const seatsText = isFull ? 'Hết chỗ' : `${showtime.availableSeats} chỗ`;
@@ -220,17 +172,6 @@ function createMovieScheduleItem(movie) {
         
         // Go directly to step 2 (seat selection) since we already have showtime
         const bookingUrl = `/src/views/booking_step2_seats.php?showtimeID=${showtime.showtimeID}`;
-        
-        writeDebugLog(`Creating showtime button for ${movie.title}`, {
-            movieID: movie.movieID,
-            showtimeID: showtime.showtimeID,
-            roomName: showtime.roomName,
-            showTime: showtime.showTime,
-            format: format,
-            isFull: isFull,
-            bookingUrl: bookingUrl,
-            availableSeats: showtime.availableSeats
-        });
         
         return `
             <a href="${bookingUrl}" 
@@ -344,21 +285,7 @@ function showEmptyState(message) {
 
 // ==================== UTILITY FUNCTIONS ====================
 function handleShowtimeClick(event, showtimeID, url) {
-    writeDebugLog('=== SHOWTIME BUTTON CLICKED ===', {
-        showtimeID: showtimeID,
-        url: url,
-        href: event.currentTarget.href,
-        attributeHref: event.currentTarget.getAttribute('href'),
-        currentLocation: window.location.href,
-        origin: window.location.origin,
-        pathname: window.location.pathname
-    });
-    
-    console.log('=== BUTTON CLICKED ===');
-    console.log('ShowtimeID:', showtimeID);
-    console.log('URL:', url);
-    console.log('Event target href:', event.currentTarget.href);
-    
+    console.log('Showtime clicked:', showtimeID);
     // Let the default link behavior happen
     return true;
 }

@@ -38,9 +38,9 @@
 }
 
 .login-required-content i {
-    font-size: 80px;
+    font-size: 25px;
     color: #667eea;
-    margin-bottom: 25px;
+    margin-bottom: 0.5px;
 }
 
 .login-required-content h2 {
@@ -57,18 +57,18 @@
 }
 
 .btn-login-now {
-    padding: 15px 40px;
+    padding: 10px 24px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     color: white;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
 }
 
 .btn-login-now:hover {
