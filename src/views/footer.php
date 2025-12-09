@@ -94,7 +94,7 @@
             <p>trường Đại học Công nghệ thông tin và Truyền thông Việt - Hàn</p>
             <p>email: dinhlq.24itb@vku.udn.vn | email: huynn.24itb@vku.udn.vn</p>
             <p>Địa chỉ : 470 Trần Đại Nghĩa, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng</p>
-            <p>Điện thoại: 0795701805</p>
+            <>Điện thoại: 0795701805</ p>
         </div>
 
         <div class="footer-bottom-center">
