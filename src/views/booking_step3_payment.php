@@ -20,6 +20,7 @@ if (!$bookingID) {
 
 require_once __DIR__ . '/../models/booking_db.php';
 require_once __DIR__ . '/../models/payment_db.php';
+require_once __DIR__ . '/../models/promotions_db.php';
 
 $booking = get_booking_with_details($bookingID);
 
@@ -48,6 +49,9 @@ $payment = get_payment_by_booking($bookingID);
 if (!$payment) {
     create_payment($bookingID, $booking['totalPrice'], 'qr', 'Thanh toán vé ' . $booking['bookingCode']);
 }
+
+// Lấy danh sách promotions phù hợp với giá trị đơn hàng
+$applicablePromotions = get_applicable_promotions($booking['totalPrice']);
 
 function format_time($time) {
     return date('H:i', strtotime($time));
@@ -154,7 +158,68 @@ function format_date_vn($date) {
                     
                     <div class="info-item total">
                         <label>Tổng tiền:</label>
-                        <strong class="total-amount"><?php echo number_format($booking['totalPrice']); ?>đ</strong>
+                        <strong class="total-amount" id="originalPrice"><?php echo number_format($booking['totalPrice']); ?>đ</strong>
+                    </div>
+                    
+                    <!-- Promotion Code -->
+                    <div class="promotion-section">
+                        <div class="promo-input-wrapper">
+                            <input type="text" 
+                                   id="promoCode" 
+                                   placeholder="Nhập mã giảm giá" 
+                                   class="promo-input">
+                            <button onclick="applyPromoCode()" class="btn-apply-promo">
+                                <i class="fas fa-tag"></i> Áp dụng
+                            </button>
+                        </div>
+                        <div id="promoMessage" class="promo-message"></div>
+                        
+                        <!-- Danh sách mã khuyến mãi có sẵn -->
+                        <?php if (!empty($applicablePromotions)): ?>
+                        <div class="available-promos">
+                            <h4><i class="fas fa-gift"></i> Mã giảm giá có thể áp dụng:</h4>
+                            <div class="promo-list">
+                                <?php foreach ($applicablePromotions as $promo): 
+                                    $promoDisplay = format_promotion_display($promo);
+                                ?>
+                                <div class="promo-item" onclick="selectPromo('<?php echo $promo['code']; ?>')">
+                                    <div class="promo-code-badge">
+                                        <i class="fas fa-ticket-alt"></i>
+                                        <strong><?php echo $promo['code']; ?></strong>
+                                    </div>
+                                    <div class="promo-details">
+                                        <div class="promo-desc"><?php echo htmlspecialchars($promo['description']); ?></div>
+                                        <div class="promo-info">
+                                            <span class="promo-discount"><?php echo $promoDisplay['discount_text']; ?></span>
+                                            <?php if (!empty($promoDisplay['conditions'])): ?>
+                                            <span class="promo-conditions"><?php echo $promoDisplay['conditions']; ?></span>
+                                            <?php endif; ?>
+                                            <?php if ($promoDisplay['end_date']): ?>
+                                            <span class="promo-expiry">HSD: <?php echo $promoDisplay['end_date']; ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                        
+                        <div id="promoDiscount" class="promo-discount" style="display: none;">
+                            <div class="discount-item">
+                                <span class="discount-label">
+                                    <i class="fas fa-gift"></i> Giảm giá (<span id="promoCodeApplied"></span>):
+                                </span>
+                                <span class="discount-value">-<span id="discountAmount">0</span>đ</span>
+                            </div>
+                            <button onclick="removePromoCode()" class="btn-remove-promo">
+                                <i class="fas fa-times"></i> Xóa
+                            </button>
+                        </div>
+                        <div class="final-price" id="finalPriceSection" style="display: none;">
+                            <label>Thành tiền:</label>
+                            <strong id="finalPrice"><?php echo number_format($booking['totalPrice']); ?>đ</strong>
+                        </div>
                     </div>
                 </div>
             </div>

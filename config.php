@@ -42,39 +42,48 @@ if ($isLocalhost) {
 // Đường dẫn vật lý
 define('ROOT_PATH', __DIR__);
 
-/**
- * Helper function: Tạo URL tuyệt đối
- */
-function url($path = '') {
-    $path = ltrim($path, '/');
-    return BASE_URL . BASE_PATH . $path;
-}
-
-/**
- * Helper function: Tạo đường dẫn vật lý
- */
-function path($path = '') {
-    $path = ltrim($path, '/');
-    return ROOT_PATH . '/' . $path;
-}
-
-/**
- * Helper function: Redirect an toàn
- */
-function redirect($path = '/') {
-    if (strpos($path, 'http') === 0) {
-        header("Location: $path");
-    } else {
-        header("Location: " . url($path));
+// Chỉ định nghĩa functions nếu chưa tồn tại
+if (!function_exists('url')) {
+    /**
+     * Helper function: Tạo URL tuyệt đối
+     */
+    function url($path = '') {
+        $path = ltrim($path, '/');
+        return BASE_URL . BASE_PATH . $path;
     }
-    exit();
 }
 
-/**
- * Helper function: Asset URL (CSS, JS, Images)
- */
-function asset($path) {
-    $path = ltrim($path, '/');
-    return BASE_URL . BASE_PATH . $path;
+if (!function_exists('path')) {
+    /**
+     * Helper function: Tạo đường dẫn vật lý
+     */
+    function path($path = '') {
+        $path = ltrim($path, '/');
+        return ROOT_PATH . '/' . $path;
+    }
+}
+
+if (!function_exists('redirect')) {
+    /**
+     * Helper function: Redirect an toàn
+     */
+    function redirect($path = '/') {
+        if (strpos($path, 'http') === 0) {
+            header("Location: $path");
+        } else {
+            header("Location: " . url($path));
+        }
+        exit();
+    }
+}
+
+if (!function_exists('asset')) {
+    /**
+     * Helper function: Asset URL (CSS, JS, Images)
+     */
+    function asset($path) {
+        $path = ltrim($path, '/');
+        return BASE_URL . BASE_PATH . $path;
+    }
 }
 ?>

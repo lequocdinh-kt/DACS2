@@ -446,3 +446,206 @@ window.addEventListener('beforeunload', function() {
         clearInterval(pollingInterval);
     }
 });
+
+/**
+ * ==============================
+ * PROMOTION CODE FUNCTIONS
+ * ==============================
+ */
+
+let appliedPromotion = null;
+const originalPrice = window.bookingAmount;
+
+/**
+ * Áp dụng mã giảm giá
+ */
+async function applyPromoCode() {
+    const promoInput = document.getElementById('promoCode');
+    const promoCode = promoInput.value.trim().toUpperCase();
+    
+    if (!promoCode) {
+        showPromoMessage('Vui lòng nhập mã giảm giá', 'error');
+        return;
+    }
+    
+    if (appliedPromotion) {
+        showPromoMessage('Bạn đã áp dụng mã giảm giá rồi!', 'error');
+        return;
+    }
+    
+    // Disable button khi đang xử lý
+    const applyBtn = event.target;
+    const originalText = applyBtn.innerHTML;
+    applyBtn.disabled = true;
+    applyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang kiểm tra...';
+    
+    try {
+        const response = await fetch('/src/controllers/paymentController.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=validate_promo&promo_code=${promoCode}&booking_id=${window.bookingID}&amount=${originalPrice}`
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Áp dụng thành công
+            appliedPromotion = {
+                code: promoCode,
+                discount: data.discount,
+                finalPrice: data.final_price,
+                description: data.description
+            };
+            
+            updatePriceDisplay();
+            showPromoMessage(`✅ ${data.message}`, 'success');
+            
+            // Disable input sau khi áp dụng
+            promoInput.disabled = true;
+            
+        } else {
+            showPromoMessage(data.message || 'Mã giảm giá không hợp lệ', 'error');
+        }
+        
+    } catch (error) {
+        console.error('Error validating promo code:', error);
+        showPromoMessage('Có lỗi xảy ra, vui lòng thử lại', 'error');
+    } finally {
+        applyBtn.disabled = false;
+        applyBtn.innerHTML = originalText;
+    }
+}
+
+/**
+ * Xóa mã giảm giá
+ */
+function removePromoCode() {
+    appliedPromotion = null;
+    
+    // Reset input
+    const promoInput = document.getElementById('promoCode');
+    promoInput.value = '';
+    promoInput.disabled = false;
+    
+    // Ẩn sections
+    document.getElementById('promoDiscount').style.display = 'none';
+    document.getElementById('finalPriceSection').style.display = 'none';
+    
+    // Ẩn message
+    const promoMessage = document.getElementById('promoMessage');
+    promoMessage.style.display = 'none';
+    
+    // Reset giá gốc
+    document.getElementById('originalPrice').textContent = formatPrice(originalPrice);
+    
+    // Cập nhật QR code về giá gốc
+    updateQRCode(originalPrice);
+    
+    showPromoMessage('Đã xóa mã giảm giá', 'success');
+    setTimeout(() => {
+        document.getElementById('promoMessage').style.display = 'none';
+    }, 2000);
+}
+
+/**
+ * Cập nhật hiển thị giá sau khi áp dụng mã
+ */
+function updatePriceDisplay() {
+    if (!appliedPromotion) return;
+    
+    // Hiện discount section
+    const promoDiscount = document.getElementById('promoDiscount');
+    promoDiscount.style.display = 'block';
+    
+    // Cập nhật thông tin discount
+    document.getElementById('promoCodeApplied').textContent = appliedPromotion.code;
+    document.getElementById('discountAmount').textContent = formatPrice(appliedPromotion.discount);
+    
+    // Hiện final price
+    const finalPriceSection = document.getElementById('finalPriceSection');
+    finalPriceSection.style.display = 'flex';
+    document.getElementById('finalPrice').textContent = formatPrice(appliedPromotion.finalPrice);
+    
+    // Cập nhật QR code với giá mới
+    updateQRCode(appliedPromotion.finalPrice);
+}
+
+/**
+ * Cập nhật QR code với số tiền mới
+ */
+function updateQRCode(amount) {
+    const qrImage = document.getElementById('qrCode');
+    const bankAccount = '0795701805'; // Số tài khoản
+    const accountName = 'LE QUOC DINH';
+    const description = `VKU CINEMA ${window.bookingCode}`;
+    
+    // Tạo URL QR mới
+    const qrUrl = `https://img.vietqr.io/image/MB-${bankAccount}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(description)}&accountName=${encodeURIComponent(accountName)}`;
+    
+    qrImage.src = qrUrl;
+    
+    // Cập nhật số tiền hiển thị trong bank info
+    const amountElements = document.querySelectorAll('.bank-detail strong');
+    amountElements.forEach(el => {
+        if (el.textContent.includes('đ') && !el.textContent.includes('VKU')) {
+            el.textContent = formatPrice(amount) + 'đ';
+        }
+    });
+}
+
+/**
+ * Hiển thị thông báo promo
+ */
+function showPromoMessage(message, type) {
+    const promoMessage = document.getElementById('promoMessage');
+    promoMessage.textContent = message;
+    promoMessage.className = `promo-message ${type}`;
+    promoMessage.style.display = 'block';
+    
+    // Tự động ẩn sau 5 giây
+    setTimeout(() => {
+        promoMessage.style.display = 'none';
+    }, 5000);
+}
+
+/**
+ * Format giá tiền
+ */
+function formatPrice(price) {
+    return new Intl.NumberFormat('vi-VN').format(price);
+}
+
+/**
+ * Enter key để apply promo
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    const promoInput = document.getElementById('promoCode');
+    if (promoInput) {
+        promoInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                applyPromoCode();
+            }
+        });
+    }
+});
+
+/**
+ * Chọn mã từ danh sách có sẵn
+ */
+function selectPromo(promoCode) {
+    const promoInput = document.getElementById('promoCode');
+    promoInput.value = promoCode;
+    
+    // Scroll đến input
+    promoInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Highlight input
+    promoInput.focus();
+    
+    // Auto apply sau 500ms
+    setTimeout(() => {
+        applyPromoCode();
+    }, 300);
+}

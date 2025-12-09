@@ -15,6 +15,7 @@ if (!isset($_SESSION['userID'])) {
 require_once __DIR__ . '/../models/database.php';
 require_once __DIR__ . '/../models/payment_db.php';
 require_once __DIR__ . '/../models/booking_db.php';
+require_once __DIR__ . '/../models/promotions_db.php';
 
 $action = $_POST['action'] ?? $_GET['action'] ?? null;
 
@@ -46,6 +47,10 @@ switch ($action) {
     
     case 'verify_bank_transaction':
         verify_bank_transaction();
+        break;
+    
+    case 'validate_promo':
+        validate_promo_code();
         break;
     
     default:
@@ -491,6 +496,80 @@ function checkBankAPI($bookingID, $expectedAmount) {
         }
     }
     
-    error_log("⏳ No matching transaction found yet");
+    error_log("❌ No matching transaction found");
     return false;
+}
+
+/**
+ * Validate mã giảm giá
+ */
+function validate_promo_code() {
+    $promoCode = strtoupper(trim($_POST['promo_code'] ?? ''));
+    $bookingID = intval($_POST['booking_id'] ?? 0);
+    $amount = floatval($_POST['amount'] ?? 0);
+    $userID = $_SESSION['userID'];
+    
+    if (!$promoCode || !$bookingID || !$amount) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Thiếu thông tin bắt buộc'
+        ]);
+        return;
+    }
+    
+    try {
+        // Sử dụng functions từ promotions_db.php
+        $promo = get_promotion_by_code($promoCode);
+        
+        if (!$promo) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Mã giảm giá không tồn tại hoặc đã hết hạn'
+            ]);
+            return;
+        }
+        
+        // Validate promotion với giá trị đơn hàng
+        $validation = validate_promotion($promoCode, $amount);
+        
+        if (!$validation['valid']) {
+            echo json_encode([
+                'success' => false,
+                'message' => $validation['message']
+            ]);
+            return;
+        }
+        
+        // Tính giảm giá
+        $discount = calculate_discount($promo, $amount);
+        $finalPrice = $amount - $discount;
+        
+        // Không cho giá âm
+        if ($finalPrice < 0) {
+            $finalPrice = 0;
+        }
+        
+        echo json_encode([
+            'success' => true,
+            'message' => sprintf(
+                'Áp dụng mã "%s" thành công! Giảm %s',
+                $promoCode,
+                number_format($discount) . 'đ'
+            ),
+            'promotion_id' => $promo['promotionID'],
+            'code' => $promoCode,
+            'description' => $promo['description'],
+            'discount' => $discount,
+            'final_price' => $finalPrice,
+            'discount_type' => $promo['discountType'],
+            'discount_value' => $promo['discountValue']
+        ]);
+        
+    } catch (Exception $e) {
+        error_log("Error validating promo code: " . $e->getMessage());
+        echo json_encode([
+            'success' => false,
+            'message' => 'Có lỗi xảy ra khi kiểm tra mã giảm giá'
+        ]);
+    }
 }
