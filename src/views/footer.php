@@ -4,14 +4,14 @@
 
     <!-- Social Media Icons -->
     <div class="footer-social">
-        <a href="#" class="social-icon" aria-label="Facebook">
+        <a href="https://www.facebook.com/ying1805" class="social-icon" aria-label="Facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="#" class="social-icon" aria-label="Instagram">
+        <a href="https://www.instagram.com/lee_yingo_o?igsh=amd1M2o0ZjVweHR6" class="social-icon" aria-label="Instagram">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="#" class="social-icon" aria-label="YouTube">
-            <i class="fab fa-youtube"></i>
+        <a href="https://github.com/lequocdinh-kt" class="social-icon" aria-label="github">
+            <i class="fab fa-github"></i>
         </a>
     </div>
 
@@ -35,7 +35,7 @@
         <div class="footer-column footer-links">
             <h3>VKU CINEMA</h3>
             <ul>
-                <li><a href="https://vku.udn.vn/vi/">GIỚI THIỆU</a></li>
+                <li><a href="https://vku.udn.vn/vi/gioi-thieu/">GIỚI THIỆU</a></li>
                 <li><a href="#">TUYỂN DỤNG</a></li>
                 <li><a href="#">LIÊN HỆ</a></li>
             </ul>
@@ -94,7 +94,7 @@
             <p>trường Đại học Công nghệ thông tin và Truyền thông Việt - Hàn</p>
             <p>email: dinhlq.24itb@vku.udn.vn | email: huynn.24itb@vku.udn.vn</p>
             <p>Địa chỉ : 470 Trần Đại Nghĩa, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng</p>
-            <>Điện thoại: 0795701805</ p>
+            <p>Điện thoại: 0795701805</p>
         </div>
 
         <div class="footer-bottom-center">
