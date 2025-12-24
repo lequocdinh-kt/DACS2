@@ -22,6 +22,9 @@
                 <li><a href="index.php?page=deals" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'deals') ? 'active' : ''; ?>">ƯU ĐÃI</a></li>
                 <li><a href="index.php?page=news" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'news') ? 'active' : ''; ?>">TIN TỨC PHIM</a></li>
                 <li><a href="index.php?page=member" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'member') ? 'active' : ''; ?>">THÀNH VIÊN</a></li>
+                <?php if(isset($_SESSION['user']['roleID']) && $_SESSION['user']['roleID'] == 1): ?>
+                <li><a href="index.php?page=admin" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'admin') ? 'active' : ''; ?> admin-menu"><i class="fas fa-crown"></i> ADMIN</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
 
@@ -39,7 +42,7 @@
             </div>
             <div class="header-auth">
                 <?php if(isset($_SESSION['userID'])): ?>
-                    <a href="profile.php" class="user-profile">
+                    <a href="index.php?page=member" class="user-profile">
                         <i class="fas fa-user-circle"></i>
                         <span><?php echo htmlspecialchars($_SESSION['user']['username'] ?? 'User'); ?></span>
                     </a>
@@ -75,6 +78,9 @@
             <li><a href="index.php?page=deals" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'deals') ? 'active' : ''; ?>">ƯU ĐÃI</a></li>
             <li><a href="index.php?page=news" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'news') ? 'active' : ''; ?>">TIN TỨC PHIM</a></li>
             <li><a href="index.php?page=member" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'member') ? 'active' : ''; ?>">THÀNH VIÊN</a></li>
+            <?php if(isset($_SESSION['user']['roleID']) && $_SESSION['user']['roleID'] == 1): ?>
+            <li><a href="index.php?page=admin" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'admin') ? 'active' : ''; ?>"><i class="fas fa-crown"></i> ADMIN</a></li>
+            <?php endif; ?>
         </ul>
         <div class="mobile-menu-footer">
             <div class="mobile-info">
@@ -82,7 +88,7 @@
                 <p><i class="fas fa-clock"></i> GIỜ MỞ CỬA: 9:00 - 22:00</p>
             </div>
             <?php if(isset($_SESSION['userID'])): ?>
-                <a href="profile.php" class="mobile-user">
+                <a href="index.php?page=member" class="mobile-user">
                     <i class="fas fa-user-circle"></i>
                     <?php echo htmlspecialchars($_SESSION['user']['username'] ?? 'User'); ?>
                 </a>

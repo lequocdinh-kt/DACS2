@@ -52,7 +52,7 @@
 .auth-left-section {
     flex: 1;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 60px 40px;
+    padding: 20px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,16 +62,16 @@
 
 .welcome-msg {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
     animation: fadeInDown 0.8s ease;
 }
 
 .welcome-msg h1 {
     font-family: var(--font-heading);
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-black);
     color: white;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     text-shadow: 
         0 0 20px rgba(255, 255, 255, 0.5),
         0 0 40px rgba(102, 126, 234, 0.6),
@@ -81,14 +81,14 @@
 }
 
 .welcome-msg .brand {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     color: rgba(255, 255, 255, 0.95);
-    letter-spacing: 8px;
+    letter-spacing: 6px;
     text-transform: uppercase;
     position: relative;
     display: inline-block;
-    padding: 8px 20px;
+    padding: 6px 16px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 25px;
     backdrop-filter: blur(10px);

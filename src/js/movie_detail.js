@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Movie detail page loaded');
     initializeTrailerModal();
+    loadMovieReviews();
 });
 
 /**
@@ -277,4 +278,171 @@ if (!document.getElementById('notification-animations')) {
         }
     `;
     document.head.appendChild(style);
+}
+
+/**
+ * Load movie reviews
+ */
+let currentReviews = [];
+let displayedReviewsCount = 5;
+
+async function loadMovieReviews() {
+    const movieID = getMovieIDFromURL();
+    if (!movieID) {
+        console.error('No movie ID found');
+        return;
+    }
+
+    console.log('Loading reviews for movie:', movieID);
+
+    const reviewsList = document.getElementById('reviewsList');
+    const noReviews = document.getElementById('noReviews');
+    const avgRatingEl = document.getElementById('avgRating');
+    const avgStarsEl = document.getElementById('avgStars');
+    const totalReviewsEl = document.getElementById('totalReviews');
+
+    try {
+        const url = `/src/controllers/reviewController.php?movieID=${movieID}`;
+        console.log('Fetching from:', url);
+        
+        const response = await fetch(url);
+        const text = await response.text();
+        console.log('Raw response:', text);
+        
+        const data = JSON.parse(text);
+        console.log('Parsed data:', data);
+
+        if (data.success && data.reviews) {
+            currentReviews = data.reviews;
+            console.log('Total reviews:', currentReviews.length);
+
+            // Update stats
+            avgRatingEl.textContent = data.avgRating || '0.0';
+            avgStarsEl.innerHTML = generateStars(data.avgRating || 0);
+            totalReviewsEl.textContent = `${data.totalReviews || 0} đánh giá`;
+
+            if (currentReviews.length > 0) {
+                displayReviews();
+                reviewsList.style.display = 'block';
+                noReviews.style.display = 'none';
+            } else {
+                reviewsList.style.display = 'none';
+                noReviews.style.display = 'flex';
+            }
+        } else {
+            console.error('API returned error:', data.message);
+            reviewsList.style.display = 'none';
+            noReviews.style.display = 'flex';
+        }
+    } catch (error) {
+        console.error('Error loading reviews:', error);
+        reviewsList.innerHTML = '<div class="reviews-error"><i class="fas fa-exclamation-triangle"></i><p>Không thể tải đánh giá: ' + error.message + '</p></div>';
+    }
+}
+
+/**
+ * Display reviews with pagination
+ */
+function displayReviews() {
+    const reviewsList = document.getElementById('reviewsList');
+    const reviewsActions = document.getElementById('reviewsActions');
+    
+    const reviewsToShow = currentReviews.slice(0, displayedReviewsCount);
+    
+    reviewsList.innerHTML = reviewsToShow.map(review => createReviewCard(review)).join('');
+
+    // Show/hide load more button
+    if (displayedReviewsCount < currentReviews.length) {
+        reviewsActions.style.display = 'block';
+    } else {
+        reviewsActions.style.display = 'none';
+    }
+}
+
+/**
+ * Load more reviews
+ */
+function loadMoreReviews() {
+    displayedReviewsCount += 5;
+    displayReviews();
+}
+
+/**
+ * Create review card HTML
+ */
+function createReviewCard(review) {
+    const date = new Date(review.createdAt);
+    const formattedDate = date.toLocaleDateString('vi-VN', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+
+    return `
+        <div class="review-card">
+            <div class="review-header">
+                <div class="review-user">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <h4>${escapeHtml(review.userName)}</h4>
+                        <span class="review-date">${formattedDate}</span>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    ${generateStars(review.rating)}
+                    <span class="rating-value">${review.rating}/10</span>
+                </div>
+            </div>
+            <div class="review-content">
+                <p>${escapeHtml(review.comment)}</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Generate star rating HTML
+ */
+function generateStars(rating) {
+    const fullStars = Math.floor(rating / 2); // Convert 10-point to 5-star
+    const hasHalfStar = (rating % 2) >= 1;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    let starsHTML = '';
+    
+    // Full stars
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fas fa-star"></i>';
+    }
+    
+    // Half star
+    if (hasHalfStar) {
+        starsHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+    
+    // Empty stars
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<i class="far fa-star"></i>';
+    }
+    
+    return starsHTML;
+}
+
+/**
+ * Get movie ID from URL
+ */
+function getMovieIDFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('id');
+}
+
+/**
+ * Escape HTML to prevent XSS
+ */
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }

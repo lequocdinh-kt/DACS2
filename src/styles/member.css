@@ -555,6 +555,54 @@
     color: #999;
 }
 
+/* Review button */
+.btn-review {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #0a0e1a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-review:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+}
+
+.btn-review i {
+    font-size: 14px;
+}
+
+/* Review modal styling */
+.review-modal-content {
+    max-width: 600px;
+}
+
+.review-modal-content h2 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.review-modal-content .form-group {
+    margin-bottom: 20px;
+}
+
+.star-rating i {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 5px;
+}
+
+.star-rating i:hover {
+    transform: scale(1.2);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .member-main {

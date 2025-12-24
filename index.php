@@ -13,6 +13,7 @@ $valid_pages = [
     'deals' => ['file' => 'src/views/deals.php', 'title' => 'Ưu đãi', 'css' => 'src/styles/deals.css'],
     'news' => ['file' => 'src/views/news.php', 'title' => 'Tin tức phim', 'css' => 'src/styles/news.css'],
     'member' => ['file' => 'src/views/member.php', 'title' => 'Thành viên', 'css' => 'src/styles/member.css'],
+    'admin' => ['file' => 'src/views/admin.php', 'title' => 'Admin Dashboard', 'css' => 'src/styles/admin.css'],
     'tuyen-dung' => ['file' => 'src/views/tuyen-dung.php', 'title' => 'Tuyển dụng', 'css' => 'src/styles/info_pages.css'],
     'lien-he' => ['file' => 'src/views/lien-he.php', 'title' => 'Liên hệ', 'css' => 'src/styles/info_pages.css'],
     'dieu-khoan' => ['file' => 'src/views/dieu-khoan.php', 'title' => 'Điều khoản chung', 'css' => 'src/styles/info_pages.css'],
@@ -33,6 +34,12 @@ $page_info = $valid_pages[$page];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/src/img/logovku.png">
+    <link rel="icon" type="image/x-icon" href="/src/img/logovku.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/src/img/logovku.png">
+    
     <link rel="stylesheet" href="/src/styles/header.css">
     <?php if (file_exists($page_info['css'])): ?>
     <link rel="stylesheet" href="/<?php echo $page_info['css']; ?>">

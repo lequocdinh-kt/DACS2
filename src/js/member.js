@@ -205,6 +205,12 @@ function createBookingCard(booking) {
         'expired': 'status-expired'
     }[booking.paymentStatus] || '';
     
+    // Nút review chỉ hiển thị cho booking đã thanh toán
+    const reviewButton = booking.paymentStatus === 'paid' ? `
+        <button class="btn-review" onclick="openReviewModal(${booking.bookingID}, ${booking.movieID}, '${booking.movieTitle.replace(/'/g, "\\'")}')">   <i class="fas fa-star"></i> Đánh giá
+        </button>
+    ` : '';
+    
     return `
         <div class="booking-card ${statusClass}" data-status="${booking.paymentStatus}">
             <div class="booking-poster">
@@ -225,6 +231,7 @@ function createBookingCard(booking) {
                         <button class="btn-detail" onclick="showBookingDetail(${booking.bookingID})">
                             <i class="fas fa-info-circle"></i> Chi tiết
                         </button>
+                        ${reviewButton}
                     </div>
                 </div>
             </div>
@@ -349,4 +356,172 @@ function showErrorState() {
             <p>Không thể tải thông tin. Vui lòng thử lại sau.</p>
         </div>
     `;
+}
+
+/**
+ * Mở modal review phim
+ */
+function openReviewModal(bookingID, movieID, movieTitle) {
+    // Tạo modal review nếu chưa tồn tại
+    let modal = document.getElementById('reviewModal');
+    if (!modal) {
+        modal = createReviewModal();
+        document.body.appendChild(modal);
+    }
+    
+    // Set thông tin phim
+    document.getElementById('reviewMovieTitle').textContent = movieTitle;
+    document.getElementById('reviewBookingID').value = bookingID;
+    document.getElementById('reviewMovieID').value = movieID;
+    
+    // Reset form
+    document.getElementById('reviewForm').reset();
+    setRating(5); // Default 5 stars
+    
+    // Hiển thị modal
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('show'), 10);
+}
+
+/**
+ * Tạo HTML cho review modal
+ */
+function createReviewModal() {
+    const modal = document.createElement('div');
+    modal.id = 'reviewModal';
+    modal.className = 'booking-modal';
+    modal.innerHTML = `
+        <div class="booking-modal-overlay" onclick="closeReviewModal()"></div>
+        <div class="booking-modal-content review-modal-content">
+            <button class="booking-modal-close" onclick="closeReviewModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2><i class="fas fa-star"></i> Đánh giá phim</h2>
+            <h3 id="reviewMovieTitle" style="color: #667eea; margin-bottom: 30px;"></h3>
+            
+            <form id="reviewForm" onsubmit="submitReview(event)">
+                <input type="hidden" id="reviewBookingID" name="bookingID">
+                <input type="hidden" id="reviewMovieID" name="movieID">
+                <input type="hidden" id="reviewRating" name="rating" value="5">
+                
+                <div class="form-group">
+                    <label style="color: white; font-size: 16px; margin-bottom: 15px; display: block;">
+                        <i class="fas fa-star" style="color: #ffd700;"></i> Đánh giá của bạn:
+                    </label>
+                    <div class="star-rating" style="font-size: 32px; margin-bottom: 25px;">
+                        <i class="fas fa-star" data-rating="1" onclick="setRating(1)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="fas fa-star" data-rating="2" onclick="setRating(2)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="fas fa-star" data-rating="3" onclick="setRating(3)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="fas fa-star" data-rating="4" onclick="setRating(4)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="fas fa-star" data-rating="5" onclick="setRating(5)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewComment" style="color: white; font-size: 16px; margin-bottom: 10px; display: block;">
+                        <i class="fas fa-comment"></i> Nhận xét của bạn:
+                    </label>
+                    <textarea 
+                        id="reviewComment" 
+                        name="comment" 
+                        rows="5" 
+                        placeholder="Chia sẻ cảm nhận của bạn về bộ phim..."
+                        required
+                        style="width: 100%; padding: 15px; border-radius: 8px; border: 2px solid rgba(102, 126, 234, 0.3); background: rgba(255, 255, 255, 0.05); color: white; font-size: 14px; resize: vertical; font-family: inherit;"
+                    ></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button type="button" class="btn-secondary" onclick="closeReviewModal()" style="flex: 1; padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600;">
+                        Hủy
+                    </button>
+                    <button type="submit" class="btn-primary" style="flex: 2; padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <i class="fas fa-paper-plane"></i> Gửi đánh giá
+                    </button>
+                </div>
+            </form>
+        </div>
+    `;
+    return modal;
+}
+
+/**
+ * Đóng review modal
+ */
+function closeReviewModal() {
+    const modal = document.getElementById('reviewModal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+}
+
+/**
+ * Set rating stars
+ */
+function setRating(rating) {
+    document.getElementById('reviewRating').value = rating;
+    const stars = document.querySelectorAll('.star-rating i');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.remove('far');
+            star.classList.add('fas');
+            star.style.color = '#ffd700';
+        } else {
+            star.classList.remove('fas');
+            star.classList.add('far');
+            star.style.color = '#666';
+        }
+    });
+}
+
+/**
+ * Submit review
+ */
+async function submitReview(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
+    
+    try {
+        const response = await fetch('/src/controllers/reviewController.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        // Log response để debug
+        const text = await response.text();
+        console.log('Response text:', text);
+        
+        let result;
+        try {
+            result = JSON.parse(text);
+        } catch (e) {
+            console.error('Failed to parse JSON:', text);
+            // Hiển thị response để debug
+            alert('Lỗi server:\n' + text.substring(0, 500));
+            throw new Error('Server trả về dữ liệu không hợp lệ');
+        }
+        
+        if (result.success) {
+            alert('Cảm ơn bạn đã đánh giá! Đánh giá của bạn đã được gửi thành công.');
+            closeReviewModal();
+            // Reload bookings để cập nhật
+            loadMemberContent();
+        } else {
+            alert('Lỗi: ' + (result.message || 'Không thể gửi đánh giá'));
+        }
+    } catch (error) {
+        console.error('Error submitting review:', error);
+        alert('Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại!');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi đánh giá';
+    }
 }

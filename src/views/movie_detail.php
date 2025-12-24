@@ -160,6 +160,44 @@ $youtubeID = get_youtube_id($movie['trailerURL']);
 
             </div>
         </section>
+
+        <!-- Reviews Section -->
+        <section class="reviews-section">
+            <div class="container">
+                <div class="reviews-header">
+                    <h2><i class="fas fa-star"></i> Đánh giá từ khán giả</h2>
+                    <div class="reviews-stats">
+                        <div class="average-rating">
+                            <span class="rating-number" id="avgRating">0.0</span>
+                            <div class="rating-stars" id="avgStars"></div>
+                            <span class="total-reviews" id="totalReviews">0 đánh giá</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews List -->
+                <div class="reviews-list" id="reviewsList">
+                    <div class="reviews-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Đang tải đánh giá...</p>
+                    </div>
+                </div>
+
+                <!-- No Reviews Message -->
+                <div class="no-reviews" id="noReviews" style="display: none;">
+                    <i class="fas fa-comment-slash"></i>
+                    <p>Chưa có đánh giá nào cho phim này</p>
+                    <p class="subtitle">Hãy là người đầu tiên đánh giá!</p>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="reviews-actions" id="reviewsActions" style="display: none;">
+                    <button class="btn-load-more" id="btnLoadMore" onclick="loadMoreReviews()">
+                        <i class="fas fa-chevron-down"></i> Xem thêm đánh giá
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
 
 <!-- Trailer Modal -->

@@ -114,7 +114,7 @@ function get_user_bookings($userID, $status = null) {
     
     if ($status) {
         $stmt = $db->prepare("
-            SELECT b.*, m.title as movieTitle, m.posterURL, st.showDate, st.showTime, r.roomName,
+            SELECT b.*, m.movieID, m.title as movieTitle, m.posterURL, st.showDate, st.showTime, r.roomName,
                    GROUP_CONCAT(CONCAT(s.seatRow, s.seatNumber) ORDER BY s.seatRow, s.seatNumber SEPARATOR ', ') as seats
             FROM bookings b
             INNER JOIN showtimes st ON b.showtimeID = st.showtimeID
@@ -129,7 +129,7 @@ function get_user_bookings($userID, $status = null) {
         $stmt->execute([$userID, $status]);
     } else {
         $stmt = $db->prepare("
-            SELECT b.*, m.title as movieTitle, m.posterURL, st.showDate, st.showTime, r.roomName,
+            SELECT b.*, m.movieID, m.title as movieTitle, m.posterURL, st.showDate, st.showTime, r.roomName,
                    GROUP_CONCAT(CONCAT(s.seatRow, s.seatNumber) ORDER BY s.seatRow, s.seatNumber SEPARATOR ', ') as seats
             FROM bookings b
             INNER JOIN showtimes st ON b.showtimeID = st.showtimeID
