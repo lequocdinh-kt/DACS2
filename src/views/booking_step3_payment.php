@@ -300,7 +300,7 @@ function format_date_vn($date) {
                     </div>
                     
                     <!-- DEV/DEBUG: Nút xác nhận thanh toán nhanh -->
-                    <div class="dev-payment-button" style="margin-top: 20px; padding: 15px; background: rgba(255, 152, 0, 0.1); border: 2px dashed rgba(255, 152, 0, 0.5); border-radius: 10px; text-align: center;">
+                    <!-- <div class="dev-payment-button" style="margin-top: 20px; padding: 15px; background: rgba(255, 152, 0, 0.1); border: 2px dashed rgba(255, 152, 0, 0.5); border-radius: 10px; text-align: center;">
                         <p style="color: #ff9800; font-weight: bold; margin-bottom: 10px;">
                             <i class="fas fa-code"></i> CHẾ ĐỘ DEV/DEBUG
                         </p>
@@ -310,7 +310,7 @@ function format_date_vn($date) {
                         <p style="color: #999; font-size: 0.85em; margin-top: 8px;">
                             Nút này chỉ dùng để test - Xóa trước khi deploy production!
                         </p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
