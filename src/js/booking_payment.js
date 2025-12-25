@@ -14,10 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     startCountdown();
-    startPaymentCheck();
     
-    // Bắt đầu polling kiểm tra thanh toán tự động
-    startAutoPaymentVerification();
+    // 🔥 STRATEGY: Check database thường xuyên (nhanh), check API ít hơn (tốn phí)
+    startPaymentCheck();                    // Check DB mỗi 3 giây
+    startAutoPaymentVerification();         // Check API Casso mỗi 5 giây
+    
+    console.log('💡 TIP: Trang này đang tự động kiểm tra thanh toán:');
+    console.log('   📊 Check database: mỗi 3 giây');
+    console.log('   🏦 Check API Casso: mỗi 5 giây');
+    console.log('   🚀 Sẽ tự động chuyển trang khi phát hiện thanh toán thành công!');
 });
 
 /**
@@ -73,20 +78,27 @@ function checkPaymentStatus() {
     fetch(`/src/controllers/paymentController.php?action=check_payment&bookingID=${bookingID}`)
         .then(response => response.json())
         .then(data => {
+            console.log('🔄 [checkPaymentStatus] Response:', data);
+            
             if (data.requireLogin) {
                 window.location.href = '/?openLogin=1';
                 return;
             }
             if (data.success) {
+                console.log('📊 Payment Status:', data.paymentStatus);
+                
                 if (data.paymentStatus === 'paid') {
                     // Thanh toán thành công
+                    console.log('✅ Payment confirmed! Redirecting...');
                     clearInterval(paymentCheckInterval);
                     clearInterval(timerInterval);
+                    clearInterval(pollingInterval); // 🔥 Dừng polling luôn
                     showPaymentSuccess();
                 } else if (data.expired) {
                     // Hết hạn
                     clearInterval(paymentCheckInterval);
                     clearInterval(timerInterval);
+                    clearInterval(pollingInterval);
                     alert('Đơn hàng đã hết hạn!');
                     window.location.href = '/';
                 }
@@ -397,7 +409,10 @@ function startAutoPaymentVerification() {
  * Kiểm tra giao dịch ngân hàng có khớp với booking không
  */
 function checkBankTransaction(bookingId, expectedAmount) {
-    console.log(`🔄 Đang gọi API... (Booking: ${bookingId}, Amount: ${expectedAmount})`);
+    console.log('=' .repeat(60));
+    console.log(`🔄 [${new Date().toLocaleTimeString()}] Checking bank transaction...`);
+    console.log(`   📋 Booking ID: ${bookingId}`);
+    console.log(`   💰 Expected Amount: ${expectedAmount}`);
     
     fetch('/src/controllers/paymentController.php', {
         method: 'POST',
@@ -408,33 +423,52 @@ function checkBankTransaction(bookingId, expectedAmount) {
     })
     .then(response => {
         console.log('📡 Response status:', response.status);
-        return response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        // 🔥 FIX: Clone response để log cả text và JSON
+        return response.clone().text().then(text => {
+            console.log('📄 Response text:', text.substring(0, 500)); // Log 500 ký tự đầu
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                console.error('❌ JSON Parse Error:', e);
+                console.error('❌ Full response:', text);
+                throw new Error('Server returned invalid JSON. Check PHP errors.');
+            }
+        });
     })
     .then(data => {
         console.log('📦 Response data:', data);
         
         if (data.success && data.transaction_found) {
-            console.log('✅ Giao dịch được tìm thấy:', data);
+            console.log('✅✅✅ PAYMENT CONFIRMED! ✅✅✅');
+            console.log('   Transaction Code:', data.transaction_code);
             
-            // Dừng polling
+            // Dừng TẤT CẢ polling
             clearInterval(pollingInterval);
+            clearInterval(paymentCheckInterval);
+            clearInterval(timerInterval);
             
             // Hiển thị thông báo thành công
             showPaymentSuccess();
             
             // Chuyển trang sau 2 giây
             setTimeout(() => {
+                console.log('🔄 Redirecting to confirmation page...');
                 window.location.href = `/src/views/booking_step4_confirm.php?bookingID=${bookingId}`;
             }, 2000);
         } else {
-            console.log('⏳ Chưa tìm thấy giao dịch, tiếp tục kiểm tra...');
+            console.log('⏳ Transaction not found yet, will retry in 5s...');
             if (data.message) {
-                console.log('💬 Message:', data.message);
+                console.log('   💬 Message:', data.message);
             }
         }
+        console.log('=' .repeat(60));
     })
     .catch(error => {
         console.error('❌ Error checking bank transaction:', error);
+        console.log('=' .repeat(60));
     });
 }
 

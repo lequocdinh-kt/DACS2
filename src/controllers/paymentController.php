@@ -3,11 +3,21 @@
  * Controller: Xử lý AJAX cho chức năng thanh toán
  */
 
+// 🔥 FIX: Bật output buffering để tránh HTML/error bị echo ra trước JSON
+ob_start();
+
 session_start();
-header('Content-Type: application/json');
+
+// 🔥 FIX: Set header JSON càng sớm càng tốt
+header('Content-Type: application/json; charset=utf-8');
+
+// 🔥 FIX: Tắt display errors để tránh warning/notice làm hỏng JSON
+ini_set('display_errors', 0);
+error_reporting(E_ALL); // Vẫn log errors nhưng không hiển thị
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['userID'])) {
+    ob_clean(); // Clear buffer trước khi output
     echo json_encode(['success' => false, 'message' => 'Vui lòng đăng nhập để tiếp tục', 'requireLogin' => true]);
     exit();
 }
@@ -17,11 +27,19 @@ require_once __DIR__ . '/../models/payment_db.php';
 require_once __DIR__ . '/../models/booking_db.php';
 require_once __DIR__ . '/../models/promotions_db.php';
 
+/**
+ * 🔥 Helper function: Output JSON và clean buffer
+ */
+function output_json($data) {
+    ob_clean(); // Clear any previous output
+    echo json_encode($data);
+    exit();
+}
+
 $action = $_POST['action'] ?? $_GET['action'] ?? null;
 
 if (!$action) {
-    echo json_encode(['success' => false, 'message' => 'No action specified']);
-    exit();
+    output_json(['success' => false, 'message' => 'No action specified']);
 }
 
 switch ($action) {
@@ -335,8 +353,7 @@ function verify_bank_transaction() {
     
     if (!$bookingID || !$expectedAmount) {
         error_log("❌ Missing parameters");
-        echo json_encode(['success' => false, 'message' => 'Missing parameters']);
-        return;
+        output_json(['success' => false, 'message' => 'Missing parameters']);
     }
     
     try {
@@ -345,21 +362,20 @@ function verify_bank_transaction() {
         
         if (!$booking || $booking['userID'] != $userID) {
             error_log("❌ Unauthorized - Booking not found or wrong user");
-            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
-            return;
+            output_json(['success' => false, 'message' => 'Unauthorized']);
         }
         
         error_log("📋 Booking found - Status: " . $booking['paymentStatus']);
         
-        // Kiểm tra đã thanh toán chưa
+        // 🔥 FIX: Kiểm tra đã thanh toán chưa TRƯỚC KHI gọi API
         if ($booking['paymentStatus'] === 'paid') {
-            error_log("✅ Already paid");
-            echo json_encode([
+            error_log("✅ [verify_bank_transaction] Already paid - returning success immediately");
+            output_json([
                 'success' => true,
                 'transaction_found' => true,
+                'already_paid' => true,
                 'message' => 'Payment already confirmed'
             ]);
-            return;
         }
         
         // ==== PHẦN NÀY CẦN TÍCH HỢP API NGÂN HÀNG THỰC ====
@@ -379,21 +395,21 @@ function verify_bank_transaction() {
                 confirm_payment($payment['paymentID'], $transactionCode);
                 update_booking_payment_status($bookingID, 'paid');
                 
-                echo json_encode([
+                output_json([
                     'success' => true,
                     'transaction_found' => true,
                     'message' => 'Payment verified successfully',
                     'transaction_code' => $transactionCode
                 ]);
             } else {
-                echo json_encode([
+                output_json([
                     'success' => false,
                     'message' => 'Payment record not found'
                 ]);
             }
         } else {
             // Chưa tìm thấy giao dịch
-            echo json_encode([
+            output_json([
                 'success' => true,
                 'transaction_found' => false,
                 'message' => 'No matching transaction found yet'
@@ -401,7 +417,8 @@ function verify_bank_transaction() {
         }
         
     } catch (Exception $e) {
-        echo json_encode([
+        error_log("❌ [verify_bank_transaction] Exception: " . $e->getMessage());
+        output_json([
             'success' => false,
             'message' => 'Error verifying bank transaction: ' . $e->getMessage()
         ]);
@@ -424,6 +441,26 @@ function checkBankAPI($bookingID, $expectedAmount) {
     // ==== TEST MODE - Uncomment dòng này để test tự động confirm sau 20 giây ====
     // Mỗi 40 giây sẽ có 20 giây trả về true (giả lập tìm thấy giao dịch)
     // return (time() % 40) > 20;
+    
+    // 🔥 FIX: Check database trước để tránh gọi API không cần thiết
+    // Nếu webhook đã cập nhật rồi thì return luôn
+    try {
+        // Sử dụng PDO trực tiếp từ config
+        require_once __DIR__ . '/../../config.php';
+        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4", DB_USER, DB_PASS);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $stmt = $conn->prepare("SELECT paymentStatus FROM Bookings WHERE bookingCode = ?");
+        $stmt->execute([$bookingID]);
+        $booking = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($booking && $booking['paymentStatus'] === 'paid') {
+            error_log("✅ [checkBankAPI] Payment already confirmed in database - BookingCode: $bookingID");
+            return true; // Đã thanh toán rồi, return ngay
+        }
+    } catch (Exception $e) {
+        error_log("⚠️ [checkBankAPI] Error checking database: " . $e->getMessage());
+    }
     
     // ==== API THẬT - CASSO.VN ====
     $cassoApiKey = 'AK_CS.348fd100e0dd11f0a61f850afb8b1485.7sMpxmn9B7vgBn4l4JDMgdfWL8LBiCGHXZotoN1WxCBNVBOYmzMw8T154H59LNZevPZ4jEa6'; // Lấy từ Casso Dashboard
