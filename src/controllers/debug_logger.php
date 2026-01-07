@@ -43,7 +43,8 @@ try {
     $logText .= str_repeat('-', 80) . "\n";
     
     // Write to debug file
-    $debugFile = __DIR__ . '/../../debug_schedule.txt';
+    // Changed to CONSOLE_DEBUG_LOG.txt in root directory
+    $debugFile = __DIR__ . '/../../CONSOLE_DEBUG_LOG.txt';
     $result = file_put_contents($debugFile, $logText, FILE_APPEND);
     
     if ($result === false) {

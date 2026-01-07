@@ -4,9 +4,25 @@
  * Khởi tạo session một cách an toàn
  */
 
-// Khởi động session nếu chưa được khởi động
+// Configure session cookie settings BEFORE starting session
 if (session_status() === PHP_SESSION_NONE) {
+    // Set session cookie parameters
+    ini_set('session.cookie_httponly', 1); // Prevent JavaScript access
+    ini_set('session.cookie_samesite', 'Lax'); // CSRF protection
+    ini_set('session.use_only_cookies', 1); // Only use cookies, not URL
+    ini_set('session.cookie_path', '/'); // Available for entire domain
+    ini_set('session.cookie_lifetime', 0); // Until browser closes
+    
+    // Start session
     session_start();
+    
+    // Debug logging
+    error_log("=== Session Helper Debug ===");
+    error_log("Session ID: " . session_id());
+    error_log("Session userID: " . (isset($_SESSION['userID']) ? $_SESSION['userID'] : 'NOT SET'));
+    error_log("Session user_id: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'NOT SET'));
+    error_log("Request URI: " . ($_SERVER['REQUEST_URI'] ?? 'N/A'));
+    error_log("===========================");
 }
 
 /**

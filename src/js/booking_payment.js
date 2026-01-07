@@ -5,6 +5,10 @@
 let paymentCheckInterval;
 let timerInterval;
 let pollingInterval;
+let nextCheckSeconds = 3;
+let checkCountdownInterval;
+let totalChecks = 0;
+let manualCheckInProgress = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Ẩn overlay loading ngay khi trang load
@@ -18,11 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 🔥 STRATEGY: Check database thường xuyên (nhanh), check API ít hơn (tốn phí)
     startPaymentCheck();                    // Check DB mỗi 3 giây
     startAutoPaymentVerification();         // Check API Casso mỗi 5 giây
+    startCheckCountdown();                  // Countdown for next check
     
-    console.log('💡 TIP: Trang này đang tự động kiểm tra thanh toán:');
-    console.log('   📊 Check database: mỗi 3 giây');
-    console.log('   🏦 Check API Casso: mỗi 5 giây');
-    console.log('   🚀 Sẽ tự động chuyển trang khi phát hiện thanh toán thành công!');
+    // console.log('💡 TIP: Trang này đang tự động kiểm tra thanh toán:');
+    // console.log('   📊 Check database: mỗi 3 giây');
+    // console.log('   🏦 Check API Casso: mỗi 5 giây');
+    // console.log('   🚀 Sẽ tự động chuyển trang khi phát hiện thanh toán thành công!');
 });
 
 /**
@@ -68,7 +73,163 @@ function startCountdown() {
 function startPaymentCheck() {
     paymentCheckInterval = setInterval(function() {
         checkPaymentStatus();
+        resetCheckCountdown();
     }, 3000); // Kiểm tra mỗi 3 giây
+}
+
+/**
+ * Countdown cho lần check tiếp theo
+ */
+function startCheckCountdown() {
+    checkCountdownInterval = setInterval(function() {
+        nextCheckSeconds--;
+        const timerEl = document.getElementById('nextCheckTimer');
+        if (timerEl) {
+            timerEl.textContent = nextCheckSeconds;
+        }
+        
+        if (nextCheckSeconds <= 0) {
+            resetCheckCountdown();
+        }
+    }, 1000);
+}
+
+function resetCheckCountdown() {
+    nextCheckSeconds = 3;
+    const timerEl = document.getElementById('nextCheckTimer');
+    if (timerEl) {
+        timerEl.textContent = nextCheckSeconds;
+    }
+}
+
+/**
+ * Kiểm tra thanh toán thủ công
+ */
+async function manualCheckPayment() {
+    if (manualCheckInProgress) {
+        return;
+    }
+    
+    manualCheckInProgress = true;
+    const btn = document.getElementById('btnManualCheck');
+    const resultDiv = document.getElementById('manualCheckResult');
+    const statusDiv = document.getElementById('checkStatus');
+    
+    // Update button state
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang kiểm tra...';
+    
+    // Update status
+    if (statusDiv) {
+        statusDiv.innerHTML = `
+            <div class="status-row">
+                <i class="fas fa-search fa-spin" style="color: #667eea;"></i>
+                <span style="color: #667eea; font-weight: 600;">Đang kiểm tra thanh toán...</span>
+            </div>
+        `;
+    }
+    
+    try {
+        totalChecks++;
+        
+        // Check payment status
+        const response = await fetch(`/src/controllers/paymentController.php?action=check_payment&bookingID=${bookingID}`);
+        const data = await response.json();
+        
+        if (data.requireLogin) {
+            window.location.href = '/?openLogin=1';
+            return;
+        }
+        
+        if (data.success) {
+            if (data.paymentStatus === 'paid') {
+                // Success
+                if (resultDiv) {
+                    resultDiv.style.display = 'block';
+                    resultDiv.style.background = 'rgba(76, 175, 80, 0.1)';
+                    resultDiv.style.border = '2px solid rgba(76, 175, 80, 0.5)';
+                    resultDiv.style.color = '#4caf50';
+                    resultDiv.style.padding = '15px';
+                    resultDiv.style.borderRadius = '8px';
+                    resultDiv.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        <strong>Thanh toán thành công!</strong> Đang chuyển trang...
+                    `;
+                }
+                
+                clearInterval(paymentCheckInterval);
+                clearInterval(timerInterval);
+                clearInterval(pollingInterval);
+                clearInterval(checkCountdownInterval);
+                
+                setTimeout(() => {
+                    showPaymentSuccess();
+                }, 1000);
+                
+            } else {
+                // Not yet paid
+                if (resultDiv) {
+                    resultDiv.style.display = 'block';
+                    resultDiv.style.background = 'rgba(255, 152, 0, 0.1)';
+                    resultDiv.style.border = '2px solid rgba(255, 152, 0, 0.5)';
+                    resultDiv.style.color = '#ff9800';
+                    resultDiv.style.padding = '15px';
+                    resultDiv.style.borderRadius = '8px';
+                    resultDiv.innerHTML = `
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Chưa phát hiện thanh toán</strong><br>
+                        <span style="font-size: 0.9em;">Đã kiểm tra ${totalChecks} lần. Vui lòng đảm bảo bạn đã chuyển khoản đúng số tiền và nội dung.</span>
+                    `;
+                }
+                
+                // Restore status
+                if (statusDiv) {
+                    statusDiv.innerHTML = `
+                        <div class="status-row">
+                            <i class="fas fa-sync fa-spin" style="color: #667eea;"></i>
+                            <span style="color: #667eea; font-weight: 600;">Đang tự động kiểm tra thanh toán...</span>
+                        </div>
+                        <div class="status-info" style="font-size: 0.9em; color: #888; margin-top: 8px;">
+                            <span id="checkCountdown">Kiểm tra lại sau <strong id="nextCheckTimer">3</strong> giây</span>
+                        </div>
+                    `;
+                }
+                
+                // Hide result after 5 seconds
+                setTimeout(() => {
+                    if (resultDiv) {
+                        resultDiv.style.display = 'none';
+                    }
+                }, 5000);
+            }
+        } else {
+            throw new Error(data.message || 'Lỗi khi kiểm tra thanh toán');
+        }
+        
+    } catch (error) {
+        if (resultDiv) {
+            resultDiv.style.display = 'block';
+            resultDiv.style.background = 'rgba(244, 67, 54, 0.1)';
+            resultDiv.style.border = '2px solid rgba(244, 67, 54, 0.5)';
+            resultDiv.style.color = '#f44336';
+            resultDiv.style.padding = '15px';
+            resultDiv.style.borderRadius = '8px';
+            resultDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Lỗi kiểm tra!</strong> ${error.message}
+            `;
+        }
+        
+        setTimeout(() => {
+            if (resultDiv) {
+                resultDiv.style.display = 'none';
+            }
+        }, 5000);
+    } finally {
+        manualCheckInProgress = false;
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-search-dollar"></i> Đã thanh toán? Kiểm tra ngay';
+    }
 }
 
 /**
@@ -78,18 +239,18 @@ function checkPaymentStatus() {
     fetch(`/src/controllers/paymentController.php?action=check_payment&bookingID=${bookingID}`)
         .then(response => response.json())
         .then(data => {
-            console.log('🔄 [checkPaymentStatus] Response:', data);
+            // console.log('🔄 [checkPaymentStatus] Response:', data);
             
             if (data.requireLogin) {
                 window.location.href = '/?openLogin=1';
                 return;
             }
             if (data.success) {
-                console.log('📊 Payment Status:', data.paymentStatus);
+                // console.log('📊 Payment Status:', data.paymentStatus);
                 
                 if (data.paymentStatus === 'paid') {
                     // Thanh toán thành công
-                    console.log('✅ Payment confirmed! Redirecting...');
+                    // console.log('✅ Payment confirmed! Redirecting...');
                     clearInterval(paymentCheckInterval);
                     clearInterval(timerInterval);
                     clearInterval(pollingInterval); // 🔥 Dừng polling luôn
@@ -105,7 +266,7 @@ function checkPaymentStatus() {
             }
         })
         .catch(error => {
-            console.error('Error checking payment:', error);
+            // console.error('Error checking payment:', error);
         });
 }
 
@@ -242,7 +403,7 @@ function devConfirmPayment() {
         return;
     }
     
-    console.log('🔧 DEV: Đang xác nhận thanh toán...');
+    // console.log('🔧 DEV: Đang xác nhận thanh toán...');
     
     const btn = document.querySelector('.btn-dev-confirm');
     if (btn) {
@@ -259,7 +420,7 @@ function devConfirmPayment() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('🔧 DEV: Response:', data);
+        // console.log('🔧 DEV: Response:', data);
         
         if (data.requireLogin) {
             window.location.href = '/?openLogin=1';
@@ -267,7 +428,7 @@ function devConfirmPayment() {
         }
         
         if (data.success) {
-            console.log('✅ DEV: Thanh toán thành công!');
+            // console.log('✅ DEV: Thanh toán thành công!');
             showPaymentSuccess();
             
             // Chuyển trang sau 2 giây
@@ -283,7 +444,7 @@ function devConfirmPayment() {
         }
     })
     .catch(error => {
-        console.error('❌ DEV: Error:', error);
+        // console.error('❌ DEV: Error:', error);
         alert('Có lỗi xảy ra: ' + error.message);
         if (btn) {
             btn.disabled = false;
@@ -381,20 +542,20 @@ function startAutoPaymentVerification() {
     const totalAmount = paymentMethod ? paymentMethod.dataset.amount : null;
     
     if (!bookingId) {
-        console.error('❌ Booking ID not found');
-        console.log('💡 Tip: Kiểm tra xem biến bookingID đã được define trong view chưa');
+        // console.error('❌ Booking ID not found');
+        // console.log('💡 Tip: Kiểm tra xem biến bookingID đã được define trong view chưa');
         return;
     }
     
     if (!totalAmount) {
-        console.error('❌ Total amount not found');
-        console.log('💡 Tip: Kiểm tra xem element .payment-method có data-amount không');
+        // console.error('❌ Total amount not found');
+        // console.log('💡 Tip: Kiểm tra xem element .payment-method có data-amount không');
         return;
     }
     
-    console.log('🔍 Bắt đầu tự động kiểm tra thanh toán...');
-    console.log('📋 Booking ID:', bookingId);
-    console.log('💰 Total Amount:', totalAmount);
+    // console.log('🔍 Bắt đầu tự động kiểm tra thanh toán...');
+    // console.log('📋 Booking ID:', bookingId);
+    // console.log('💰 Total Amount:', totalAmount);
     
     // Kiểm tra ngay lập tức
     checkBankTransaction(bookingId, totalAmount);
@@ -409,10 +570,10 @@ function startAutoPaymentVerification() {
  * Kiểm tra giao dịch ngân hàng có khớp với booking không
  */
 function checkBankTransaction(bookingId, expectedAmount) {
-    console.log('=' .repeat(60));
-    console.log(`🔄 [${new Date().toLocaleTimeString()}] Checking bank transaction...`);
-    console.log(`   📋 Booking ID: ${bookingId}`);
-    console.log(`   💰 Expected Amount: ${expectedAmount}`);
+    // console.log('=' .repeat(60));
+    // console.log(`🔄 [${new Date().toLocaleTimeString()}] Checking bank transaction...`);
+    // console.log(`   📋 Booking ID: ${bookingId}`);
+    // console.log(`   💰 Expected Amount: ${expectedAmount}`);
     
     fetch('/src/controllers/paymentController.php', {
         method: 'POST',
@@ -422,28 +583,28 @@ function checkBankTransaction(bookingId, expectedAmount) {
         body: `action=verify_bank_transaction&booking_id=${bookingId}&amount=${expectedAmount}`
     })
     .then(response => {
-        console.log('📡 Response status:', response.status);
+        // console.log('📡 Response status:', response.status);
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
         }
         // 🔥 FIX: Clone response để log cả text và JSON
         return response.clone().text().then(text => {
-            console.log('📄 Response text:', text.substring(0, 500)); // Log 500 ký tự đầu
+            // console.log('📄 Response text:', text.substring(0, 500)); // Log 500 ký tự đầu
             try {
                 return JSON.parse(text);
             } catch (e) {
-                console.error('❌ JSON Parse Error:', e);
-                console.error('❌ Full response:', text);
+                // console.error('❌ JSON Parse Error:', e);
+                // console.error('❌ Full response:', text);
                 throw new Error('Server returned invalid JSON. Check PHP errors.');
             }
         });
     })
     .then(data => {
-        console.log('📦 Response data:', data);
+        // console.log('📦 Response data:', data);
         
         if (data.success && data.transaction_found) {
-            console.log('✅✅✅ PAYMENT CONFIRMED! ✅✅✅');
-            console.log('   Transaction Code:', data.transaction_code);
+            // console.log('✅✅✅ PAYMENT CONFIRMED! ✅✅✅');
+            // console.log('   Transaction Code:', data.transaction_code);
             
             // Dừng TẤT CẢ polling
             clearInterval(pollingInterval);
@@ -455,20 +616,20 @@ function checkBankTransaction(bookingId, expectedAmount) {
             
             // Chuyển trang sau 2 giây
             setTimeout(() => {
-                console.log('🔄 Redirecting to confirmation page...');
+                // console.log('🔄 Redirecting to confirmation page...');
                 window.location.href = `/src/views/booking_step4_confirm.php?bookingID=${bookingId}`;
             }, 2000);
         } else {
-            console.log('⏳ Transaction not found yet, will retry in 5s...');
+            // console.log('⏳ Transaction not found yet, will retry in 5s...');
             if (data.message) {
-                console.log('   💬 Message:', data.message);
+                // console.log('   💬 Message:', data.message);
             }
         }
-        console.log('=' .repeat(60));
+        // console.log('=' .repeat(60));
     })
     .catch(error => {
-        console.error('❌ Error checking bank transaction:', error);
-        console.log('=' .repeat(60));
+        // console.error('❌ Error checking bank transaction:', error);
+        // console.log('=' .repeat(60));
     });
 }
 
@@ -544,7 +705,7 @@ async function applyPromoCode() {
         }
         
     } catch (error) {
-        console.error('Error validating promo code:', error);
+        // console.error('Error validating promo code:', error);
         showPromoMessage('Có lỗi xảy ra, vui lòng thử lại', 'error');
     } finally {
         applyBtn.disabled = false;

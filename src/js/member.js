@@ -23,25 +23,27 @@ document.addEventListener('DOMContentLoaded', () => {
  * Kiểm tra trạng thái đăng nhập
  */
 async function checkLoginStatus() {
-    console.log('=== Member.js: Checking login status ===');
+    // console.log('=== Member.js: Checking login status ===');
     try {
-        const response = await fetch('/src/controllers/memberController.php?action=check_login');
-        console.log('Response status:', response.status);
+        const response = await fetch('/src/controllers/memberController.php?action=check_login', {
+            credentials: 'include'
+        });
+        // console.log('Response status:', response.status);
         
         const result = await response.json();
-        console.log('Login check result:', result);
+        // console.log('Login check result:', result);
         
         if (result.success && result.logged_in) {
-            console.log('User is logged in, user_id:', result.user_id);
+            // console.log('User is logged in, user_id:', result.user_id);
             // Đã đăng nhập - load thông tin user
             loadMemberContent();
         } else {
-            console.log('User is NOT logged in');
+            // console.log('User is NOT logged in');
             // Chưa đăng nhập - hiển thị thông báo
             showLoginRequired();
         }
     } catch (error) {
-        console.error('Error checking login:', error);
+        // console.error('Error checking login:', error);
         showLoginRequired();
     }
 }
@@ -69,29 +71,33 @@ function showLoginRequired() {
  * Load nội dung thành viên
  */
 async function loadMemberContent() {
-    console.log('=== Loading member content ===');
+    // console.log('=== Loading member content ===');
     try {
         // Load thông tin user
-        const userResponse = await fetch('/src/controllers/memberController.php?action=get_user_info');
-        console.log('User info response status:', userResponse.status);
+        const userResponse = await fetch('/src/controllers/memberController.php?action=get_user_info', {
+            credentials: 'include'
+        });
+        // console.log('User info response status:', userResponse.status);
         
         const userResult = await userResponse.json();
-        console.log('User info result:', userResult);
+        // console.log('User info result:', userResult);
         
         if (!userResult.success) {
-            console.log('Failed to get user info, showing login required');
+            // console.log('Failed to get user info, showing login required');
             // Nếu không có thông tin user, mở modal đăng nhập
             showLoginRequired();
             return;
         }
         
         const user = userResult.user;
-        console.log('User data:', user);
+        // console.log('User data:', user);
         
         // Load lịch sử booking
-        const bookingResponse = await fetch('/src/controllers/memberController.php?action=get_booking_history');
+        const bookingResponse = await fetch('/src/controllers/memberController.php?action=get_booking_history', {
+            credentials: 'include'
+        });
         const bookingResult = await bookingResponse.json();
-        console.log('Booking history result:', bookingResult);
+        // console.log('Booking history result:', bookingResult);
         
         const bookings = bookingResult.success ? bookingResult.bookings : [];
         
@@ -99,7 +105,7 @@ async function loadMemberContent() {
         displayMemberContent(user, bookings);
         
     } catch (error) {
-        console.error('Error loading member content:', error);
+        // console.error('Error loading member content:', error);
         showErrorState();
     }
 }
@@ -257,7 +263,9 @@ async function filterBookings(status) {
             url += `&status=${status}`;
         }
         
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            credentials: 'include'
+        });
         const result = await response.json();
         
         if (result.success) {
@@ -269,7 +277,7 @@ async function filterBookings(status) {
             }
         }
     } catch (error) {
-        console.error('Error filtering bookings:', error);
+        // console.error('Error filtering bookings:', error);
     }
 }
 
@@ -278,7 +286,9 @@ async function filterBookings(status) {
  */
 async function showBookingDetail(bookingID) {
     try {
-        const response = await fetch(`/src/controllers/memberController.php?action=get_booking_detail&id=${bookingID}`);
+        const response = await fetch(`/src/controllers/memberController.php?action=get_booking_detail&id=${bookingID}`, {
+            credentials: 'include'
+        });
         const result = await response.json();
         
         if (!result.success) {
@@ -333,7 +343,7 @@ async function showBookingDetail(bookingID) {
         setTimeout(() => modal.classList.add('show'), 10);
         
     } catch (error) {
-        console.error('Error showing booking detail:', error);
+        // console.error('Error showing booking detail:', error);
         alert('Không thể tải chi tiết đặt vé');
     }
 }
@@ -376,7 +386,7 @@ function openReviewModal(bookingID, movieID, movieTitle) {
     
     // Reset form
     document.getElementById('reviewForm').reset();
-    setRating(5); // Default 5 stars
+    setRating(0); // Start at 0 stars
     
     // Hiển thị modal
     modal.style.display = 'flex';
@@ -403,18 +413,18 @@ function createReviewModal() {
             <form id="reviewForm" onsubmit="submitReview(event)">
                 <input type="hidden" id="reviewBookingID" name="bookingID">
                 <input type="hidden" id="reviewMovieID" name="movieID">
-                <input type="hidden" id="reviewRating" name="rating" value="5">
+                <input type="hidden" id="reviewRating" name="rating" value="0">
                 
                 <div class="form-group">
                     <label style="color: white; font-size: 16px; margin-bottom: 15px; display: block;">
                         <i class="fas fa-star" style="color: #ffd700;"></i> Đánh giá của bạn:
                     </label>
-                    <div class="star-rating" style="font-size: 32px; margin-bottom: 25px;">
-                        <i class="fas fa-star" data-rating="1" onclick="setRating(1)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
-                        <i class="fas fa-star" data-rating="2" onclick="setRating(2)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
-                        <i class="fas fa-star" data-rating="3" onclick="setRating(3)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
-                        <i class="fas fa-star" data-rating="4" onclick="setRating(4)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
-                        <i class="fas fa-star" data-rating="5" onclick="setRating(5)" style="color: #ffd700; cursor: pointer; transition: all 0.2s;"></i>
+                    <div class="star-rating" style="font-size: 48px; margin-bottom: 25px; display: flex; gap: 8px; justify-content: center;">
+                        <i class="far fa-star" data-rating="1" onclick="setRating(1)" onmouseover="hoverRating(1)" onmouseout="resetHover()" style="color: #666; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="far fa-star" data-rating="2" onclick="setRating(2)" onmouseover="hoverRating(2)" onmouseout="resetHover()" style="color: #666; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="far fa-star" data-rating="3" onclick="setRating(3)" onmouseover="hoverRating(3)" onmouseout="resetHover()" style="color: #666; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="far fa-star" data-rating="4" onclick="setRating(4)" onmouseover="hoverRating(4)" onmouseout="resetHover()" style="color: #666; cursor: pointer; transition: all 0.2s;"></i>
+                        <i class="far fa-star" data-rating="5" onclick="setRating(5)" onmouseover="hoverRating(5)" onmouseout="resetHover()" style="color: #666; cursor: pointer; transition: all 0.2s;"></i>
                     </div>
                 </div>
                 
@@ -477,6 +487,38 @@ function setRating(rating) {
 }
 
 /**
+ * Hover effect for stars
+ */
+function hoverRating(rating) {
+    const stars = document.querySelectorAll('.star-rating i');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.style.color = '#ffd700';
+            star.style.transform = 'scale(1.1)';
+        } else {
+            star.style.color = '#666';
+            star.style.transform = 'scale(1)';
+        }
+    });
+}
+
+/**
+ * Reset hover effect
+ */
+function resetHover() {
+    const currentRating = parseInt(document.getElementById('reviewRating').value);
+    const stars = document.querySelectorAll('.star-rating i');
+    stars.forEach((star, index) => {
+        star.style.transform = 'scale(1)';
+        if (index < currentRating) {
+            star.style.color = '#ffd700';
+        } else {
+            star.style.color = '#666';
+        }
+    });
+}
+
+/**
  * Submit review
  */
 async function submitReview(event) {
@@ -492,18 +534,19 @@ async function submitReview(event) {
     try {
         const response = await fetch('/src/controllers/reviewController.php', {
             method: 'POST',
-            body: formData
+            body: formData,
+            credentials: 'include'
         });
         
         // Log response để debug
         const text = await response.text();
-        console.log('Response text:', text);
+        // console.log('Response text:', text);
         
         let result;
         try {
             result = JSON.parse(text);
         } catch (e) {
-            console.error('Failed to parse JSON:', text);
+            // console.error('Failed to parse JSON:', text);
             // Hiển thị response để debug
             alert('Lỗi server:\n' + text.substring(0, 500));
             throw new Error('Server trả về dữ liệu không hợp lệ');
@@ -518,7 +561,7 @@ async function submitReview(event) {
             alert('Lỗi: ' + (result.message || 'Không thể gửi đánh giá'));
         }
     } catch (error) {
-        console.error('Error submitting review:', error);
+        // console.error('Error submitting review:', error);
         alert('Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại!');
     } finally {
         submitBtn.disabled = false;

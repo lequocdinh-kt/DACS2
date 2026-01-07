@@ -31,10 +31,10 @@ function initBannerSlider() {
         const activeSlide = slides[slideIndex];
         const movieID = activeSlide.dataset.movieId;
         
-        console.log('Updating buttons for slide:', slideIndex, 'movieID:', movieID);
+        // console.log('Updating buttons for slide:', slideIndex, 'movieID:', movieID);
         
         if (!movieID) {
-            console.warn('No movieID found for slide:', slideIndex);
+            // console.warn('No movieID found for slide:', slideIndex);
             return;
         }
         
@@ -50,21 +50,21 @@ function initBannerSlider() {
                 if (bookingBtn) {
                     bookingBtn.href = `/src/views/booking_step1_showtimes.php?movieID=${movieID}`;
                     bookingBtn.setAttribute('onclick', `return checkLoginBeforeBooking(event, ${movieID})`);
-                    console.log('Updated booking button href:', bookingBtn.href);
+                    // console.log('Updated booking button href:', bookingBtn.href);
                 }
                 
                 // Cập nhật nút chi tiết
                 const detailBtn = bannerContent.querySelector('.btn-secondary');
                 if (detailBtn) {
                     detailBtn.href = `/index.php?page=movie_detail&id=${movieID}`;
-                    console.log('Updated detail button href:', detailBtn.href);
+                    // console.log('Updated detail button href:', detailBtn.href);
                 }
                 
                 // Cập nhật nút trailer
                 const trailerBtn = bannerContent.querySelector('.btn-trailer');
                 if (trailerBtn) {
                     // Trailer button dùng onclick với videoId, không cần update
-                    console.log('Trailer button found (uses onclick)');
+                    // console.log('Trailer button found (uses onclick)');
                 }
             }
         });
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') closeTrailer();
     });
     
-    console.log('🎬 VKU Cinema Home Page Loaded');
+    // console.log('🎬 VKU Cinema Home Page Loaded');
 });
 
 // Expose functions to global scope

@@ -9,7 +9,7 @@ let currentFilter = 'all';
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Schedule page loaded');
+    // console.log('Schedule page loaded');
     initializeDateSlider();
     initializeFilterButtons();
     loadSchedule();
@@ -147,7 +147,7 @@ async function loadSchedule() {
             showEmptyState(data.message || 'Không có lịch chiếu');
         }
     } catch (error) {
-        console.error('Error loading schedule:', error);
+        // console.error('Error loading schedule:', error);
         showEmptyState('Có lỗi xảy ra khi tải lịch chiếu');
     }
 }
@@ -165,13 +165,27 @@ function displayMovies(movies) {
 }
 
 function createMovieScheduleItem(movie) {
+    // if (window.debugLogger) {
+    //     window.debugLogger.log('Creating movie schedule item', { title: movie.title, showtimesCount: movie.showtimes.length });
+    // }
+    
     const showtimesHtml = movie.showtimes.map(showtime => {
         const isFull = showtime.availableSeats <= 0;
         const seatsText = isFull ? 'Hết chỗ' : `${showtime.availableSeats} chỗ`;
         const format = showtime.roomType || showtime.format || '2D';
         
-        // Go directly to step 2 (seat selection) since we already have showtime
-        const bookingUrl = `/src/views/booking_step2_seats.php?showtimeID=${showtime.showtimeID}`;
+        // Use relative path from root - works with both direct access and routing
+        const bookingUrl = `src/views/booking_step2_seats.php?showtimeID=${showtime.showtimeID}`;
+        
+        // if (window.debugLogger) {
+        //     window.debugLogger.log('Showtime created', {
+        //         id: showtime.showtimeID,
+        //         time: showtime.showTime,
+        //         url: bookingUrl,
+        //         isFull: isFull,
+        //         availableSeats: showtime.availableSeats
+        //     });
+        // }
         
         return `
             <a href="${bookingUrl}" 
@@ -283,23 +297,40 @@ function showEmptyState(message) {
     `;
 }
 
-// ==================== UTILITY FUNCTIONS ====================
-function handleShowtimeClick(event, showtimeID, url) {
-    console.log('Showtime clicked:', showtimeID);
-    // Let the default link behavior happen
-    return true;
-}
+// // ==================== UTILITY FUNCTIONS ====================
+// function handleShowtimeClick(event, showtimeID, url) {
+//     if (window.debugLogger) {
+//         window.debugLogger.log('=== SHOWTIME BUTTON CLICKED ===', {
+//             showtimeID: showtimeID,
+//             url: url,
+//             fullURL: window.location.origin + '/' + url,
+//             currentLocation: window.location.href,
+//             eventType: event.type,
+//             target: event.target.className
+//         });
+//     }
+    
+//     console.log('=== SHOWTIME CLICKED ===');
+//     console.log('Event:', event);
+//     console.log('Showtime ID:', showtimeID);
+//     console.log('URL:', url);
+//     console.log('Current location:', window.location.href);
+//     console.log('=======================');
+    
+//     // Let the default link behavior happen
+//     return true;
+// }
 
-function checkLoginBeforeBooking(event, showtimeID) {
-    // Check if user is logged in (you can check session or local storage)
-    const isLoggedIn = document.querySelector('.user-profile') !== null;
+// function checkLoginBeforeBooking(event, showtimeID) {
+//     // Check if user is logged in (you can check session or local storage)
+//     const isLoggedIn = document.querySelector('.user-profile') !== null;
     
-    if (!isLoggedIn) {
-        event.preventDefault();
-        alert('Vui lòng đăng nhập để đặt vé!');
-        // Optionally open login modal or redirect to login page
-        return false;
-    }
+//     if (!isLoggedIn) {
+//         event.preventDefault();
+//         alert('Vui lòng đăng nhập để đặt vé!');
+//         // Optionally open login modal or redirect to login page
+//         return false;
+//     }
     
-    return true;
-}
+//     return true;
+// }

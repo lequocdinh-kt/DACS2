@@ -42,6 +42,16 @@ if ($isLocalhost) {
 // Đường dẫn vật lý
 define('ROOT_PATH', __DIR__);
 
+// ===== CẤU HÌNH EMAIL (PHPMailer) =====
+// Sử dụng Gmail SMTP - Cần bật "App Password" từ Google Account
+define('MAIL_HOST', 'smtp.gmail.com');              // SMTP server
+define('MAIL_PORT', 587);                            // Port (587 cho TLS, 465 cho SSL)
+define('MAIL_USERNAME', 'xiaoying1805@gmail.com');     // 🔥 THAY ĐỔI: Email của bạn
+define('MAIL_PASSWORD', 'drqp waeh onet tvey');        // 🔥 THAY ĐỔI: App Password (không phải mật khẩu Gmail)
+define('MAIL_FROM_EMAIL', 'xiaoying1805@gmail.com');   // Email gửi đi
+define('MAIL_FROM_NAME', 'VKU Cinema');              // Tên hiển thị
+define('MAIL_ENCRYPTION', 'tls');                    // tls hoặc ssl
+
 // Chỉ định nghĩa functions nếu chưa tồn tại
 if (!function_exists('url')) {
     /**

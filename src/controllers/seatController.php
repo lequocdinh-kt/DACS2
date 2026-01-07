@@ -81,6 +81,11 @@ function lock_seats_action() {
     $seatIDs = $_POST['seatIDs'] ?? null; // Mảng ID ghế
     $userID = $_SESSION['userID'];
     
+    // Debug log
+    $logFile = __DIR__ . '/../../CONSOLE_DEBUG_LOG.txt';
+    $time = date('Y-m-d H:i:s');
+    file_put_contents($logFile, "[$time] [LOCK_SEATS] showtimeID: $showtimeID, userID: $userID, seatIDs raw: " . var_export($seatIDs, true) . "\n", FILE_APPEND);
+    
     if (!$showtimeID || !$seatIDs) {
         echo json_encode(['success' => false, 'message' => 'Missing parameters']);
         return;
@@ -89,16 +94,22 @@ function lock_seats_action() {
     // Parse seatIDs nếu là JSON string
     if (is_string($seatIDs)) {
         $seatIDs = json_decode($seatIDs, true);
+        file_put_contents($logFile, "[$time] [LOCK_SEATS] After json_decode: " . var_export($seatIDs, true) . "\n", FILE_APPEND);
     }
     
     if (!is_array($seatIDs) || empty($seatIDs)) {
+        file_put_contents($logFile, "[$time] [LOCK_SEATS] ERROR: Invalid seat IDs array\n", FILE_APPEND);
         echo json_encode(['success' => false, 'message' => 'Invalid seat IDs']);
         return;
     }
     
+    file_put_contents($logFile, "[$time] [LOCK_SEATS] Seat count: " . count($seatIDs) . "\n", FILE_APPEND);
+    
     try {
         // Kiểm tra ghế có sẵn không
         $available = check_seats_available($showtimeID, $seatIDs);
+        
+        file_put_contents($logFile, "[$time] [LOCK_SEATS] Available check result: " . ($available ? 'true' : 'false') . "\n", FILE_APPEND);
         
         if (!$available) {
             echo json_encode([
@@ -114,6 +125,8 @@ function lock_seats_action() {
         // Lock ghế mới
         $locked = lock_seats($showtimeID, $seatIDs, $userID);
         
+        file_put_contents($logFile, "[$time] [LOCK_SEATS] Lock result: " . ($locked ? 'success' : 'failed') . "\n", FILE_APPEND);
+        
         if ($locked) {
             echo json_encode([
                 'success' => true,
@@ -127,6 +140,7 @@ function lock_seats_action() {
             ]);
         }
     } catch (Exception $e) {
+        file_put_contents($logFile, "[$time] [LOCK_SEATS] EXCEPTION: " . $e->getMessage() . "\n", FILE_APPEND);
         echo json_encode([
             'success' => false,
             'message' => 'Error locking seats: ' . $e->getMessage()

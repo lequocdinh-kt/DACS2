@@ -1,5 +1,5 @@
 <?php 
-session_start();
+require_once __DIR__ . '/src/helpers/session_helper.php';
 
 // Xác định trang cần hiển thị dựa vào query parameter
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';

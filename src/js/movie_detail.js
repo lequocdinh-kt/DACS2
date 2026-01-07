@@ -1,6 +1,6 @@
 // Movie Detail Page JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Movie detail page loaded');
+    // console.log('Movie detail page loaded');
     initializeTrailerModal();
     loadMovieReviews();
 });
@@ -42,7 +42,7 @@ function openTrailerModal(videoID) {
     const videoWrapper = modal.querySelector('.trailer-video-wrapper');
     
     if (!modal || !videoWrapper) {
-        console.error('Trailer modal elements not found');
+        // console.error('Trailer modal elements not found');
         return;
     }
 
@@ -303,14 +303,14 @@ async function loadMovieReviews() {
 
     try {
         const url = `/src/controllers/reviewController.php?movieID=${movieID}`;
-        console.log('Fetching from:', url);
+        // console.log('Fetching from:', url);
         
         const response = await fetch(url);
         const text = await response.text();
-        console.log('Raw response:', text);
+        // console.log('Raw response:', text);
         
         const data = JSON.parse(text);
-        console.log('Parsed data:', data);
+        // console.log('Parsed data:', data);
 
         if (data.success && data.reviews) {
             currentReviews = data.reviews;

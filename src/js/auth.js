@@ -6,9 +6,9 @@
 // ==================== AUTH MODAL FUNCTIONS ====================
 
 function openAuthModal(formType) {
-    console.log('=== OPENING AUTH MODAL ===');
-    console.log('Form type:', formType);
-    console.log('Current URL:', window.location.href);
+    // console.log('=== OPENING AUTH MODAL ===');
+    // console.log('Form type:', formType);
+    // console.log('Current URL:', window.location.href);
     
     const modal = document.getElementById('authModal');
     const loginContainer = document.getElementById('loginFormContainer');
@@ -206,17 +206,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         showAlert('loginAlert', 'Đăng nhập thành công! Đang chuyển hướng...', 'success');
                         
                         // Debug log
-                        console.log('=== LOGIN SUCCESS ===');
-                        console.log('Response data:', data);
-                        console.log('Redirect URL:', data.redirect);
-                        console.log('Current URL:', window.location.href);
+                        // console.log('=== LOGIN SUCCESS ===');
+                        // console.log('Response data:', data);
+                        // console.log('Redirect URL:', data.redirect);
+                        // console.log('Current URL:', window.location.href);
+                        
+                        // Dispatch loginSuccess event for member page
+                        window.dispatchEvent(new Event('loginSuccess'));
                         
                         setTimeout(() => {
-                            if (data.redirect) {
-                                console.log('Redirecting to:', data.redirect);
+                            // Nếu đang ở trang member, không redirect mà chỉ đóng modal
+                            if (window.location.href.includes('page=member')) {
+                                // console.log('On member page, just close modal and reload content');
+                                closeAuthModal();
+                                // Member page sẽ tự động reload content qua event listener
+                            } else if (data.redirect) {
+                                // console.log('Redirecting to:', data.redirect);
                                 window.location.href = data.redirect;
                             } else {
-                                console.log('No redirect URL, reloading page');
+                                // console.log('No redirect URL, reloading page');
                                 window.location.reload();
                             }
                         }, 1000);
@@ -224,8 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         showAlert('loginAlert', data.message || 'Đăng nhập thất bại!', 'error');
                     }
                 } catch (e) {
-                    console.error('JSON Parse Error:', e);
-                    console.error('Response text:', text);
+                    // console.error('JSON Parse Error:', e);
+                    // console.error('Response text:', text);
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                     showAlert('loginAlert', 'Lỗi xử lý dữ liệu. Vui lòng kiểm tra console!', 'error');
@@ -235,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 showAlert('loginAlert', 'Đã xảy ra lỗi kết nối. Vui lòng thử lại!', 'error');
-                console.error('Error:', error);
+                // console.error('Error:', error);
             });
         });
     }
@@ -293,8 +301,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         showAlert('registerAlert', data.message || 'Đăng ký thất bại!', 'error');
                     }
                 } catch (e) {
-                    console.error('JSON Parse Error:', e);
-                    console.error('Response text:', text);
+                    // console.error('JSON Parse Error:', e);
+                    // console.error('Response text:', text);
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                     showAlert('registerAlert', 'Lỗi xử lý dữ liệu. Vui lòng kiểm tra console!', 'error');
@@ -304,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 showAlert('registerAlert', 'Đã xảy ra lỗi kết nối. Vui lòng thử lại!', 'error');
-                console.error('Error:', error);
+                // console.error('Error:', error);
             });
         });
     }

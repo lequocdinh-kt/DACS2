@@ -299,6 +299,25 @@ function format_date_vn($date) {
                         </ul>
                     </div>
                     
+                    <!-- Payment Status and Manual Check -->
+                    <div class="payment-check-section" style="margin-top: 20px; padding: 20px; background: rgba(102, 126, 234, 0.1); border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 10px;">
+                        <div class="check-status" id="checkStatus">
+                            <div class="status-row">
+                                <i class="fas fa-sync fa-spin" style="color: #667eea;"></i>
+                                <span style="color: #667eea; font-weight: 600;">Đang tự động kiểm tra thanh toán...</span>
+                            </div>
+                            <div class="status-info" style="font-size: 0.9em; color: #888; margin-top: 8px;">
+                                <span id="checkCountdown">Kiểm tra lại sau <strong id="nextCheckTimer">3</strong> giây</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="manualCheckPayment()" id="btnManualCheck" class="btn-manual-check" style="width: 100%; margin-top: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+                            <i class="fas fa-search-dollar"></i> Đã thanh toán? Kiểm tra ngay
+                        </button>
+                        
+                        <div id="manualCheckResult" class="manual-check-result" style="margin-top: 10px; display: none;"></div>
+                    </div>
+                    
                     <!-- DEV/DEBUG: Nút xác nhận thanh toán nhanh -->
                     <div class="dev-payment-button" style="margin-top: 20px; padding: 15px; background: rgba(255, 152, 0, 0.1); border: 2px dashed rgba(255, 152, 0, 0.5); border-radius: 10px; text-align: center;">
                         <p style="color: #ff9800; font-weight: bold; margin-bottom: 10px;">
@@ -332,22 +351,22 @@ function format_date_vn($date) {
         window.bookingAmount = <?php echo $booking['totalPrice']; ?>;
         
         // Log để debug
-        console.log('=' .repeat(50));
-        console.log('📋 THÔNG TIN BOOKING:');
-        console.log('   Booking ID:', window.bookingID);
-        console.log('   Booking Code:', window.bookingCode);
-        console.log('   Amount:', window.bookingAmount);
-        console.log('📝 NỘI DUNG CHUYỂN KHOẢN:');
-        console.log('   VKU CINEMA ' + window.bookingCode);
-        console.log('=' .repeat(50));
+        // console.log('=' .repeat(50));
+        // console.log('📋 THÔNG TIN BOOKING:');
+        // console.log('   Booking ID:', window.bookingID);
+        // console.log('   Booking Code:', window.bookingCode);
+        // console.log('   Amount:', window.bookingAmount);
+        // console.log('📝 NỘI DUNG CHUYỂN KHOẢN:');
+        // console.log('   VKU CINEMA ' + window.bookingCode);
+        // console.log('=' .repeat(50));
         
         <?php 
         // Tính lại thời gian hết hạn - luôn có 15 phút từ bây giờ
         $expiredTime = $booking['expiredAt'] ? $booking['expiredAt'] : date('Y-m-d H:i:s', strtotime('+15 minutes'));
         ?>
         const expiredAt = '<?php echo $expiredTime; ?>';
-        console.log('Booking expiredAt:', expiredAt);
-        console.log('Current time:', new Date().toISOString());
+        // console.log('Booking expiredAt:', expiredAt);
+        // console.log('Current time:', new Date().toISOString());
     </script>
     <script src="/src/js/booking_payment.js"></script>
 </body>

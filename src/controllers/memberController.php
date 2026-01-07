@@ -4,7 +4,7 @@
  * Xử lý các request liên quan đến thông tin thành viên và lịch sử đặt vé
  */
 
-session_start();
+require_once __DIR__ . '/../helpers/session_helper.php';
 require_once __DIR__ . '/../models/user_db.php';
 require_once __DIR__ . '/../models/booking_db.php';
 
@@ -25,16 +25,27 @@ if (isset($_GET['action'])) {
             // Kiểm tra xem user đã đăng nhập chưa
             error_log("Checking login - userID in session: " . (isset($_SESSION['userID']) ? $_SESSION['userID'] : 'NOT SET'));
             error_log("Checking login - user_id in session: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'NOT SET'));
+            error_log("Full session dump: " . print_r($_SESSION, true));
             
             // Check cả userID và user_id để tương thích
-            if (isset($_SESSION['userID']) || isset($_SESSION['user_id'])) {
-                $userId = isset($_SESSION['userID']) ? $_SESSION['userID'] : $_SESSION['user_id'];
+            if (isset($_SESSION['userID']) && $_SESSION['userID'] > 0) {
+                $userId = $_SESSION['userID'];
+                error_log("Found userID: " . $userId);
+                echo json_encode([
+                    'success' => true,
+                    'logged_in' => true,
+                    'user_id' => $userId
+                ]);
+            } else if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) {
+                $userId = $_SESSION['user_id'];
+                error_log("Found user_id: " . $userId);
                 echo json_encode([
                     'success' => true,
                     'logged_in' => true,
                     'user_id' => $userId
                 ]);
             } else {
+                error_log("No valid user ID found in session");
                 echo json_encode([
                     'success' => true,
                     'logged_in' => false

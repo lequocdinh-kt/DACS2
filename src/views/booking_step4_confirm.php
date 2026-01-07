@@ -19,6 +19,7 @@ if (!$bookingID) {
 }
 
 require_once __DIR__ . '/../models/booking_db.php';
+require_once __DIR__ . '/../helpers/email_helper.php';
 
 $booking = get_booking_with_details($bookingID);
 
@@ -31,6 +32,28 @@ if (!$booking || $booking['userID'] != $_SESSION['userID']) {
 if ($booking['paymentStatus'] !== 'paid') {
     header('Location: /src/views/booking_step3_payment.php?bookingID=' . $bookingID);
     exit();
+}
+
+// 📧 GỬI EMAIL XÁC NHẬN (chỉ gửi 1 lần)
+$emailSentKey = 'email_sent_' . $bookingID;
+if (!isset($_SESSION[$emailSentKey])) {
+    // Chuẩn bị dữ liệu booking với format đẹp
+    $booking['totalPrice_formatted'] = number_format($booking['totalPrice']) . 'đ';
+    $booking['confirmUrl'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    
+    // Gửi email (không chặn nếu thất bại)
+    $emailSent = send_booking_confirmation_email($booking);
+    
+    // Đánh dấu đã gửi để không gửi lại khi refresh
+    $_SESSION[$emailSentKey] = true;
+    
+    if ($emailSent) {
+        // Log thành công (optional)
+        error_log("[BOOKING] ✅ Email confirmation sent for booking: {$booking['bookingCode']}");
+    } else {
+        // Log lỗi nhưng vẫn cho user tiếp tục
+        error_log("[BOOKING] ⚠️ Failed to send email for booking: {$booking['bookingCode']}");
+    }
 }
 
 // Tạo QR code cho mã vé
@@ -53,7 +76,7 @@ function format_date_vn($date) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt vé thành công - VKU Cinema</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/src/styles/booking_confirm.css">
+    <link rel="stylesheet" href="../styles/booking_confirm.css">
 </head>
 <body>
     <div class="booking-container">
@@ -194,7 +217,7 @@ function format_date_vn($date) {
                 <i class="fas fa-print"></i> In vé
             </button>
             
-            <a href="/src/views/my_bookings.php" class="btn-action btn-history">
+            <a href="E:\school\hoc ki 1 2025-2026\DACS2\src\views\member.php" class="btn-action btn-history">
                 <i class="fas fa-history"></i> Lịch sử đặt vé
             </a>
             

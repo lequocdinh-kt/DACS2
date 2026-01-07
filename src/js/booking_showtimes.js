@@ -65,7 +65,7 @@ function loadShowtimes(movieID, showDate) {
             }
         })
         .catch(error => {
-            console.error('Error loading showtimes:', error);
+            // console.error('Error loading showtimes:', error);
             showtimesGrid.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-exclamation-triangle"></i>

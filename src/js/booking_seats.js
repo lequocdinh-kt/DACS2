@@ -22,7 +22,7 @@ function initSeats() {
     seats.forEach(seat => {
         // Kiểm tra có đầy đủ data không
         if (!seat.dataset.seatId || !seat.dataset.price) {
-            console.error('Seat missing data:', seat);
+            // console.error('Seat missing data:', seat);
             return;
         }
         
@@ -133,7 +133,7 @@ function proceedToPayment() {
         }
     })
     .catch(error => {
-        console.error('Error locking seats:', error);
+        // console.error('Error locking seats:', error);
         alert('Có lỗi xảy ra. Vui lòng thử lại!');
         btnContinue.disabled = false;
         btnContinue.innerHTML = '<i class="fas fa-arrow-right"></i> Tiếp tục thanh toán';
@@ -153,7 +153,7 @@ function createBooking(seatIDs) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Booking response:', data); // Debug
+        // console.log('Booking response:', data); // Debug
         if (data.requireLogin) {
             // Chuyển về trang chủ và mở modal đăng nhập
             window.location.href = '/?openLogin=1';
@@ -168,7 +168,7 @@ function createBooking(seatIDs) {
         }
     })
     .catch(error => {
-        console.error('Error creating booking:', error);
+        // console.error('Error creating booking:', error);
         alert('Có lỗi xảy ra. Vui lòng thử lại!');
         location.reload();
     });
@@ -215,7 +215,7 @@ function refreshSeatsInterval() {
                 }
             })
             .catch(error => {
-                console.error('Error refreshing seats:', error);
+                // console.error('Error refreshing seats:', error);
             });
     }, 5000); // Mỗi 5 giây
 }

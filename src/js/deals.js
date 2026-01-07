@@ -6,7 +6,7 @@ let allPromotions = [];
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Deals page loaded');
+    // console.log('Deals page loaded');
     loadPromotions();
 });
 
@@ -26,7 +26,7 @@ async function loadPromotions() {
         const response = await fetch('/src/controllers/dealsController.php?action=get_promotions');
         const data = await response.json();
         
-        console.log('Promotions loaded:', data);
+        // console.log('Promotions loaded:', data);
         
         if (data.success && data.promotions.length > 0) {
             allPromotions = data.promotions;
@@ -35,7 +35,7 @@ async function loadPromotions() {
             showEmptyState('Hiện không có chương trình ưu đãi nào');
         }
     } catch (error) {
-        console.error('Error loading promotions:', error);
+        // console.error('Error loading promotions:', error);
         showEmptyState('Có lỗi xảy ra khi tải ưu đãi');
     }
 }

@@ -7,7 +7,7 @@ let allMovies = [];
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Movies page loaded');
+    // console.log('Movies page loaded');
     initializeFilters();
     initializeSearch();
     loadMovies();
@@ -43,7 +43,7 @@ function initializeSearch() {
         clearTimeout(searchTimeout);
         
         const keyword = this.value.trim();
-        console.log('Input changed, keyword:', keyword);
+        // console.log('Input changed, keyword:', keyword);
         
         if (keyword.length === 0) {
             // If empty, show all movies with current filter
@@ -53,13 +53,13 @@ function initializeSearch() {
         
         // Search locally trong allMovies đã được filter
         searchTimeout = setTimeout(() => {
-            console.log('Searching locally in filtered movies...');
+            // console.log('Searching locally in filtered movies...');
             const filtered = allMovies.filter(movie => 
                 movie.title.toLowerCase().includes(keyword.toLowerCase()) ||
                 movie.genre.toLowerCase().includes(keyword.toLowerCase()) ||
                 movie.author.toLowerCase().includes(keyword.toLowerCase())
             );
-            console.log('Local search results:', filtered.length);
+            // console.log('Local search results:', filtered.length);
             
             if (filtered.length > 0) {
                 displayMovies(filtered);
@@ -93,7 +93,7 @@ async function loadMovies() {
             showEmptyState('Không thể tải danh sách phim');
         }
     } catch (error) {
-        console.error('Error loading movies:', error);
+        // console.error('Error loading movies:', error);
         showEmptyState('Có lỗi xảy ra khi tải danh sách phim');
     }
 }
@@ -111,11 +111,11 @@ async function searchMovies(keyword) {
     `;
     
     try {
-        console.log('Searching for:', keyword);
+        // console.log('Searching for:', keyword);
         const response = await fetch(`/src/controllers/moviesController.php?action=search_movies&keyword=${encodeURIComponent(keyword)}`);
-        console.log('Response status:', response.status);
+        // console.log('Response status:', response.status);
         const data = await response.json();
-        console.log('Search results:', data);
+        // console.log('Search results:', data);
         
         if (data.success) {
             if (data.movies.length > 0) {
@@ -124,11 +124,11 @@ async function searchMovies(keyword) {
                 showEmptyState(`Không tìm thấy phim với từ khóa "${keyword}"`);
             }
         } else {
-            console.error('Search failed:', data.message);
+            // console.error('Search failed:', data.message);
             showEmptyState('Không thể tìm kiếm phim');
         }
     } catch (error) {
-        console.error('Error searching movies:', error);
+        // console.error('Error searching movies:', error);
         showEmptyState('Có lỗi xảy ra khi tìm kiếm');
     }
 }

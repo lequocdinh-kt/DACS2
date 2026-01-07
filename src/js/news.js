@@ -38,7 +38,7 @@ async function loadNews(type = null) {
             showEmptyState();
         }
     } catch (error) {
-        console.error('Error loading news:', error);
+        // console.error('Error loading news:', error);
         showErrorState();
     }
 }

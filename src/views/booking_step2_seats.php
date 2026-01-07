@@ -4,8 +4,17 @@
  */
 session_start();
 
-// Kiểm tra đăng nhập
-if (!isset($_SESSION['userID'])) {
+function log_debug($message) {
+    $file = __DIR__ . '/../../CONSOLE_DEBUG_LOG.txt';
+    $time = date('Y-m-d H:i:s');
+    file_put_contents($file, "[$time] [PHP booking_step2] $message\n", FILE_APPEND);
+}
+
+log_debug("Requested step 2 with URI: " . $_SERVER['REQUEST_URI']);
+
+// Kiểm tra đăng nhập - phải có userID hợp lệ (> 0)
+if (!isset($_SESSION['userID']) || $_SESSION['userID'] <= 0) {
+    log_debug("User not logged in. Redirecting to login.");
     $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
     $_SESSION['login_message'] = 'Vui lòng đăng nhập để đặt vé';
     header('Location: /?openLogin=1');
@@ -15,6 +24,7 @@ if (!isset($_SESSION['userID'])) {
 // Lấy showtimeID
 $showtimeID = $_GET['showtimeID'] ?? null;
 if (!$showtimeID) {
+    log_debug("No showtimeID provided. Redirecting home.");
     header('Location: /');
     exit();
 }
@@ -29,6 +39,7 @@ cleanup_expired_bookings();
 
 $showtime = get_showtime_by_id($showtimeID);
 if (!$showtime || $showtime['status'] !== 'available') {
+    log_debug("Showtime invalid or not available. ID: $showtimeID. Redirecting home.");
     header('Location: /');
     exit();
 }
